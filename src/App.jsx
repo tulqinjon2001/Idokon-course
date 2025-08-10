@@ -1,12 +1,12 @@
-// idokon_kursi/frontend/src/App.jsx
-
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/layouts/Sidebar.jsx";
 import HomePage from "./pages/HomePage.jsx";
-import CoursePage from "./pages/CoursePage.jsx";
-import ModulePage from "./pages/ModulePage.jsx";
-import SectionWrapper from "./pages/SectionWrapper.jsx";
+import AdminPanelPage from "./pages/AdminPanelPage.jsx";
+import KassaPanelPage from "./pages/Kassapanelpage.jsx"; // YANGI
+import QurilmalarPage from "./pages/QurilmalarPage.jsx"; // YANGI
+import SavollarPage from "./pages/SavollarPage.jsx"; // YANGI
+import QuizTestPage from "./pages/QuizTestPage.jsx"; // YANGI
 import "./index.css";
 
 function App() {
@@ -19,18 +19,19 @@ function App() {
   return (
     <Router>
       <div className="flex bg-gray-100 min-h-screen">
-        {/* Sidebar bu yerda endi qotib turadi */}
         <div
           className={`transition-all duration-300 ${
             isSidebarOpen ? "w-64" : "w-20"
-          } fixed top-0 left-0 h-full overflow-y-auto z-50`}
+          } flex-shrink-0`}
         >
-          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+          <div className="fixed top-0 left-0 h-full">
+            <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+          </div>
         </div>
 
         <div
-          className={`flex-1 p-8 transition-all duration-300 ${
-            isSidebarOpen ? "ml-56" : "ml-20"
+          className={`flex-1 overflow-y-auto transition-all duration-300 ${
+            isSidebarOpen ? "ml-0" : "ml-0"
           }`}
         >
           <Routes>
@@ -38,9 +39,12 @@ function App() {
               path="/"
               element={<HomePage toggleSidebar={toggleSidebar} />}
             />
-            <Route path="/courses/:courseId" element={<CoursePage />} />
-            <Route path="/modules/:moduleId" element={<ModulePage />} />
-            <Route path="/sections/:sectionId" element={<SectionWrapper />} />
+            <Route path="/admin" element={<AdminPanelPage />} />
+            <Route path="/kassa" element={<KassaPanelPage />} /> // YANGI ROUTE
+            <Route path="/qurilmalar" element={<QurilmalarPage />} /> // YANGI
+            ROUTE
+            <Route path="/savollar" element={<SavollarPage />} /> // YANGI ROUTE
+            <Route path="/quiz" element={<QuizTestPage />} /> // YANGI ROUTE
           </Routes>
         </div>
       </div>
