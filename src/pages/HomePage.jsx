@@ -9,8 +9,8 @@ import NewsSection from "../sections/Home/NewsSection";
 
 const subSections = [
   { id: "about", name: "IDOKON haqida", component: AboutIdokon },
-  { id: "why", name: "Nega IDOKON ni tanlash kerak?", component: WhyIdokon },
   { id: "using", name: "Idokondan foydalanish", component: UsingIdokon },
+  { id: "why", name: "Nega IDOKON ni tanlash kerak?", component: WhyIdokon },
   { id: "news", name: "Kerakli yangiliklar", component: NewsSection },
 ];
 
