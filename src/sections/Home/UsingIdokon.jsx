@@ -18,8 +18,12 @@ const steps = [
           </a>{" "}
           manziliga kiring.
         </p>
-        <p>Ma’lumotlarni to‘ldirib, <b>login va parol</b> tanlang.</p>
-        <p>Ko‘rsatilgan tartibda <b>to‘lovni amalga oshiring</b>.</p>
+        <p>
+          Ma’lumotlarni to‘ldirib, <b>login va parol</b> tanlang.
+        </p>
+        <p>
+          Ko‘rsatilgan tartibda <b>to‘lovni amalga oshiring</b>.
+        </p>
         <p>
           To‘lov tasdiqlangandan so‘ng, IDOKON xodimlari siz uchun account ochib
           berishadi.
@@ -29,6 +33,14 @@ const steps = [
     video: (
       <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
         {/* Bu yerga 1-bosqich video iframe kiritiladi */}
+        <iframe
+          className="w-full h-full rounded-lg"
+          src="https://www.youtube.com/embed/F6U6gbD2W-0"
+          title="IDOKON Ro‘yxatdan o‘tish"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
       </div>
     ),
   },
@@ -36,7 +48,9 @@ const steps = [
     title: "2. Admin panelga kirish",
     desc: (
       <>
-        <p>Qurilmangizdan <b>Google Chrome</b> brauzerini oching.</p>
+        <p>
+          Qurilmangizdan <b>Google Chrome</b> brauzerini oching.
+        </p>
         <p>
           <a
             href="https://my.idokon.uz"
@@ -52,12 +66,23 @@ const steps = [
           Ro‘yxatdan o‘tishda tanlagan <b>login va parol</b> orqali tizimga
           kiring.
         </p>
-        <p>Ushbu sahifani bundan keyin <b>Admin panel</b> deb ataymiz.</p>
+        <p>
+          Ushbu sahifani bundan keyin <b>Admin panel</b> deb ataymiz.
+        </p>
       </>
     ),
     video: (
       <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
         {/* Bu yerga 2-bosqich video iframe kiritiladi */}
+        <iframe
+          className="w-full h-full"
+          src="https://www.youtube.com/embed/waknksArg8E?rel=0&modestbranding=1"
+          title="IDOKON — Admin panelga kirish"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
       </div>
     ),
   },
@@ -66,10 +91,12 @@ const steps = [
     desc: (
       <>
         <p>
-          Admin panelga kirib, chap menyudan{" "}
-          <b>Mening foydalanuvchilarim</b> bo‘limini tanlang.
+          Admin panelga kirib, chap menyudan <b>Mening foydalanuvchilarim</b>{" "}
+          bo‘limini tanlang.
         </p>
-        <p>Yuqoridagi <b>“Qo‘shish”</b> tugmasini bosing.</p>
+        <p>
+          Yuqoridagi <b>“Qo‘shish”</b> tugmasini bosing.
+        </p>
         <p>
           <b>Rol</b> maydonidan <b>Kassir</b>ni tanlang va kassir uchun ism,
           telefon, login va parol belgilang.
@@ -83,21 +110,68 @@ const steps = [
     video: (
       <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
         {/* Bu yerga 3-bosqich video iframe kiritiladi */}
+        <iframe
+          className="w-full h-full"
+          src="https://www.youtube.com/embed/V1mcKNpba-A?rel=0&modestbranding=1"
+          title="IDOKON — Admin panelga kirish"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
       </div>
     ),
   },
   {
-    title: "4. Kassaga kirish",
+    title: "4. Do'kon uchun kassa qo‘shish",
+    desc: (
+      <>
+        <p>
+          Admin panelga kirib, chap menyudan <b>Savdo nuqtasi kassa</b>{" "}
+          bo‘limini tanlang.
+        </p>
+        <p>
+          Yuqoridagi <b>“Qo‘shish”</b> tugmasini bosing.
+        </p>
+        <p>
+          Bu joydan <b>Kassa nomi</b>ni kiriting, <b>Savdo nuqtasi</b> va{" "}
+          <b>Valyuta</b>ni tanlang va <b>Saqlash</b> tugmasini bosing.
+        </p>
+        <p>
+          <b>!!!Eslatma</b> Bu kassa do'konda nechta joydan savdo qilishingizga
+          qarab qo'shiladi.
+        </p>
+      </>
+    ),
+    video: (
+      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
+        {/* Bu yerga 3-bosqich video iframe kiritiladi */}
+        <iframe
+          className="w-full h-full"
+          src="https://www.youtube.com/embed/eM_xCZ-0ONk?rel=0&modestbranding=1"
+          title="IDOKON — Kassir qo‘shish"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
+      </div>
+    ),
+  },
+  {
+    title: "5. Kassaga kirish",
     desc: (
       <>
         <p>Kassa dasturini kompyuteringizga o‘rnatishingiz kerak.</p>
         <p>
           Dastur faylini quyidagi havola orqali yuklab oling va o‘rnatishni
-          tugatgandan so‘ng, kassir uchun berilgan login va parol bilan tizimga kiring.
+          tugatgandan so‘ng, kassir uchun berilgan login va parol bilan tizimga
+          kiring.
         </p>
         <div className="mt-4">
           <a
             href="https://drive.google.com/uc?export=download&id=1nrhCIGFTm21tYUJJPFfKjocm2LgzWzlB"
+            download
             className="inline-block px-5 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow hover:bg-cyan-700 transition"
           >
             📥 Kassani yuklab olish
