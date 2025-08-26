@@ -2,11 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
-  {
-    name: "Kirish",
-    icon: "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z",
-    path: "/",
-  },
+  { name: "Kirish", icon: "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z", path: "/" },
   {
     name: "Admin Panel",
     icon: "M12 2l-5.5 10L12 22l5.5-10L12 2zm0 14L8 8l4 8zm0 0l-4 8l4-8z",
@@ -48,11 +44,16 @@ const Sidebar = () => {
           />
         </div>
       </div>
+
       <nav className="flex-1 px-4 py-6 space-y-2">
         {navLinks.map((link) => (
           <Link
             key={link.name}
             to={link.path}
+            onClick={() => {
+              // signal HomePage to show its child sidebar
+              window.dispatchEvent(new CustomEvent("showChildSidebar"));
+            }}
             className={`flex font-bold items-center space-x-3 p-3 rounded-lg transition-colors duration-200 ${
               location.pathname === link.path
                 ? "bg-[#5d79b7] text-white"

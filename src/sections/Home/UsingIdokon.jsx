@@ -182,6 +182,15 @@ const steps = [
     video: (
       <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
         {/* Bu yerga 4-bosqich video iframe kiritiladi */}
+        <iframe
+          className="w-full h-full"
+          src="https://www.youtube.com/embed/iLP0_W_1cxg?rel=0&modestbranding=1"
+          title="IDOKON video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
       </div>
     ),
   },
