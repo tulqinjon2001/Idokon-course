@@ -15,13 +15,13 @@ const subSections = [
 
 const HomePage = () => {
   const [activeSection, setActiveSection] = useState("about");
-  const [showChildSidebar, setShowChildSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(true);
   const ActiveComponent = subSections.find(
     (s) => s.id === activeSection
   ).component;
 
   useEffect(() => {
-    const handler = () => setShowChildSidebar(true);
+    const handler = () => setShowSidebar(true);
     window.addEventListener("showChildSidebar", handler);
     return () => window.removeEventListener("showChildSidebar", handler);
   }, []);
@@ -29,12 +29,12 @@ const HomePage = () => {
   return (
     <div className="flex h-screen w-full">
       <div
-        className="w-64 p-6 border-r child_side_bar bg-gray-50 flex-shrink-0 overflow-y-auto relative"
-        style={{ display: showChildSidebar ? "block" : "none" }}
+        className="w-64 p-6 border-r bg-gray-50 flex-shrink-0 overflow-y-auto relative"
+        style={{ display: showSidebar ? "block" : "none" }}
       >
         <button
-          onClick={() => setShowChildSidebar(false)}
-          aria-label="Close child sidebar"
+          onClick={() => setShowSidebar(false)}
+          aria-label="Close sidebar"
           className="absolute top-3 right-3 z-50 h-8 w-8 rounded-full bg-white border shadow flex items-center justify-center hover:bg-gray-100"
         >
           <svg
