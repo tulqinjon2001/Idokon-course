@@ -1,7 +1,7 @@
 const Bildirishnomalar = () => {
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">🔔 Bildirishnomalar bo‘limi</h2>
+      <h2 className="text-3xl font-bold mb-4">🔔 Bildirishnomalar bo‘limi</h2>
 
       <p className="mb-4">
         📣 <b>Bildirishnomalar</b> mahsulotlar soni belgilangan limitdan kam
@@ -60,7 +60,8 @@ const Bildirishnomalar = () => {
           />
         </li>
         <li>
-          Telegram ilovada <b>@idokonsmsbot</b> ni qidiring.
+          Savdo nuqtasidagi telefon raqamga ulangan Telegram profildan{" "}
+          <b>@idokonsmsbot</b> ni qidiring.
           <img
             src="/assets/admin/1-bolim/bildirishnoma/smsbot.jpg"
             alt="Idokon SMS Bot"
