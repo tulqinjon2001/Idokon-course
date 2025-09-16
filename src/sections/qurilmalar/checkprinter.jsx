@@ -16,13 +16,10 @@ export default function CheckPrinter() {
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 border-b-2 border-gray-200 dark:border-gray-600 pb-2">
           1. Ulanish bo'yicha video-qo'llanma
         </h2>
-        <div
-          className="relative w-full overflow-hidden rounded-lg"
-          style={{ paddingTop: "56.25%" }}
-        >
+        <div className="w-full h-64 md:h-96 rounded-lg overflow-hidden shadow">
           <iframe
-            className="absolute top-0 left-0 w-full h-full"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            className="w-full h-full"
+            src="https://www.youtube.com/embed/LSZg_qKglKo"
             title="Printerga ulanish videosi"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -62,146 +59,61 @@ export default function CheckPrinter() {
           3. O'rnatish bo'yicha bosqichlar
         </h2>
         <ol className="list-decimal list-inside text-gray-600 dark:text-gray-400 space-y-6">
-          <li>
-            Drayver faylini ishga tushiring. Sichqonchaning o'ng tugmasini
-            bosib, "Открыть" ni tanlang.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/10.jpg"
-                alt="Drayver ishga tushirish"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            O‘rnatish oynasida "Да" tugmasini bosing.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/1.jpg"
-                alt="Next bosqichi"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            Qaysi interfeysda davom etishni tanlang va OK tugmasini bosing.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/9.jpg"
-                alt="Litsenziya oynasi"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            Litsenziya shartlarini qabul qiling va "Next" tugmasini bosing.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/8.jpg"
-                alt="Yo‘l tanlash"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            Next tugmasini bosing va davom eting.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/7.jpg"
-                alt="Model tanlash"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            O‘rnatishni davom ettirish uchun "Install" tugmasini bosing.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/6.jpg"
-                alt="Next bosqichi"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            O‘rnatish yakunida “Finish” tugmasini bosing.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/5.jpg"
-                alt="O‘rnatish jarayoni"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            Printer interfeysiga USB ni tanlang va modeliga <b>XP-80C</b> ni
-            tanlang. Check USB Port tugmasini bosing.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/4.jpg"
-                alt="Finish bosqichi"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            Bu joyda printeringiz qaysi portda ishlashini ko'rsatib bermoqda. Bu
-            printer faqat shu portda ishlaydi
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/3.jpg"
-                alt="USB ulash"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            Install Now tugmasini bosish orqali bu printerning driverini
-            o'rnatishni yakunlaymiz.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/2.jpg"
-                alt="Test print"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            O'rnatish muvaffaqiyatli yakunlandi. "Да" tugmasini bosish orqali
-            test qilishimiz mumkin. Agar test qo'g'ozni chiqarib bergan bo'lsa
-            muommosiz ulandi.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/11.jpg"
-                alt="Kassa sozlamalari"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
-
-          <li>
-            Endi printer tayyor! Chek chiqarish uchun IDOKON dasturining
-            kassasidan sozlamalar bo'limiga kirib 3.2 Checkni chop etish uhcun
-            printerga XP-80C yoki XP-80C (Copy) lardan eng oxirgisni tanlaymiz
-            va sotishni boshlashimiz mumkin.
-            <div className="mt-3 flex justify-center">
-              <img
-                src="assets/devices/checkprinter/12.jpg"
-                alt="Chek chiqarish"
-                className="rounded-lg shadow-lg max-w-md"
-              />
-            </div>
-          </li>
+          {[
+            {
+              text: `Drayver faylini ishga tushiring. Sichqonchaning o'ng tugmasini bosib, "Открыть" ni tanlang.`,
+              img: "10.jpg",
+            },
+            { text: `O‘rnatish oynasida "Да" tugmasini bosing.`, img: "1.jpg" },
+            {
+              text: `Qaysi interfeysda davom etishni tanlang va OK tugmasini bosing.`,
+              img: "9.jpg",
+            },
+            {
+              text: `Litsenziya shartlarini qabul qiling va "Next" tugmasini bosing.`,
+              img: "8.jpg",
+            },
+            { text: `Next tugmasini bosing va davom eting.`, img: "7.jpg" },
+            {
+              text: `O‘rnatishni davom ettirish uchun "Install" tugmasini bosing.`,
+              img: "6.jpg",
+            },
+            {
+              text: `O‘rnatish yakunida “Finish” tugmasini bosing.`,
+              img: "5.jpg",
+            },
+            {
+              text: `Printer interfeysiga USB ni tanlang va modeliga XP-80C ni tanlang. Check USB Port tugmasini bosing.`,
+              img: "4.jpg",
+            },
+            {
+              text: `Bu joyda printeringiz qaysi portda ishlashini ko'rsatib bermoqda. Bu printer faqat shu portda ishlaydi`,
+              img: "3.jpg",
+            },
+            {
+              text: `Install Now tugmasini bosish orqali drayverni o‘rnatishni yakunlaymiz.`,
+              img: "2.jpg",
+            },
+            {
+              text: `O'rnatish muvaffaqiyatli yakunlandi. "Да" tugmasini bosish orqali test qilishimiz mumkin. Agar test qo'g'ozni chiqarib bergan bo'lsa muommosiz ulandi.`,
+              img: "11.jpg",
+            },
+            {
+              text: `Endi printer tayyor! Chek chiqarish uchun IDOKON dasturining kassasidan sozlamalar bo'limiga kirib 3.2 Checkni chop etish uchun printerga XP-80C yoki XP-80C (Copy) lardan eng oxirgisini tanlaymiz va sotishni boshlashimiz mumkin.`,
+              img: "12.jpg",
+            },
+          ].map((step, i) => (
+            <li key={i}>
+              {step.text}
+              <div className="mt-3 flex justify-center">
+                <img
+                  src={`assets/devices/checkprinter/${step.img}`}
+                  alt={`Step ${i + 1}`}
+                  className="rounded-lg shadow-lg max-w-md w-full object-contain"
+                />
+              </div>
+            </li>
+          ))}
         </ol>
       </div>
     </div>

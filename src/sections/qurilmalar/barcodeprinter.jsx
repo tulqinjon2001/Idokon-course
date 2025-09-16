@@ -1,36 +1,33 @@
 import React from "react";
 
 /**
- * Bu komponent barcode printerga ulanish va sozlash bo'yicha ko'rsatmalarni ko'rsatadi.
- * U Tailwind CSS yordamida zamonaviy interfeysga ega.
+ * Barcode printerga ulanish va sozlash bo'yicha qo'llanma
  */
 export default function BarcodePrinter() {
   return (
-    <div className="container mx-auto p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-lg mt-10 max-w-4xl">
-      <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6">
+    <div className="container mx-auto p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-lg max-w-4xl">
+      {/* Title */}
+      <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-4">
         Barcode Printerga ulanish va sozlash
       </h1>
-      <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
-        Barcode printer qurilmasini kompyuteringizga ulash uchun quyidagi oddiy
-        bosqichlarni bajaring.
+      <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
+        Barcode printer qurilmasini kompyuteringizga ulash uchun quyidagi video
+        qo‘llanmalarni ko‘ring va keyingi bosqichlarni bajaring.
       </p>
 
-      {/* Video-qo'llanma bo'limi */}
+      {/* 1. Barcode printerni ulash video */}
       <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 border-b-2 border-gray-200 dark:border-gray-600 pb-2">
-          1. Ulanish bo'yicha video-qo'llanma
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
+          1. Barcode printerni ulash (video)
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">
-          Barcode printerni toʻgʻri ulash uchun quyidagi videoni koʻring.
-        </p>
         <div
           className="relative w-full overflow-hidden rounded-lg"
           style={{ paddingTop: "56.25%" }}
         >
           <iframe
             className="absolute top-0 left-0 w-full h-full"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ" // 🔗 Barcode printer uchun haqiqiy YouTube link qo'ying
-            title="Barcode printerga ulanish videosi"
+            src="https://www.youtube.com/embed/fxxjDpawRgw"
+            title="Barcode printerni ulash videosi"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -38,10 +35,30 @@ export default function BarcodePrinter() {
         </div>
       </div>
 
-      {/* Drayver va qo‘llanma yuklab olish bo‘limi */}
+      {/* 2. Qog'oz razmerini sozlash video */}
       <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 border-b-2 border-gray-200 dark:border-gray-600 pb-2">
-          2. Yuklab olish
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
+          2. Qog‘oz razmerini sozlash (video)
+        </h2>
+        <div
+          className="relative w-full overflow-hidden rounded-lg"
+          style={{ paddingTop: "56.25%" }}
+        >
+          <iframe
+            className="absolute top-0 left-0 w-full h-full"
+            src="https://www.youtube.com/embed/hISTcdXwjU8"
+            title="Barcode printer qog'oz razmerini sozlash videosi"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
+
+      {/* 3. Yuklab olish bo‘limi */}
+      <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8">
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
+          3. Yuklab olish
         </h2>
         <p className="text-gray-600 dark:text-gray-400 mb-4">
           Qurilmaning toʻgʻri ishlashi uchun drayverni oʻrnatish shart.
@@ -50,7 +67,7 @@ export default function BarcodePrinter() {
         </p>
         <div className="flex flex-wrap gap-4">
           <a
-            href="https://drive.google.com/uc?export=download&id=13MI600aOe2H5RUK14fChtep9SMiyVfTM" // 🔗 Barcode printer drayver ID
+            href="https://drive.google.com/uc?export=download&id=1cMLZx2jcBmz6cjkKi_5ebALhVMNKE_Bc"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
@@ -58,7 +75,7 @@ export default function BarcodePrinter() {
             Drayverni yuklab olish
           </a>
           <a
-            href="https://drive.google.com/uc?export=download&id=YOUR_GUIDE_FILE_ID" // 🔗 Qo'llanma fayl ID ni qo'ying
+            href="https://docs.google.com/document/d/1S_NPRWAqRFGy5WJum3-Aj7edlRjzSSji/export?format=pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
@@ -73,10 +90,10 @@ export default function BarcodePrinter() {
         </p>
       </div>
 
-      {/* O'rnatish bosqichlari bo'limi */}
+      {/* 4. O‘rnatish bo‘yicha bosqichlar */}
       <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 border-b-2 border-gray-200 dark:border-gray-600 pb-2">
-          3. O'rnatish bo'yicha bosqichlar
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
+          4. O‘rnatish bo‘yicha bosqichlar
         </h2>
         <ol className="list-decimal list-inside text-gray-600 dark:text-gray-400 space-y-2">
           <li>
