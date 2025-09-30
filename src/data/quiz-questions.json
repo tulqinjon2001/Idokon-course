@@ -1,0 +1,312 @@
+[
+  {
+    "id": 1,
+    "text": "Idokon dasturidan foydalanish uchun qaysi browser zarur bo'ladi?",
+    "options": {
+      "A": "Google Chrome",
+      "B": "Yandex",
+      "C": "Opera"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 2,
+    "text": "Admin panelda qanday amallar bajariladi?",
+    "options": {
+      "A": "Mahsulotlarni kiritish, narxlarni narozat qilish, Hisobotlarni tekshirish, do'kon tizimini boshqarish",
+      "B": "Mahsulotlarni sotish, hisobotlarni tekshirish",
+      "C": "Mijozning mahsulotlarini telefonda yig'ib kassaga jo'natish"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 3,
+    "text": "Kassa panelda qanday amallar bajariladi?",
+    "options": {
+      "A": "Mahsulotlarni sotish, qarzga berish, qarzini yopish, mijozlarga bonus berish",
+      "B": "Mahsulotlarni kiritish, uni sotish, ta'minotchilarga pul to'lash",
+      "C": "Tovarlarning sonini o'zgartirish, inventarizatsiya qilish, analitika bo'limini tekshirish"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 4,
+    "text": "Mahsulotlarni qanday usullar idokon dasturiga kiritish mumkin?",
+    "options": {
+      "A": "Admin panel qismidan oddiy qo'shish orqali, exceldan yuklash orqali va Sales Doctorga integratsiya orqali",
+      "B": "Clouddan yuklash yoki exceldan yuklash orqali",
+      "C": "Admin paneldan oddiy qo'shish yoki clauddan yuklash orqali"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 5,
+    "text": "Idokon dasturi qaysi valyutalar bilan ishlaydi?",
+    "options": {
+      "A": "So'm va dollar",
+      "B": "So'm, dollar, rubl, tenge",
+      "C": "Dollar va Rubl"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 6,
+    "text": "Mahsulotlarni qanday narxlarda sotish mumkin?",
+    "options": {
+      "A": "Optom, dona, transfer narxda va erkin narxda",
+      "B": "Optom va dona",
+      "C": "Erkin, optom, dona"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 7,
+    "text": "Ta'minotchilar nima uchun kiritiladi?",
+    "options": {
+      "A": "Ta'minotchi bilan oldi berdini hisoblab borish, Undan qancha tovar qolganligini va qancha tovar sotilganligini ko'rish uchun",
+      "B": "Ta'minotchiga qarzga sotish uchun, unga bildirishnoma yoqish uchun",
+      "C": "Faqat oldi berdini ko'rib borish uchun."
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 8,
+    "text": "Mahsulotlarning nomini qayerdan o'zgartirish mumkin?",
+    "options": {
+      "A": "Mahsulot qabul qilish joyidan, 4-bo'limdagi mahsulotlar bo'limidan, inventarizatsiya bo'limidan",
+      "B": "Nomenklaturadan, qoldiqlar hisobotidan, inventarizatsiydan",
+      "C": "Savdo nuqtasi bo'limidan, Muzlatilgan mablag'lardan, Mijozlar bo'limidan"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 9,
+    "text": "Buyurtmalar - SD bo'limining vazifasi qanday",
+    "options": {
+      "A": "Sales Doctor dasturidan foydalanadigan ta'minotchilarga integratsiya qilish mumkin va undan kelayotgan tovarlarni dasturga avtomatik kiritish",
+      "B": "Mahsulotlarning narxini o'zgartirish uchun",
+      "C": "Qabul qilingan mahsulotlarining hisobotini tekshirish uchun"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 10,
+    "text": "Nomenklaturaning vazifasi nima?",
+    "options": {
+      "A": "Tovarning ma'lumotlari ko'rsatish, barcha narxlarini va amal qilish muddatini o'zgartirish uchun",
+      "B": "Tovarlarning sonini va shtrix kodini o'zgartirish uchun",
+      "C": "Tovarlarni qoldiq hisobotini ko'rish, sonini va sotish narxini o'zgartirish, ta'minotchiga qaytarish uchun"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 11,
+    "text": "Nega nomenklaturada bitta tovarni qidirganimizda bir nechta qatorda chiqib keladi?",
+    "options": {
+      "A": "Bunda tovarlar nechta partiyada kiritilganligini ko'rish mukin bo'ladi.",
+      "B": "Bu tovar necha marta sotilgan checklari chiqib keladi",
+      "C": "Bunda necha marta narx o'zgartirilganligini ko'rsatadi"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 12,
+    "text": "Nomenklaturada mahsulotlarning qanday ma'lumotlarini o'zgartira olamiz?",
+    "options": {
+      "A": "QQS, kelgan narxi, optom narxi, sotish narxi, transfer narxi, amal qilish muddati",
+      "B": "Soni, kelgan narxi, optom narxi, sotish narxi, transfer narxi, amal qilish muddati",
+      "C": "Kategoriyasini, optom narxi, sotish narxi, transfer narxi, amal qilish muddati"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 13,
+    "text": "Qayta narxlash bo'limining vazifasi qanday?",
+    "options": {
+      "A": "optom narxi, sotish narxi, transfer narxini o'zgartirish va narx o'zgarishining tarixini ko'rish",
+      "B": "kelgan narxi, sotish narxi, transfer narxini o'zgartirish va narx o'zgarishining tarixini ko'rish",
+      "C": "kelgan narxi,optom narxi, sotish narxi, transfer narxini o'zgartirish"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 14,
+    "text": "Tarix bo'limining vazifasi qanday?",
+    "options": {
+      "A": "Qachon narx o'zgarganligini ko'rish uchun",
+      "B": "Qachon tovar kiritilganligini ko'rish uchun",
+      "C": "Qachon miqdori o'zgarganligini ko'rish uchun"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 15,
+    "text": "Ta'minotchiga qaytarish bo'limi qanday holatlarda ishlaydi?",
+    "options": {
+      "A": "ta'minotchiga qaytarish(возврат) qilish kerak vaqtida, yoki mahsulot miqdorini ko'p kiritib qo'yib sonini to'g'rilash kerak vaqtda",
+      "B": "ta'minotchiga qaytarish(возврат) qilish kerak vaqtida, yoki mahsulot uyga ishlatishga olib sonini to'g'rilash kerak vaqtda",
+      "C": "mahsulotlarni sotish vaqtida"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 16,
+    "text": "Hisobdan o'chirish bo'limini qanday holatda ishlatamiz?",
+    "options": {
+      "A": "Mahsulotlarni sonini programmdan chiqarib yuborish kerak, lekin puli yoki usha mahsulotning o'zi joyiga qo'yilmaydigan vaqtda",
+      "B": "Ta'minotchiga pul berish vaqtida",
+      "C": "Mijozlar tovarlarni qaytarib(возврат) kelganida"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 17,
+    "text": "Inventarizatsiya bo'limi nima uchun ishlatiladi?",
+    "options": {
+      "A": "Mahsulotlarning dasturdagi va realni sonini taqqoslash uchun",
+      "B": "Mahsulotlarning qoldig'ini tekshirish uchun",
+      "C": "Mahsulotlarni boshqa filialga ko'chirish uchun"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 18,
+    "text": "Inventarizatsiya qilishni qanday to'g'ri bajarish mumkin?",
+    "options": {
+      "A": "Mahsulotlarni qidirishdan tovarni topib sonini to'g'rilab chiqiladi, keyin inventarizatsiyalanmagan bo'limiga kirib 0 qilish va hammasini qo'shish bosiladi va nihoyat tugatish bosiladi.",
+      "B": "Mahsulotlarni qidirishdan tovarni topib sonini to'g'rilab chiqiladi va vaqtincha saqlash bosiladi",
+      "C": "Inventarizatsiyalanmagan bo'limiga kirib 0 qilish va hammasini qo'shish bosiladi va nihoyat tugatish bosiladi."
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 19,
+    "text": "Mahsulotlarni ko'chirish bo'limi qanday vazifani bajaradi?",
+    "options": {
+      "A": "Bir nechta filialga ega do'konlarda bir biriga tovar o'tkazish vazifasini",
+      "B": "Mahsulotlarni sotish uchun",
+      "C": "Mahsulotlarni qarzga sotish uchun"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 20,
+    "text": "Guruhlash bo'limi qanday holatda ishlatiladi?",
+    "options": {
+      "A": "Ko'rinishi, hajmi va narxi bir xil, shtrix kodlari har xil bo'lgan tovarlarni bitta tovarga biriktirish uchun",
+      "B": "Har qanday narxi bir xil tovarlarni bitta tovarga biriktirish uchun",
+      "C": "Shtrix kodi yuq tovarlarni kiritish uchun"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 21,
+    "text": "Idokonga qanday tarozilar ulanadi?",
+    "options": {
+      "A": "Shtrix M, Kuanyi",
+      "B": "Rongta, Aote",
+      "C": "Kuanyi, Rongta"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 22,
+    "text": "Donalik tovarlarni taroziga yuklasa bo'ladimi?",
+    "options": {
+      "A": "Xa, albatta",
+      "B": "Yuq bunday funksiya yo'q",
+      "C": ""
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 23,
+    "text": "Kilogramlik tovarlarni tarozi bo'limiga qanday o'tkazamiz?",
+    "options": {
+      "A": "Kilogramlik tovarlar tarozi bo'limida avtomatik ravishda paydo bo'ladi",
+      "B": "Buni mahsulotlar bo'limidan tarozi funksiyani yoqish kerak",
+      "C": "Kilogramlik tovarlarni tarozi bo'limiga chiqarib bo'lmaydi"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 24,
+    "text": "Tarozi uchun kod berish jarayoni qanday usullarda amalga oshirish mumkin?",
+    "options": {
+      "A": "Tarozi bo'limining o'zidan bittalab kod berish, oxirgi raqamlari orqali va tovarlarni excelga yuklab olib kodlarini to'ldirib uni import qilish mumkin",
+      "B": "Exceldan va clouddan yuklash orqali",
+      "C": "Har bir tovarga bittalab kod berish orqali"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 25,
+    "text": "To'plamlar bo'limi qanday vazifani bajaradi?",
+    "options": {
+      "A": "Bir nechta tovarlar yig'ib to'plam sifatida sotish uchun",
+      "B": "Qaysidir tovardan bitta olsa, boshqasidan yana bitta qo'shib berish mumkin.",
+      "C": "Taroziga tovar yuklash uchun"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 26,
+    "text": "To'plam nomi qanday kiritiladi?",
+    "options": {
+      "A": "Bu alohida tovar sifatida mahsulotlar qabul qilishdan nomi va shtrix kodi kiritiladi va Mahsulotlar bo'limidan to'plam funksiyasi yoqiladi",
+      "B": "To'plam bo'limida avtomatik ravishda  paydo bo'ladi",
+      "C": "Nomenklaturadan kiritiladi"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 27,
+    "text": "Aksiya bo'limi qanday vazifani bajaradi?",
+    "options": {
+      "A": "Qaysidir tovardan bitta olsa, boshqasidan yana bitta qo'shib berish mumkin.",
+      "B": "Mahsulotlarning narxidan 50% chegirma qilib berish",
+      "C": "Mijoz olgan tovarlari summasidan qanchadir midqorda bonus berish"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 28,
+    "text": "Cheklar bo'limi qanday vazifani bajaradi?",
+    "options": {
+      "A": "Kassadan sotilgan har bir checkining holati bilan tekshirish uchun",
+      "B": "Qarzga sotilgan tovarlarni ko'rish uchun",
+      "C": "Narx yorlig'i chiqarish uchun"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 29,
+    "text": "Narxlar bo'limi qanday vazifani bajaradi?",
+    "options": {
+      "A": "Tovarlarning narxi, shtrix kodi va kilogramlik tovarlarni PLU kodini chiqarish",
+      "B": "Tovarlarning optom narxini o'zgartirish uchun",
+      "C": "Tovarlarni kelgan narxini o'zgartirish uchun"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 30,
+    "text": "Kilogramlik tovarlar uchun PLU kodini qayday o'lchamdagi qog'ozlarda chiqarish mumkin?",
+    "options": {
+      "A": "60/40, 60/30, 40/30",
+      "B": "60/30, 40/30, 30/20",
+      "C": "60/40. 30/20"
+    },
+    "correct_option": "A"
+  },
+  {
+    "id": 31,
+    "text": "Bildirishnomalarning vazifasi qanday?",
+    "options": {
+      "A": "Tovarlarning soni kamayganda telegram botga sms kelishi uchun",
+      "B": "Qarzdorlarning qarz kunini bildirish uchun",
+      "C": "Tovarlarning sotilmayotganlari sms bo'lib kelib turishi uchun"
+    },
+    "correct_option": "A"
+  }
+]

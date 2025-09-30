@@ -8,6 +8,4 @@ body,
   padding: 0;
 }
 
-body {
-  overflow-y: hidden; /* Bu scrollbarnini yashiradi */
-}
+

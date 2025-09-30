@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
@@ -7,124 +7,97 @@ const navLinks = [
   { name: "Kassa Panel", icon: "creditcard", path: "/kassa" },
   { name: "Qurilmalar", icon: "device", path: "/qurilmalar" },
   { name: "Savollar", icon: "question", path: "/savollar" },
-  { name: "Quiz test", icon: "checkcircle", path: "/quiz" },
+  { name: "Test ishlash", icon: "checkcircle", path: "/test" },
 ];
 
 function renderIcon(type) {
+  // Wrap icon in a flex container to ensure perfect vertical centering with text.
+  // Use fa-fw for fixed-width Font Awesome icons and text-lg to control size.
   switch (type) {
     case "user":
       return (
-        <svg
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4.418 0-8 2.239-8 5v1a1 1 0 001 1h14a1 1 0 001-1v-1c0-2.761-3.582-5-8-5z"
-          />
-        </svg>
+        <span className="flex items-center justify-center w-6 h-6">
+          <i className="fa-solid fa-user fa-fw text-lg" aria-hidden="true" />
+        </span>
       );
     case "cog":
       return (
-        <svg
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 15.5A3.5 3.5 0 1 0 12 8.5a3.5 3.5 0 0 0 0 7zm7.43-2.9l1.77-1.02a1 1 0 0 0 .37-1.37l-1.68-2.91a1 1 0 0 0-1.25-.46l-1.77 1.02a7.03 7.03 0 0 0-1.52-.88l-.27-1.93A1 1 0 0 0 14 4h-4a1 1 0 0 0-1 .84l-.27 1.93a7.03 7.03 0 0 0-1.52.88l-1.77-1.02a1 1 0 0 0-1.25.46l-1.68 2.91a1 1 0 0 0 .37 1.37l1.77 1.02c-.07.32-.13.65-.13.99s.06.67.13.99l-1.77 1.02a1 1 0 0 0-.37 1.37l1.68 2.91a1 1 0 0 0 1.25.46l1.77-1.02c.47.34.98.63 1.52.88l.27 1.93A1 1 0 0 0 10 20h4a1 1 0 0 0 1-.84l.27-1.93c.54-.25 1.05-.54 1.52-.88l1.77 1.02a1 1 0 0 0 1.25-.46l1.68-2.91a1 1 0 0 0-.37-1.37l-1.77-1.02c.07-.32.13-.65.13-.99s-.06-.67-.13-.99z"
-          />
-        </svg>
+        <span className="flex items-center justify-center w-6 h-6">
+          <i className="fa-solid fa-gear fa-fw text-lg" aria-hidden="true" />
+        </span>
       );
     case "creditcard":
       return (
-        <svg
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7zm2 0v2h16V7H4zm0 4v6h16v-6H4zm2 2h2v2H6v-2z"
-          />
-        </svg>
+        <span className="flex items-center justify-center w-6 h-6">
+          <i className="fa-solid fa-credit-card fa-fw text-lg" aria-hidden="true" />
+        </span>
       );
     case "device":
       return (
-        <svg
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm5 16a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
-          />
-        </svg>
+        <span className="flex items-center justify-center w-6 h-6">
+          <i className="fa-solid fa-mobile-screen-button fa-fw text-lg" aria-hidden="true" />
+        </span>
       );
     case "question":
       return (
-        <svg
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm.75 15h-1.5v-1.5h1.5V17zm2.25-6.25c0 1.38-1.12 2.5-2.5 2.5h-.5v-1.5h.5a1 1 0 1 0-1-1V9a2.5 2.5 0 1 1 5 0c0 .83-.67 1.5-1.5 1.5z"
-          />
-        </svg>
+        <span className="flex items-center justify-center w-6 h-6">
+          <i className="fa-solid fa-question-circle fa-fw text-lg" aria-hidden="true" />
+        </span>
       );
     case "checkcircle":
       return (
-        <svg
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 15l-5-5 1.41-1.41L11 13.17l6.59-6.59L19 8l-8 9z"
-          />
-        </svg>
+        <span className="flex items-center justify-center w-6 h-6">
+          <i className="fa-solid fa-circle-check fa-fw text-lg" aria-hidden="true" />
+        </span>
       );
     default:
       return null;
   }
 }
 
-const Sidebar = ({ collapsed, onToggle }) => {
+const Sidebar = ({ collapsed, onToggle, smallLogoSrc }) => {
   const location = useLocation();
+
+  // internal collapse state used when parent doesn't control the component
+  const [internalCollapsed, setInternalCollapsed] = useState(false);
+  const isControlled = typeof collapsed === "boolean";
+  const isCollapsed = isControlled ? collapsed : internalCollapsed;
+
+  const toggleCollapsed = () => {
+    // call parent handler if provided
+    if (typeof onToggle === "function") onToggle();
+    // if not controlled by parent, flip internal state
+    if (!isControlled) setInternalCollapsed((v) => !v);
+  };
+
+  // ensure Font Awesome CSS is loaded (adds CDN link once)
+  useEffect(() => {
+    const href =
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css";
+    if (!document.querySelector(`link[href="${href}"]`)) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      link.crossOrigin = "anonymous";
+      document.head.appendChild(link);
+    }
+  }, []);
 
   return (
     <div
       className={`bg-[#eee] text-gray-900 flex flex-col min-h-screen transition-all duration-300 ${
-        collapsed ? "w-[56px]" : "w-64"
+        isCollapsed ? "w-[56px]" : "w-64"
       }`}
     >
       <div className="py-2 px-2">
-        <div className="flex flex-col items-start">
-          {!collapsed && (
+        <div className={`flex flex-col ${isCollapsed ? "items-center" : "items-start"}`}>
+          {isCollapsed ? (
+            <img
+              src={smallLogoSrc || "/assets/logo_mini.png"}
+              alt="Idokon Logo Small"
+              className="h-8 w-8 transition-all duration-300 mb-2"
+            />
+          ) : (
             <img
               src="https://optim.tildacdn.one/tild6563-3735-4562-a136-303435623931/-/resize/412x/-/format/webp/-removebg-preview.png.webp"
               alt="Idokon Logo"
@@ -133,7 +106,7 @@ const Sidebar = ({ collapsed, onToggle }) => {
           )}
           <button
             className="text-gray-700 focus:outline-none"
-            onClick={onToggle}
+            onClick={toggleCollapsed}
           >
             {/* Hamburger icon */}
             <svg
@@ -166,10 +139,10 @@ const Sidebar = ({ collapsed, onToggle }) => {
               location.pathname === link.path
                 ? "bg-[#5d79b7] text-white"
                 : "hover:bg-[#ccdbef]"
-            } ${collapsed ? "justify-center" : "space-x-3"}`}
+            } ${isCollapsed ? "justify-center" : "space-x-3"}`}
           >
             {renderIcon(link.icon)}
-            {!collapsed && <span>{link.name}</span>}
+            {!isCollapsed && <span>{link.name}</span>}
           </Link>
         ))}
       </nav>

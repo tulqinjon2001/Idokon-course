@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import QuizCom from "../sections/Quiz/QuizCom";
 
-const subSections = [{ id: "quiz", name: "Quiz", component: QuizCom }];
+const subSections = [{ id: "test", name: "Test", component: QuizCom }];
 
 const QuizTestPage = () => {
   // Boshlang'ich bo'limni URL hash yoki localStorage'dan olamiz, bo'lmasa birinchi bo'lim

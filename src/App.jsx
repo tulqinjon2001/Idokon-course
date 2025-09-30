@@ -6,8 +6,9 @@ import AdminPanelPage from "./pages/AdminPanelPage.jsx";
 import KassaPanelPage from "./pages/Kassapanelpage.jsx"; // YANGI
 import QurilmalarPage from "./pages/QurilmalarPage.jsx"; // YANGI
 import SavollarPage from "./pages/SavollarPage.jsx"; // YANGI
-import QuizTestPage from "./pages/QuizTestPage.jsx"; // YANGI
+import CombinedPages from "./pages/CombinedPages";
 import "./index.css";
+import QuizCom from "./sections/Quiz/QuizCom.jsx";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -39,12 +40,12 @@ function App() {
               path="/"
               element={<HomePage toggleSidebar={toggleSidebar} />}
             />
-            <Route path="/admin" element={<AdminPanelPage />} />
+            <Route path="/admin" element={<CombinedPages />} />
             <Route path="/kassa" element={<KassaPanelPage />} /> // YANGI ROUTE
-            <Route path="/qurilmalar" element={<QurilmalarPage />} /> // YANGI
+            <Route path="/qurilmalar" element={<CombinedPages />} /> // YANGI
             ROUTE
-            <Route path="/savollar" element={<SavollarPage />} /> // YANGI ROUTE
-            <Route path="/quiz" element={<QuizTestPage />} /> // YANGI ROUTE
+            <Route path="/savollar" element={<CombinedPages />} /> // YANGI ROUTE
+            <Route path="/test" element={<QuizCom />} /> // YANGI ROUTE
           </Routes>
         </div>
       </div>

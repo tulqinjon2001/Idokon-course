@@ -1,11 +1,4 @@
 // AboutIdokon.jsx
-// ——— Quick setup notes ———
-// 1) Install deps (once):
-//    npm install swiper lucide-react
-// 2) Make sure TailwindCSS is configured in your project.
-// 3) Replace PLACEHOLDER links below: IMAGE_LINK_* and VIDEO_LINK_*.
-// 4) Drop this component anywhere in your app. It’s self‑contained.
-
 import React, { useRef } from "react";
 import {
   Monitor,
@@ -35,67 +28,61 @@ import "swiper/css/pagination";
 // import imageidokon from "../../../../public/assets/kirish/img2.jpg";
 
 export default function AboutIdokon() {
-  const slides = [
-    {
-      img: "https://i.pinimg.com/1200x/13/4a/c7/134ac792cd74911853bad6ba26607ee8.jpg",
-      title: "IDOKON — kassa ilovasi",
-      desc: "Savdo do‘konlari uchun maxsus ishlab chiqilgan zamonaviy kassa dasturi.",
-    },
-    {
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbbm9HQk2aM7mu-_iXmjAsuDaV6Kpo061Erg&s",
-      title: "IDOKON — Ombor nazorati",
-      desc: "Mahsulot qoldiqlarini kuzatish va samarali boshqarish imkoniyati.",
-    },
-    {
-      img: "/images/slide3.png",
-      title: "IDOKON — Moliyaviy hisobotlar",
-      desc: "Kunlik va oylik daromadni avtomatik shakllantiruvchi tizim.",
-    },
-  ];
+  const imgRef = useRef(null);
+
+  const openFullscreen = () => {
+    if (imgRef.current?.requestFullscreen) {
+      imgRef.current.requestFullscreen();
+    } else if (imgRef.current?.webkitRequestFullscreen) {
+      imgRef.current.webkitRequestFullscreen();
+    } else if (imgRef.current?.msRequestFullscreen) {
+      imgRef.current.msRequestFullscreen();
+    }
+  };
 
   const features = [
     {
-      icon: <Monitor className="w-8 h-8" aria-hidden />,
+      icon: <Monitor className="w-8 h-8" />,
       title: "Kassa tizimi",
-      desc: "Kassirlarning hisob-kitobini yengillashtiradi, smena davomida barcha tranzaksiyalarni kuzatadi va doimiy nazoratni ta’minlaydi.",
+      desc: "Kassirlarning hisob-kitobini yengillashtiradi, barcha tranzaksiyalarni kuzatadi.",
     },
     {
-      icon: <Warehouse className="w-8 h-8" aria-hidden />,
+      icon: <Warehouse className="w-8 h-8" />,
       title: "Ombor boshqaruvi",
-      desc: "Mahsulot qoldiqlarini kuzatish, ombor harakatlarini tahlil qilish va samarali boshqarish imkoniyati.",
+      desc: "Mahsulot qoldiqlarini kuzatish va samarali boshqarish imkoniyati.",
     },
     {
-      icon: <BarChart3 className="w-8 h-8" aria-hidden />,
+      icon: <BarChart3 className="w-8 h-8" />,
       title: "Moliyaviy hisobotlar",
-      desc: "Foyda/zarar, kunlik-oylik hisobotlar. Excel va boshqa formatlarga eksport qilish qo‘llab-quvvatlanadi.",
+      desc: "Kunlik/oylik hisobotlar, foyda/zarar. Excelga eksport imkoniyati.",
     },
     {
-      icon: <Users2 className="w-8 h-8" aria-hidden />,
-      title: "Ko‘p foydalanuvchilik tizim",
-      desc: "Kassir, agent, tovar kirituvchi va administratorlar uchun alohida kirish huquqlari, ularning faoliyatini to‘liq nazorat qilish.",
+      icon: <Users2 className="w-8 h-8" />,
+      title: "Ko‘p foydalanuvchilik",
+      desc: "Har bir foydalanuvchi uchun alohida rol va nazorat.",
     },
     {
-      icon: <Send className="w-8 h-8" aria-hidden />,
+      icon: <Send className="w-8 h-8" />,
       title: "Telegram bot integratsiyasi",
-      desc: "Qarz eslatmalari, tovar qoldig‘i xabarnomalari, elektron chek va sodiqlik (loyalty) mexanizmlari.",
+      desc: "Qarz eslatmalari, chek yuborish va sodiqlik tizimi.",
     },
     {
-      icon: <Scale className="w-8 h-8" aria-hidden />,
+      icon: <Scale className="w-8 h-8" />,
       title: "Elektron tarozilar",
-      desc: "Kg mahsulotlarni tezkor va aniq sotish. Masalan, Shtrix M va Kuanyi tarozilari bilan ishlaydi.",
+      desc: "Kg mahsulotlarni tezkor va aniq sotish imkoniyati.",
     },
   ];
 
   const benefits = [
     {
       emoji: "🛒",
-      text: "Do‘konini boshqarishni osonlashtirmoqchi bo‘lganlar uchun",
+      text: "Do‘kon boshqaruvini osonlashtirmoqchi bo‘lganlar uchun",
     },
     {
       emoji: "😌",
-      text: "Doimiy stress va tartibsizlikdan qutulishni istaganlar uchun",
+      text: "Stress va tartibsizlikdan qutulishni istaganlar uchun",
     },
-    { emoji: "⏳", text: "O‘z vaqtining qadriga yetadiganlar uchun" },
+    { emoji: "⏳", text: "Vaqtining qadriga yetadiganlar uchun" },
     { emoji: "📈", text: "Daromadini barqaror oshirishni xohlovchilar uchun" },
     {
       emoji: "🤝",
@@ -103,7 +90,7 @@ export default function AboutIdokon() {
     },
     {
       emoji: "🚀",
-      text: "Biznesini zamonaviy texnologiyalar bilan rivojlantirishni maqsad qilganlar uchun",
+      text: "Biznesini zamonaviy texnologiyalar bilan rivojlantirmoqchi bo‘lganlar uchun",
     },
   ];
 
@@ -111,7 +98,7 @@ export default function AboutIdokon() {
     "Tezkor va qulay ishlaydi",
     "Moliyaviy hisob-kitobni aniq qiladi",
     "Vaqt va mablag‘ni tejaydi",
-    "Doimiy qo'llab-quvvatlash mavjud",
+    "Doimiy qo‘llab-quvvatlash mavjud",
   ];
 
   const categories = [
@@ -128,18 +115,6 @@ export default function AboutIdokon() {
     { name: "Boshqalar", icon: MoreHorizontal },
   ];
 
-    const imgRef = useRef(null);
-
-  const openFullscreen = () => {
-    if (imgRef.current.requestFullscreen) {
-      imgRef.current.requestFullscreen();
-    } else if (imgRef.current.webkitRequestFullscreen) {
-      imgRef.current.webkitRequestFullscreen();
-    } else if (imgRef.current.msRequestFullscreen) {
-      imgRef.current.msRequestFullscreen();
-    }
-  };
-
   return (
     <div className="mx-auto max-w-6xl p-6 md:p-10 space-y-14 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-sm">
       {/* Hero / Title */}
@@ -150,64 +125,47 @@ export default function AboutIdokon() {
         <p className="text-gray-600 max-w-3xl mx-auto">
           <strong>IDOKON</strong> — O‘zbekistonda ishlab chiqilgan va savdo
           do‘konlari uchun maxsus yaratilgan avtomatlashtirish platformasi. U
-          savdo jarayonlarini qulay, tezkor va samarali boshqarish imkoniyatini
+          savdo jarayonlarini qulay, tezkor va samarali boshqarish imkonini
           beradi.
         </p>
       </header>
 
-    <section className="py-10 px-5 lg:px-20">
-        
-        {/* Categories */}
-    <section className="py-12 bg-gradient-to-b from-slate-50 to-white">
-      <div className="max-w-6xl mx-auto px-4">
-        <header className="mb-10 text-center">
-          <h3 className="text-3xl font-extrabold tracking-tight text-slate-900">
-            IDOKON qaysi do‘konlarga mos?
-          </h3>
-          <p className="mt-2 text-slate-600 text-sm">
-            Quyidagi yo‘nalishlar Ideal yechim bera olamiz!
-          </p>
-        </header>
+      {/* Categories */}
+      <section className="py-12 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <header className="mb-10 text-center">
+            <h3 className="text-3xl font-extrabold tracking-tight text-slate-900">
+              IDOKON qaysi do‘konlarga mos?
+            </h3>
+            <p className="mt-2 text-slate-600 text-sm">
+              Quyidagi yo‘nalishlar ideal yechim bera olamiz!
+            </p>
+          </header>
 
-        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-          {categories.map((cat, i) => (
-            <li key={i} className="relative">
-              {/* dekorativ gradient halo */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-tr from-cyan-200/50 via-cyan-100/30 to-transparent blur-md opacity-0 group-hover:opacity-100 transition-opacity"
-              />
-              <button
-                type="button"
-                className="group w-full h-full rounded-2xl border border-slate-200 bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/70 p-6 flex flex-col items-center text-center"
-                aria-label={cat.name}
-              >
-                <div className="mb-4 inline-flex items-center justify-center rounded-2xl p-3 bg-cyan-50 group-hover:bg-cyan-100 transition-colors ring-1 ring-inset ring-cyan-100">
-                  <cat.icon className="w-8 h-8 text-cyan-600 group-hover:scale-105 transition-transform" />
-                </div>
-
-                <span className="font-semibold text-slate-800">
-                  {cat.name}
-                </span>
-
-                {/* kichik tag/description bo‘lsa ko‘rsatish (ixtiyoriy) */}
-                {cat.tag && (
-                  <span className="mt-1 text-xs text-slate-500">
-                    {cat.tag}
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+            {categories.map((cat, i) => (
+              <li key={i} className="relative group">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-tr from-cyan-200/50 via-cyan-100/30 to-transparent blur-md opacity-0 group-hover:opacity-100 transition-opacity"
+                />
+                <button
+                  type="button"
+                  className="w-full h-full rounded-2xl border border-slate-200 bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 p-6 flex flex-col items-center text-center"
+                  aria-label={cat.name}
+                >
+                  <div className="mb-4 inline-flex items-center justify-center rounded-2xl p-3 bg-cyan-50 group-hover:bg-cyan-100 transition-colors ring-1 ring-inset ring-cyan-100">
+                    <cat.icon className="w-8 h-8 text-cyan-600 group-hover:scale-105 transition-transform" />
+                  </div>
+                  <span className="font-semibold text-slate-800">
+                    {cat.name}
                   </span>
-                )}
-
-                {/* hover chiziq */}
-                <span className="mt-4 h-0.5 w-10 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-
-    </section>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       {/* What is IDOKON */}
       <section className="grid md:grid-cols-2 gap-8 items-center">
@@ -252,7 +210,6 @@ export default function AboutIdokon() {
             >
               <div className="flex items-center gap-3 text-indigo-600">
                 {f.icon}
-                <span className="sr-only">icon</span>
               </div>
               <h3 className="mt-4 font-semibold text-lg text-gray-900">
                 {f.title}
@@ -276,9 +233,7 @@ export default function AboutIdokon() {
               key={i}
               className="p-4 bg-white rounded-xl shadow-sm border border-gray-100 flex items-start gap-3"
             >
-              <span className="text-xl leading-none" aria-hidden>
-                {b.emoji}
-              </span>
+              <span className="text-xl leading-none">{b.emoji}</span>
               <span className="text-gray-700">{b.text}</span>
             </li>
           ))}
@@ -296,14 +251,12 @@ export default function AboutIdokon() {
               key={i}
               className="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm border border-gray-100"
             >
-              <CheckCircle2 className="w-6 h-6 text-green-600" aria-hidden />
+              <CheckCircle2 className="w-6 h-6 text-green-600" />
               <span className="text-gray-700">{w}</span>
             </div>
           ))}
         </div>
       </section>
-
-      
     </div>
   );
 }
