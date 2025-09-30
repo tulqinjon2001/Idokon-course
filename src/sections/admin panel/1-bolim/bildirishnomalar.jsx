@@ -1,53 +1,98 @@
-import React from "react";
-
 const Bildirishnomalar = () => {
-  const steps = [
-    { icon: "🔔", text: "Chap menyudan «Bildirishnomalar» bo‘limiga o‘ting." },
-    { icon: "👁️", text: "Bu yerda tizim tomonidan yuborilgan barcha bildirishnomalarni ko‘rasiz." },
-    { icon: "✅", text: "Bildirishnomani o‘qib bo‘lgach, uni «O‘qilgan» deb belgilashingiz mumkin." },
-    { icon: "⚙️", text: "Sozlamalarda qaysi turdagi bildirishnomalarni olishni tanlashingiz mumkin (masalan, buyurtma, to‘lov, xatolik va h.k.)." },
-    { icon: "📱", text: "Agar mobil ilova orqali ishlasangiz, push-bildirishnomalar ham keladi." },
-  ];
-
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md space-y-6">
-      <h2 className="text-2xl font-bold text-slate-800">Bildirishnomalar</h2>
+    <div className="p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4">🔔 Bildirishnomalar bo‘limi</h2>
 
-      {/* VIDEO — TEPA QISMDA */}
-      <div className="bg-slate-100 rounded-lg overflow-hidden aspect-video">
-        <iframe
-          className="w-full h-full"
-          src="https://t.me/idokonvideos/54"
-          title="IDOKON — Bildirishnomalar"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
-      </div>
+      <p className="mb-4">
+        📣 <b>Bildirishnomalar</b> mahsulotlar soni belgilangan limitdan kam
+        qolganda sizga avtomatik tarzda <b>Telegram bot</b> orqali eslatma
+        xabarlarini yuborish imkonini beradi.
+      </p>
 
-      {/* YO‘RIQNOMA */}
-      <section className="space-y-3">
-        <h3 className="text-lg font-semibold text-slate-800">📋 Qadam-baqadam yo‘riqnoma</h3>
-        <ol className="list-decimal list-inside space-y-2 text-slate-700">
-          {steps.map((s, i) => (
-            <li key={i}>
-              <span className="mr-2">{s.icon}</span>
-              <span>{s.text}</span>
-            </li>
-          ))}
-        </ol>
+      <h3 className="text-xl font-semibold mb-2">🛠️ Qo‘llash tartibi</h3>
+      <ol className="list-decimal list-inside space-y-4 mb-6">
+        <li>
+          Admin paneldan <b>1-menyu → Bildirishnomalar</b> bo‘limiga kiring.
+          <img
+            src="/assets/admin/1-bolim/bildirishnoma/bildirish.png"
+            alt="Bildirishnomalar bo‘limi"
+            className="mt-2 rounded-lg shadow-md"
+          />
+        </li>
+        <li>
+          ➕ “Qo‘shish” tugmasini bosing.
+          <img
+            src="/assets/admin/1-bolim/bildirishnoma/qoshish.png"
+            alt="Qo‘shish tugmasi"
+            className="mt-2 rounded-lg shadow-md"
+          />
+        </li>
+        <li>
+          🔍 Kerakli mahsulotni izlash orqali toping, minimal qoldiq sonini
+          kiriting va 💾 “Saqlash” tugmasini bosing.
+          <img
+            src="/assets/admin/1-bolim/bildirishnoma/qoldiq-saqlash.png"
+            alt="Qoldiqni kiritish va saqlash"
+            className="mt-2 rounded-lg shadow-md"
+          />
+        </li>
+        <li>
+          ✅ Belgilangan sondan kam qolsa, mahsulot{" "}
+          <span className="text-red-500 font-semibold">qizil rangda</span>{" "}
+          ajratilib ko‘rsatiladi.
+          <img
+            src="/assets/admin/1-bolim/bildirishnoma/qizilsonikam.png"
+            alt="Qizil soni bilan ajratilgan mahsulotlar"
+            className="mt-2 rounded-lg shadow-md"
+          />
+        </li>
+      </ol>
 
-        {/* ESLATMA */}
-        <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg">
-          <div className="font-medium text-slate-800 mb-1">💡 Eslatma</div>
-          <ul className="list-disc list-inside text-slate-600 space-y-1">
-            <li>Bildirishnomalar tizimdagi eng so‘nggi yangiliklar va voqealarni eslatadi.</li>
-            <li>Ularni muntazam tekshirib turing — muhim xabarlarni o‘tkazib yubormang.</li>
-            <li>O‘qilmagan bildirishnomalar alohida belgilanadi.</li>
-          </ul>
-        </div>
-      </section>
+      <h3 className="text-xl font-semibold mb-2">🤖 Telegram botga ulash</h3>
+      <ol className="list-decimal list-inside space-y-4">
+        <li>
+          Admin panel → <b>4-menyu → Savdo nuqtalari</b> bo‘limiga kiring va ✏️
+          qalamcha tugmasini bosing.
+          <img
+            src="/assets/admin/1-bolim/bildirishnoma/telnomer.png"
+            alt="Telefon raqamini kiritish"
+            className="mt-2 rounded-lg shadow-md"
+          />
+        </li>
+        <li>
+          Telegram ilovada <b>@idokonsmsbot</b> ni qidiring.
+          <img
+            src="/assets/admin/1-bolim/bildirishnoma/smsbot.jpg"
+            alt="Idokon SMS Bot"
+            className="mt-2 rounded-lg shadow-md"
+          />
+        </li>
+        <li>
+          Botga <code>/start</code> yoki <b>Boshlash</b> tugmasini bosing.
+          <img
+            src="/assets/admin/1-bolim/bildirishnoma/smsbotstart.jpg"
+            alt="Botda Start tugmasi"
+            className="mt-2 rounded-lg shadow-md"
+          />
+        </li>
+        <li>
+          📲 “Raqamni ulashish” tugmasini bosing.
+          <img
+            src="/assets/admin/1-bolim/bildirishnoma/smsbotraqamniulashish.jpg"
+            alt="Raqamni ulashish"
+            className="mt-2 rounded-lg shadow-md"
+          />
+        </li>
+        <li>
+          ✅ Shundan so‘ng bot sizga mahsulotlar belgilangan miqdordan kam
+          qolganda avtomatik xabar yuboradi.
+          <img
+            src="/assets/admin/1-bolim/bildirishnoma/smsbotkelganxabar.jpg"
+            alt="Telegram botdan kelgan xabar"
+            className="mt-2 rounded-lg shadow-md"
+          />
+        </li>
+      </ol>
     </div>
   );
 };

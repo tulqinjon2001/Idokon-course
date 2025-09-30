@@ -58,7 +58,7 @@ const TaminotchiHisobdanChiqarish = () => {
               {/* Qo‘shish tugmasi ostiga rasm */}
               <div className="flex justify-center my-2">
                 <img
-                  src="/src/assets/admin/1-bolim/tam-qayt-hisob-chiq/qoshim-tam-qayt.jpg"
+                  src="/assets/admin/1-bolim/tam-qayt-hisob-chiq/qoshim-tam-qayt.jpg"
                   alt="Qo‘shish tugmasi"
                   style={{ width: '60%' }}
                   className="rounded shadow"
@@ -80,7 +80,7 @@ const TaminotchiHisobdanChiqarish = () => {
                 {/* Izlash bosqichidan keyin rasm */}
                 <div className="flex justify-center my-2">
                   <img
-                    src="/src/assets/admin/1-bolim/tam-qayt-hisob-chiq/izlash-tam-qayt.jpg"
+                    src="/assets/admin/1-bolim/tam-qayt-hisob-chiq/izlash-tam-qayt.jpg"
                     alt="Izlash"
                     style={{ width: '60%' }}
                     className="rounded shadow"
@@ -101,7 +101,7 @@ const TaminotchiHisobdanChiqarish = () => {
                 {/* Saqlash bosqichidan keyin rasm */}
                 <div className="flex justify-center my-2">
                   <img
-                    src="/src/assets/admin/1-bolim/tam-qayt-hisob-chiq/saqlash-tam-qayt.jpg"
+                    src="/assets/admin/1-bolim/tam-qayt-hisob-chiq/saqlash-tam-qayt.jpg"
                     alt="Saqlash"
                     style={{ width: '60%' }}
                     className="rounded shadow"
@@ -131,7 +131,7 @@ const TaminotchiHisobdanChiqarish = () => {
             {/* Qo‘shish tugmasi ostiga rasm */}
             <div className="flex justify-center my-2">
               <img
-                src="/src/assets/admin/1-bolim/tam-qayt-hisob-chiq/qoshim-hisob.jpg"
+                src="/assets/admin/1-bolim/tam-qayt-hisob-chiq/qoshim-hisob.jpg"
                 alt="Qo‘shish tugmasi"
                 style={{ width: '60%' }}
                 className="rounded shadow"
@@ -145,7 +145,7 @@ const TaminotchiHisobdanChiqarish = () => {
                   🏪 <b>Savdo nuqtasi</b> – mahsulot qaysi do'kondan chiqarilayotganini tanlang
                   </div>
                             <img
-                              src="/src/assets/admin/1-bolim/tam-qayt-hisob-chiq/qoshim-hisob.jpg"
+                              src="/assets/admin/1-bolim/tam-qayt-hisob-chiq/qoshim-hisob.jpg"
                               alt="Izlash"
                               style={{ width: '60%' }}
                               className="rounded shadow"
@@ -166,7 +166,7 @@ const TaminotchiHisobdanChiqarish = () => {
               {/* Izlash bosqichidan keyin rasm */}
               <div className="flex justify-center my-2">
                 <img
-                  src="/src/assets/admin/1-bolim/tam-qayt-hisob-chiq/izlash-hisob.jpg"
+                  src="/assets/admin/1-bolim/tam-qayt-hisob-chiq/izlash-hisob.jpg"
                   alt="Izlash"
                   style={{ width: '60%' }}
                   className="rounded shadow"
@@ -181,7 +181,7 @@ const TaminotchiHisobdanChiqarish = () => {
               {/* Saqlash bosqichidan keyin rasm */}
               <div className="flex justify-center my-2">
                 <img
-                  src="/src/assets/admin/1-bolim/tam-qayt-hisob-chiq/saqlash-hisob.jpg"
+                  src="/assets/admin/1-bolim/tam-qayt-hisob-chiq/saqlash-hisob.jpg"
                   alt="Saqlash"
                   style={{ width: '60%' }}
                   className="rounded shadow"

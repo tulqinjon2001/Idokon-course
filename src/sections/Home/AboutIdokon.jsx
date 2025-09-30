@@ -31,7 +31,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import imageidokon from '../../assets/kirish/img2.jpg'
+// Idokon-course\src\sections\Home
+// import imageidokon from "../../../../public/assets/kirish/img2.jpg";
 
 export default function AboutIdokon() {
   const slides = [
@@ -226,7 +227,7 @@ export default function AboutIdokon() {
         <img
           ref={imgRef}
           onClick={openFullscreen}   // 👈 bosilganda fullscreen bo‘ladi
-          src={imageidokon}
+          src="/assets/kirish/Kassa1.jpg"
           alt="IDOKON taqdimot rasmi"
           className="w-full h-full cursor-zoom-in"
           style={{

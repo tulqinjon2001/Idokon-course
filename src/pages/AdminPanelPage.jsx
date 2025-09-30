@@ -6,8 +6,9 @@ import MahsulotQabulQilish from "../sections/admin panel/1-bolim/mahsulot-qabul-
 import BuyurtmalarSD from "../sections/admin panel/1-bolim/buyurtmalar-sd";
 import NomenklaturaQaytaNarxlashTarix from "../sections/admin panel/1-bolim/nomenklatura-qaytanarxlash-tarix";
 import TaminotchiHisobdanChiqarish from "../sections/admin panel/1-bolim/taminotchiqaytar-hisobchiqar";
-import Inventarizatsiya from "../sections/admin panel/1-bolim/Inventarizatsiya-mahsulotlarnikochir";
+import Inventarizatsiya from "../sections/admin panel/1-bolim/Inventarizatsiya";
 import Bildirishnomalar from "../sections/admin panel/1-bolim/bildirishnomalar";
+import MahsulotKochir from "../sections/admin panel/1-bolim/mahsulotKochir";
 
 const adminSections = [
   { id: "adminga-kirish", name: "Adminga kirish", component: AdmingaKirish },
@@ -29,9 +30,10 @@ const adminSections = [
   },
   {
     id: "inventarizatsiya-mahsulotlari-koshirish",
-    name: "Inventarizatsiya, Mahsulotlarni ko'shirish",
+    name: "Inventarizatsiya",
     component: Inventarizatsiya,
   },
+  { id: "mahsulot-kochir", name: "Mahsulot ko'chirish", component: MahsulotKochir },
   { id: "bildirishnomalar", name: "Bildirishnomalar", component: Bildirishnomalar },
 ];
 
