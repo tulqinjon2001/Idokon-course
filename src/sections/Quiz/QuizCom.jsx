@@ -4,8 +4,6 @@ import questionsData from "../../data/quiz-questions.json";
 
 const DEFAULT_QUESTION_COUNT = 2;
 const LS_KEY = "quiz_state_v1";
-
-// --- yangi: muvaffaqiyat chegarasi (80%)
 const PASS_RATE = 0.8;
 
 // shuffle helper
@@ -35,16 +33,12 @@ function hydrateQuestions(raw) {
     }
     choices = shuffle(choices);
 
-    // support multiple possible property names from JSON
     let correctKey = q.correct ?? q.correct_option ?? q.correctOption ?? q.correct_answer;
-
-    // if correct is provided as an index number, map to the shuffled choices' key
     if (typeof correctKey === "number") {
       correctKey = choices[correctKey]?.key;
     }
 
     return {
-      // ensure id is always a string (fixes mismatch when original JSON id is a number)
       id: String(q.id ?? Math.random().toString(36).slice(2, 9)),
       text: q.text || q.question,
       choices,
@@ -55,9 +49,7 @@ function hydrateQuestions(raw) {
 
 // storage
 function saveState(state) {
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify(state));
-  } catch {}
+  try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch {}
 }
 function loadState() {
   try {
@@ -67,12 +59,10 @@ function loadState() {
   return null;
 }
 function clearState() {
-  try {
-    localStorage.removeItem(LS_KEY);
-  } catch {}
+  try { localStorage.removeItem(LS_KEY); } catch {}
 }
 
-// fallback questions
+// fallback
 const SAMPLE_QUESTIONS = [
   {
     id: "s1",
@@ -99,20 +89,15 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
   const [err, setErr] = useState("");
   const [score, setScore] = useState(null);
 
-  // --- yangi: tabrik oynasining ko'rinishi holati
   const [congratsVisible, setCongratsVisible] = useState(false);
-
-  // yangi: konfetti state
   const [confetti, setConfetti] = useState([]);
-
-  // yangi: fail kartani ko'rsatish holati
   const [failVisible, setFailVisible] = useState(false);
 
+  // NEW: backendga yuborish holati
+  const [notifyStatus, setNotifyStatus] = useState("idle"); // idle | sending | ok | err
+
   const total = questions.length || questionCount;
-  const answeredCount = useMemo(
-    () => Object.keys(answers).length,
-    [answers]
-  );
+  const answeredCount = useMemo(() => Object.keys(answers).length, [answers]);
   const progress = Math.round((answeredCount / Math.max(total, 1)) * 100);
 
   useEffect(() => {
@@ -123,7 +108,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
     setPhone(s.phone || "");
     setQuestions(s.questions || []);
     setAnswers(s.answers || {});
-    setCurrent(s.current ?? 0); // use nullish to allow 0 value
+    setCurrent(s.current ?? 0);
     setScore(s.score ?? null);
   }, []);
 
@@ -143,10 +128,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
       Array.isArray(questionsData) && questionsData.length > 0
         ? questionsData
         : SAMPLE_QUESTIONS;
-    const selectedRaw = shuffle(pool).slice(
-      0,
-      Math.min(questionCount, pool.length)
-    );
+    const selectedRaw = shuffle(pool).slice(0, Math.min(questionCount, pool.length));
     const hydrated = hydrateQuestions(selectedRaw);
     setQuestions(hydrated);
     setAnswers({});
@@ -159,15 +141,54 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
     setAnswers((prev) => ({ ...prev, [qid]: optKey }));
   }
 
-  function submitAnswers() {
+  // NEW: backendga xabar yuborish helper
+ // FRONTENDDAN BACKENDGA XABAR YUBORISH (env orqali)
+async function notifyTelegram({ name, phone, score, total, passed }) {
+  try {
+    setNotifyStatus("sending");
+
+    const percent = Math.round((score / total) * 100);
+
+    // 🔧 Backend manzili env’dan olinadi (Vite)
+    const API_BASE =
+      (typeof import.meta !== "undefined" &&
+        import.meta.env &&
+        import.meta.env.VITE_API_BASE_URL) || ""; // bo'sh qolsa relative yo'l ishlatiladi
+
+    const url = `${'http://localhost:3001'}/api/telegram-notify`;
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      // ⚠️ Token/ChatID frontga yozilmaydi — ular backend env’da bo‘ladi
+      body: JSON.stringify({ name, phone, score, total, percent, passed }),
+    });
+
+    if (!res.ok) throw new Error(await res.text());
+    setNotifyStatus("ok");
+  } catch (e) {
+    console.error("Telegramga yuborishda xatolik:", e);
+    setNotifyStatus("err");
+  }
+}
+
+
+  async function submitAnswers() {
     let sc = 0;
     Object.entries(answers).forEach(([qid, userKey]) => {
       const q = questions.find((q) => q.id === qid);
       if (q && userKey === q.correct) sc++;
     });
+    const passed = total > 0 && sc / total >= PASS_RATE;
+
+    // 1) UI natijani chiqarish
     setScore(sc);
     setStep("result");
     clearState();
+
+    // 2) BACKENDGA YUBORISH (frontend qismi)
+    //    Keyingi bosqichda /api/telegram-notify ni server tomonda qo'shamiz.
+    notifyTelegram({ name, phone, score: sc, total, passed });
   }
 
   function resetAll() {
@@ -178,19 +199,16 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
     setAnswers({});
     setCurrent(0);
     setScore(null);
+    setNotifyStatus("idle");
     clearState();
   }
 
   const q = questions[current];
-
-  // ref for the numbered pills container
   const pillsRef = useRef(null);
 
-  // convert vertical wheel to horizontal scroll on the pills container
   function handlePillsWheel(e) {
     const el = pillsRef.current;
     if (!el) return;
-    // stronger and smoother horizontal conversion (multiply for touchpads)
     const delta = e.deltaY * 1.5;
     if (Math.abs(delta) > 0 && el.scrollWidth > el.clientWidth) {
       el.scrollLeft += delta;
@@ -198,7 +216,6 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
     }
   }
 
-  // allow keyboard navigation when pills container is focused
   function handlePillsKeyDown(e) {
     if (e.key === "ArrowLeft") {
       setCurrent((c) => Math.max(c - 1, 0));
@@ -215,27 +232,22 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
     }
   }
 
-  // ensure the active pill is visible when current changes
   useEffect(() => {
     const el = pillsRef.current;
     if (!el) return;
     const btn = el.children[current];
     if (btn && typeof btn.scrollIntoView === "function") {
-      // use inline center to keep it visible in the middle of the pills bar
       btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
   }, [current]);
 
-  // show congrats animation when result step and pass threshold met
   useEffect(() => {
     let t, g, f;
     if (step === "result" && score != null && total > 0) {
       const passed = score / total >= PASS_RATE;
       if (passed) {
-        // show congrats (and clear any fail)
         setFailVisible(false);
         t = setTimeout(() => setCongratsVisible(true), 200);
-        // generate confetti pieces shortly after showing
         g = setTimeout(() => {
           const colors = ["#EF4444","#F97316","#F59E0B","#10B981","#06B6D4","#6366F1","#EC4899"];
           const pieces = Array.from({ length: 28 }).map((_, i) => ({
@@ -249,11 +261,9 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
             h: 10 + Math.round(Math.random() * 10),
           }));
           setConfetti(pieces);
-          // clear confetti after animation
           setTimeout(() => setConfetti([]), 3800);
         }, 350);
       } else {
-        // show fail card with a small delay (for a nicer entrance)
         setCongratsVisible(false);
         f = setTimeout(() => setFailVisible(true), 150);
       }
@@ -335,17 +345,17 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
 
       {step === "quiz" && q && (
         <div className="bg-white rounded-xl border p-5 shadow-sm space-y-4 ">
-          {/* top nav: numbered pills + timer/action */}
+          {/* top nav: numbered pills */}
           <div className="flex items-center justify-between gap-4">
             <div
               className="flex gap-2 overflow-x-auto pb-1"
               ref={pillsRef}
               onWheel={handlePillsWheel}
-              tabIndex={0}                    // allow keyboard focus
-              onKeyDown={handlePillsKeyDown}  // respond to arrow keys
+              tabIndex={0}
+              onKeyDown={handlePillsKeyDown}
               style={{
-                WebkitOverflowScrolling: "touch", // smooth touch scrolling on iOS
-                touchAction: "pan-y",            // allow vertical page pan but enable horiz scroll inside
+                WebkitOverflowScrolling: "touch",
+                touchAction: "pan-y",
               }}
             >
               {questions.map((_, idx) => (
@@ -400,7 +410,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
             </div>
           </div>
 
-          {/* footer: controls + progress indicator bottom-right */}
+          {/* footer */}
           <div className="flex items-center justify-between pt-4">
             <div className="flex items-center gap-2">
               <button
@@ -430,13 +440,12 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
         </div>
       )}
 
-      {/* RESULT: agar 80% dan yuqori bo'lsa tabrik va ro'yxatdan o'tish taklifi */}
+      {/* RESULT */}
       {step === "result" && (
         <div className="mx-auto max-w-xl">
           {/* pass card */}
           {score != null && total > 0 && score / total >= PASS_RATE && (
             <div className={`mb-4 rounded-xl border bg-white p-6 text-center shadow-sm transform transition-all duration-700 ease-out relative overflow-visible ${congratsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-              {/* Confetti pieces */}
               <div aria-hidden className="pointer-events-none absolute inset-0 overflow-visible">
                 {confetti.map((p) => (
                   <span
@@ -476,7 +485,6 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
                 Ro'yxatdan o'tish
               </a>
 
-              {/* keyframes for confetti animation */}
               <style>{`
                 @keyframes confetti-fall {
                   0% { transform: translateY( -10% ) rotate(0deg); opacity: 1; }
@@ -497,25 +505,33 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
             </div>
           )}
 
-           {/* Original result card (shu qatorda qoladi; agar pass bo'lsa ham ko'rinadi) */}
-           <div className="rounded-xl border bg-white p-6 text-center shadow-sm">
-             <h2 className="mb-1 text-xl font-semibold">Natija</h2>
-             <p className="mb-2 text-gray-600">
-               To‘plagan ballingiz:{" "}
-               <span className="font-bold">
-                 {score}/{total}
-               </span>
-             </p>
-             <button
-               onClick={resetAll}
-               className="mt-4 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
-             >
-               Qayta boshlash
-             </button>
-           </div>
-         </div>
-       )}
+          {/* backendga yuborish statusi */}
+          {notifyStatus !== "idle" && (
+            <div className="mb-3 text-center text-sm">
+              {notifyStatus === "sending" && <span className="text-gray-500">Telegramga yuborilmoqda…</span>}
+              {notifyStatus === "ok" && <span className="text-emerald-600">✅ Xabar yuborildi.</span>}
+              {notifyStatus === "err" && <span className="text-red-600">⚠️ Xabar yuborilmadi (server tekshiring).</span>}
+            </div>
+          )}
+
+          {/* original result card */}
+          <div className="rounded-xl border bg-white p-6 text-center shadow-sm">
+            <h2 className="mb-1 text-xl font-semibold">Natija</h2>
+            <p className="mb-2 text-gray-600">
+              To‘plagan ballingiz:{" "}
+              <span className="font-bold">
+                {score}/{total}
+              </span>
+            </p>
+            <button
+              onClick={resetAll}
+              className="mt-4 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
+            >
+              Qayta boshlash
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
