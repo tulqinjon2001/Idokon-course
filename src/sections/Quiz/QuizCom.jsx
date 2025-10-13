@@ -507,13 +507,13 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
           )}
 
           {/* backendga yuborish statusi */}
-          {notifyStatus !== "idle" && (
+          {/* {notifyStatus !== "idle" && (
             <div className="mb-3 text-center text-sm">
               {notifyStatus === "sending" && <span className="text-gray-500">Telegramga yuborilmoqda…</span>}
               {notifyStatus === "ok" && <span className="text-emerald-600">✅ Xabar yuborildi.</span>}
               {notifyStatus === "err" && <span className="text-red-600">⚠️ Xabar yuborilmadi (server tekshiring).</span>}
             </div>
-          )}
+          )} */}
 
           {/* original result card */}
           <div className="rounded-xl border bg-white p-6 text-center shadow-sm">
