@@ -2,9 +2,19 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import KassagaKirish from "../sections/kassaPanel/KassagaKirish.jsx";
+import kassadasotish from "../sections/kassaPanel/kassadasotish.jsx";
+import kassadaQaytarish from "../sections/kassaPanel/kassadaQaytarish.jsx";
+import qarzgaBilanIshlash from "../sections/kassaPanel/qarzgaBilanIshlash.jsx";
+import kassaSozlamalari from "../sections/kassaPanel/kassaSozlamalari.jsx";
+import printerBilanMuommo from "../sections/kassaPanel/printerBilanMuommo.jsx"; 
 
 const subSections = [
   { id: "entercassa", name: "Kassaga Kirish", component: KassagaKirish },
+  { id: "settings", name: "Kassa Sozlamalari", component: kassaSozlamalari },
+  { id: "sellincassa", name: "Kassada Sotish", component: kassadasotish },
+  { id: "returnincassa", name: "Kassada Qaytarish", component: kassadaQaytarish },
+  { id: "creditincassa", name: "Qarzga Bilan Ishlash", component: qarzgaBilanIshlash },
+  { id: "printerissues", name: "Check bilan ishlash", component: printerBilanMuommo },
 ];
 
 const KassaPanelPage = () => {

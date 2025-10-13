@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import questionsData from "../../data/quiz-questions.json";
 
-const DEFAULT_QUESTION_COUNT = 2;
+const DEFAULT_QUESTION_COUNT = 1;
 const LS_KEY = "quiz_state_v1";
 const PASS_RATE = 0.8;
 
@@ -155,13 +155,14 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
         import.meta.env &&
         import.meta.env.VITE_API_BASE_URL) || ""; // bo'sh qolsa relative yo'l ishlatiladi
 
-    const url = `${'http://localhost:3001'}/api/telegram-notify`;
+    const url = `https://idokon.uz/bot2/api/telegram-notify`;
 
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       // ⚠️ Token/ChatID frontga yozilmaydi — ular backend env’da bo‘ladi
       body: JSON.stringify({ name, phone, score, total, percent, passed }),
+      
     });
 
     if (!res.ok) throw new Error(await res.text());

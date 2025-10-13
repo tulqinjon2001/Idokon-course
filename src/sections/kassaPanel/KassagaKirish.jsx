@@ -2,66 +2,103 @@ import React from "react";
 import TelegramPost from "../../components/layouts/TelegramPost"; // yo'lni loyihangizga moslang
 
 const KassagaKirish = () => {
-  // O'zingizning public post manzilingizni kiriting:
-  // Masalan: https://t.me/idokon_channel/1234
-  const CHANNEL = "idokonvideos";   // <— kanal nomi
-  const POST_ID = "54";             // <— post raqami (string bo'lib tursa ham bo'ladi)
-  const POST_URL = `https://t.me/${CHANNEL}/${POST_ID}`;
+	// Yangi: YouTube video va playlist
+	const YT_VIDEO_ID = "r17SKvRUUpE";
+	const YT_URL = `https://www.youtube.com/watch?v=${YT_VIDEO_ID}`;
+	const YT_PLAYLIST_URL = "https://www.youtube.com/playlist?list=PLNt3xrjLbs_i6yQyJW5_ThvxC4YeR80zf";
 
-  const steps = [
-    { icon: "💻", text: "Kompyuteringizda «IDOKON Kassa» dasturini ishga tushiring." },
-    { icon: "🔑", text: "Admin panelda yaratilgan kassir login va parolini kiriting." },
-    { icon: "🧾", text: "Login to‘g‘ri bo‘lsa, kassa asosiy oynasi ochiladi." },
-    { icon: "🛒", text: "Sotuv, to‘lov va chek chiqarish amallarini bajaring." },
-    { icon: "⚠️", text: "Xatolik bo‘lsa, login/parolni tekshiring yoki administratorga murojaat qiling." },
-  ];
+	// Yangi: Kassa dasturi va qo'llanma (o'zingizga mos URL bilan almashtiring)
+	const KASSA_URL = "https://example.com/downloads/IDOKON-Kassa-setup.exe"; // <-- replace with real download URL
+	const MANUAL_URL = "https://example.com/docs/IDOKON-kassa-manual.pdf"; // <-- replace with real PDF URL
 
-  return (
-    <div className="p-6 bg-white rounded-lg shadow-md space-y-6">
-      <h2 className="text-2xl font-bold text-slate-800">Kassaga kirish</h2>
+	const steps = [
+		{ icon: "💻", text: "Kompyuteringizda «IDOKON Kassa» dasturini ishga tushiring." },
+		{ icon: "🔑", text: "Admin panelda yaratilgan kassir login va parolini kiriting." },
+		{ icon: "🧾", text: "Login to'g'ri bo'lsa, kassa asosiy oynasi ochiladi." },
+		{ icon: "🛒", text: "Sotuv, to‘lov va chek chiqarish amallarini bajaring." },
+		{ icon: "⚠️", text: "Xatolik bo‘lsa, login/parolni tekshiring yoki administratorga murojaat qiling." },
+	];
 
-      {/* Telegram video post — vidjet orqali (iframe emas) */}
-      <div className="bg-slate-100 rounded-lg p-3">
-        <TelegramPost channel={CHANNEL} postId={POST_ID} width="100%" />
-      </div>
+	return (
+		<div className="p-6 bg-white rounded-lg shadow-md space-y-6">
+			<h2 className="text-2xl font-bold text-slate-800">Kassaga kirish</h2>
 
-      {/* Fallback: agar vidjet bloklansa/adblock bo'lsa */}
-      <p className="text-sm text-slate-600">
-        Agar video ko‘rinmasa,{" "}
-        <a
-          className="text-cyan-600 underline"
-          href={POST_URL}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Telegramda ko‘ring
-        </a>
-        .
-      </p>
+			{/* YouTube video embed + fallback link */}
+			<div className="bg-slate-100 rounded-lg p-3">
+				{/* Embed YouTube (aria-label va title qo'shildi) */}
+				<div className="w-full">
+					{/* Inline style ishlatildi — kerak bo'lsa Tailwind klasslari bilan almashtiring */}
+					<iframe
+						title="IDOKON kassa ko'rsatma video"
+						src={`https://www.youtube.com/embed/${YT_VIDEO_ID}`}
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen
+						style={{ width: "100%", height: "480px", borderRadius: "8px", border: "0" }}
+						aria-label="IDOKON kassaga kirish video"
+					/>
+				</div>
 
-      {/* Qadam-baqadam yo'riqnoma */}
-      <section className="space-y-3">
-        <h3 className="text-lg font-semibold text-slate-800">📋 Qadam-baqadam yo‘riqnoma</h3>
-        <ol className="list-decimal list-inside space-y-2 text-slate-700">
-          {steps.map((s, i) => (
-            <li key={i}>
-              <span className="mr-2">{s.icon}</span>
-              <span>{s.text}</span>
-            </li>
-          ))}
-        </ol>
+				{/* Qo'shimcha havolalar: to'liq video va playlist */}
+				<div className="mt-3 flex flex-wrap gap-2">
+					<a
+						href={YT_URL}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-block px-3 py-2 bg-cyan-600 text-white rounded-md text-sm"
+						aria-label="YouTube videoni yangi oynada ochish"
+					>
+						YouTube-da ochish
+					</a>
+					<a
+						href={YT_PLAYLIST_URL}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-block px-3 py-2 bg-slate-200 text-slate-800 rounded-md text-sm"
+						aria-label="Playlistni ochish"
+					>
+						Playlistni ko‘rish
+					</a>
+				</div>
+			</div>
 
-        <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg">
-          <div className="font-medium text-slate-800 mb-1">💡 Eslatma</div>
-          <ul className="list-disc list-inside text-slate-600 space-y-1">
-            <li>Post **public** kanalda bo‘lishi shart. Private postlar vidjetda ko‘rinmaydi.</li>
-            <li>Ba’zi brauzer kengaytmalari vidjet skriptini to‘sishi mumkin — fallback havola shu uchun.</li>
-            <li>Agar baribir ko‘rinmasa, videoni `.mp4` qilib saytingizga yuklash yoki YouTube’dan embed qilishni ko‘rib chiqing.</li>
-          </ul>
-        </div>
-      </section>
-    </div>
-  );
+			{/* Yuklab olish va qo'llanma tugmalari */}
+			<div className="flex flex-wrap gap-3">
+				{/* Kassa dasturini yuklab olish */}
+				<a
+					href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokon1.2.2.x64.exe"
+					download
+					className="inline-block px-4 py-2 bg-emerald-600 text-white rounded-md text-sm"
+					aria-label="IDOKON Kassa dasturini yuklab olish"
+				>
+					Kassani yuklab olish
+				</a>
+
+				{/* Qo'llanmani PDF sifatida ochish */}
+				<a
+					href="https://github.com/tulqinjon2001/Idokon-course/releases/download/Qollanmalar/Idokon.kassani.yuklab.olish.o.rnatish.va.kirish.pdf"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="inline-block px-4 py-2 bg-indigo-600 text-white rounded-md text-sm"
+					aria-label="IDOKON kassa qo'llanmasini PDF formatida ochish"
+				>
+					Qo'llanmani ochish (PDF)
+				</a>
+			</div>
+
+			{/* Qadam-baqadam yo'riqnoma */}
+			<section className="space-y-3">
+				<h3 className="text-lg font-semibold text-slate-800">📋 Kassaga kirish bo'yicha yo‘riqnoma</h3>
+				<ol className="list-decimal list-inside space-y-2 text-slate-700" aria-label="kassa qadamlar">
+					{steps.map((s, i) => (
+						<li key={i}>
+							<span className="mr-2" aria-hidden="true">{s.icon}</span>
+							<span>{s.text}</span>
+						</li>
+					))}
+				</ol>
+			</section>
+		</div>
+	);
 };
 
 export default KassagaKirish;
