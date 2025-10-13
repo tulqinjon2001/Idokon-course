@@ -513,6 +513,7 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
               {notifyStatus === "ok" && <span className="text-emerald-600">✅ Xabar yuborildi.</span>}
               {notifyStatus === "err" && <span className="text-red-600">⚠️ Xabar yuborilmadi (server tekshiring).</span>}
             </div>
+            
           )} */}
 
           {/* original result card */}
