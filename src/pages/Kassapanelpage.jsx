@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import KassagaKirish from "../sections/kassaPanel/KassagaKirish.jsx";
-import kassadasotish from "../sections/kassaPanel/kassadasotish.jsx";
+import kassadasotish from "../sections/kassaPanel/kassadaSotish.jsx";
 import kassadaQaytarish from "../sections/kassaPanel/kassadaQaytarish.jsx";
 import qarzgaBilanIshlash from "../sections/kassaPanel/qarzgaBilanIshlash.jsx";
 import kassaSozlamalari from "../sections/kassaPanel/kassaSozlamalari.jsx";
