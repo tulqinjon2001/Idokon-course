@@ -1,35 +1,22 @@
-// AboutIdokon.jsx
 import React, { useRef } from "react";
 import {
-  Monitor,
-  Warehouse,
-  BarChart3,
-  Users2,
-  Send,
-  Scale,
-  CheckCircle2,
-  Home,
-  Watch,
-  Gamepad2,
-  ShoppingBasket,
-  Laptop,
-  Car,
-  Hammer,
-  Sofa,
-  FlaskConical,
-  Fuel,
-  MoreHorizontal,
+  Monitor, Warehouse, BarChart3, Users2, Send, Scale, CheckCircle2, Home, Watch,
+  Gamepad2, ShoppingBasket, Laptop, Car, Hammer, Sofa, FlaskConical, Fuel, MoreHorizontal,
+  GraduationCap, ArrowRight,
 } from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-// Idokon-course\src\sections\Home
-// import imageidokon from "../../../../public/assets/kirish/img2.jpg";
+// Swiper CSS importlari olib tashlandi, chunki ular kompilyatsiya xatosini keltirib chiqardi
+// va komponent ichida ulardan foydalanilmayotgan edi.
 
+/**
+ * IDOKON dasturi va kursi haqidagi asosiy ma'lumotlarni taqdim etuvchi komponent.
+ * Tailwind CSS yordamida chiroyli va adaptiv tarzda yaratilgan.
+ */
 export default function AboutIdokon() {
   const imgRef = useRef(null);
 
+  /**
+   * Rasmni to'liq ekran rejimida ochish funksiyasi.
+   */
   const openFullscreen = () => {
     if (imgRef.current?.requestFullscreen) {
       imgRef.current.requestFullscreen();
@@ -40,6 +27,9 @@ export default function AboutIdokon() {
     }
   };
 
+  /**
+   * IDOKON dasturining asosiy funksiyalari.
+   */
   const features = [
     {
       icon: <Monitor className="w-8 h-8" />,
@@ -73,6 +63,9 @@ export default function AboutIdokon() {
     },
   ];
 
+  /**
+   * IDOKON kimlar uchun zarurligi.
+   */
   const benefits = [
     {
       emoji: "🛒",
@@ -94,6 +87,9 @@ export default function AboutIdokon() {
     },
   ];
 
+  /**
+   * IDOKONni tanlash sabablari (qisqa ro'yxat).
+   */
   const why = [
     "Tezkor va qulay ishlaydi",
     "Moliyaviy hisob-kitobni aniq qiladi",
@@ -101,24 +97,51 @@ export default function AboutIdokon() {
     "Doimiy qo‘llab-quvvatlash mavjud",
   ];
 
+  /**
+   * IDOKON mos keladigan savdo kategoriyalari.
+   */
   const categories = [
     { name: "Oziq-ovqat", icon: ShoppingBasket },
     { name: "Aksessuarlar", icon: Watch },
     { name: "O‘yinchoqlar", icon: Gamepad2 },
     { name: "Xo'jalik mollari", icon: Home },
     { name: "Texnika", icon: Laptop },
-    { name: "Avto zapchast", icon: Car },
+    { name: "Avto ehtiyot qismlar", icon: Car },
     { name: "Qurilish mollari", icon: Hammer },
     { name: "Mebel", icon: Sofa },
     { name: "Parfyum", icon: FlaskConical },
-    { name: "Avtoximya", icon: Fuel },
     { name: "Boshqalar", icon: MoreHorizontal },
   ];
 
   return (
-    <div className="mx-auto max-w-6xl p-6 md:p-10 space-y-14 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-sm">
-      {/* Hero / Title */}
-      <header className="text-center space-y-4">
+    <div className="mx-auto max-w-6xl p-4 md:p-4 space-y-14 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-sm">
+      {/* 1. IDOKON Course Section (Nega kurs kerak?) - YANGILANGAN */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-cyan-50 via-white to-indigo-50 rounded-3xl shadow-lg mx-auto max-w-6xl my-12 p-10 md:p-16 text-center">
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-100/40 to-indigo-100/30 blur-3xl opacity-60" />
+      <div className="relative space-y-6 font-serif">
+        {/* Sarlavha */}
+        <h1 className="text-2xl md:text-2xl font-extrabold text-gray-900 leading-tight">
+          IDOKON Dasturini <strong className="text-red-600">BEPUL</strong> To‘liq O‘zlashtirish Orqali{" "}
+          <span className="text-cyan-700">Biznesingizni Optimallashtiring</span>
+        </h1>
+
+        {/* Asosiy matn */}
+        <p className="max-w-3xl mx-auto text-lg md:text-xl text-gray-700 leading-relaxed">
+          <strong>IDOKON dasturi</strong> — bu shunchaki vosita emas, balki
+          biznesingizni samarali boshqarish siri.
+          <br />
+          <strong>IDOKON-COURSE</strong> aynan siz uchun yaratilgan!
+          <br />
+          Bu platformada siz dasturning barcha <strong>chuqur imkoniyatlarini</strong> qisqa muddatda o‘rganasiz. O‘zlashtirilgan bilimingizni amalda
+          qo‘llang va biznesingizni <strong>yuqori darajaga</strong> olib chiqishni
+          hoziroq boshlang. Shuningdek, bilimlaringizni <strong>testlar orqali sinab ko‘rish</strong> imkoniyati ham mavjud.
+        </p>
+      </div>
+    </section>
+
+
+      {/* 2. Hero / Title */}
+      <div className="text-center space-y-4">
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">
           IDOKON Dasturi
         </h1>
@@ -128,9 +151,9 @@ export default function AboutIdokon() {
           savdo jarayonlarini qulay, tezkor va samarali boshqarish imkonini
           beradi.
         </p>
-      </header>
+      </div>
 
-      {/* Categories */}
+      {/* 3. Categories (Kimlar uchun mos?) */}
       <section className="py-12 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-6xl mx-auto px-4">
           <header className="mb-10 text-center">
@@ -167,7 +190,7 @@ export default function AboutIdokon() {
         </div>
       </section>
 
-      {/* What is IDOKON */}
+      {/* 4. What is IDOKON (Dastur haqida umumiy ma'lumot) */}
       <section className="grid md:grid-cols-2 gap-8 items-center">
         <div className="order-2 md:order-1 space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
@@ -180,24 +203,28 @@ export default function AboutIdokon() {
             <strong>bitta dastur</strong> orqali boshqarishingiz mumkin.
           </p>
         </div>
-          <div className="order-1 md:order-2 overflow-hidden shadow rounded-xl">
-      <div className="aspect-video">
-        <img
-          ref={imgRef}
-          onClick={openFullscreen}   // 👈 bosilganda fullscreen bo‘ladi
-          src="/assets/kirish/Kassa1.jpg"
-          alt="IDOKON taqdimot rasmi"
-          className="w-full h-full cursor-zoom-in"
-          style={{
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
-      </div>
-    </div>
+        <div className="order-1 md:order-2 overflow-hidden shadow rounded-xl">
+          <div className="aspect-video">
+            <img
+              ref={imgRef}
+              onClick={openFullscreen}  // Bosilganda fullscreen bo‘ladi
+              // Eslatma: "/assets/kirish/Kassa1.jpg" kabi rasm URL'lari real loyihada mavjud bo'lishi kerak.
+              src="https://placehold.co/600x400/818CF8/FFFFFF?text=IDOKON+Ekrani"
+              alt="IDOKON taqdimot rasmi"
+              className="w-full h-full cursor-zoom-in object-cover"
+              // onError yordamida rasm yuklanmaganda o'rinbosar rasm ko'rsatiladi.
+              onError={(e) => {
+                // HTML'dagi 'onerror' JS'da ishlatilgani uchun uni React'ning camelCase
+                // usuli (onError) ga o'zgartirdik. Endi rasm xatosi bo'lganda to'g'ri ishlaydi.
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = 'https://placehold.co/600x400/818CF8/FFFFFF?text=IDOKON+Ekrani';
+              }}
+            />
+          </div>
+        </div>
       </section>
 
-      {/* Features */}
+      {/* 5. Features (Asosiy imkoniyatlar) */}
       <section className="space-y-6">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center">
           2️⃣ IDOKON dasturining asosiy imkoniyatlari
@@ -222,7 +249,7 @@ export default function AboutIdokon() {
         </div>
       </section>
 
-      {/* Who is it for */}
+      {/* 6. Who is it for (Kimlar uchun IDOKON kerak?) */}
       <section className="space-y-6">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center">
           3️⃣ Kimlar uchun IDOKON kerak?
@@ -240,7 +267,7 @@ export default function AboutIdokon() {
         </ul>
       </section>
 
-      {/* Why IDOKON */}
+      {/* 7. Why IDOKON (Nega aynan IDOKON?) */}
       <section className="space-y-6">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center">
           4️⃣ Nega aynan IDOKON?

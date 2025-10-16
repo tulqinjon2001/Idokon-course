@@ -13,8 +13,7 @@ const NewsSection = () => {
           yerda joylashtiriladi.
         </p>
         <p className="text-gray-700">
-          Hozircha yangiliklar mavjud emas. Tez orada yangi ma'lumotlar
-          qo'shiladi.
+          Hozircha yangiliklar mavjud emas. Tez orada yangi ma'lumotlar qo'shiladi.
         </p>
 
         {/* Yangiliklarni joylashtirish uchun joy */}

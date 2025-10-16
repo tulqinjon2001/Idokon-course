@@ -1,25 +1,16 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/layouts/Sidebar.jsx";
-import HomePage from "./pages/HomePage.jsx";
-import AdminPanelPage from "./pages/AdminPanelPage.jsx";
-import KassaPanelPage from "./pages/Kassapanelpage.jsx"; // YANGI
-import QurilmalarPage from "./pages/QurilmalarPage.jsx"; // YANGI
-import SavollarPage from "./pages/SavollarPage.jsx"; // YANGI
-import CombinedPages from "./pages/CombinedPages";
+import AllInOne from "./pages/AllInPages.jsx";
 import "./index.css";
-import QuizCom from "./sections/Quiz/QuizCom.jsx";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
     <Router>
-      <div className="flex bg-gray-100 min-h-screen">
+      <div className="flex bg-gray-100 min-h-screen dark:bg-gray-900">
         <div
           className={`transition-all duration-300 ${
             isSidebarOpen ? "w-64" : "w-20"
@@ -30,22 +21,10 @@ function App() {
           </div>
         </div>
 
-        <div
-          className={`flex-1 overflow-y-auto transition-all duration-300 ${
-            isSidebarOpen ? "ml-0" : "ml-0"
-          }`}
-        >
+        <div className="flex-1 overflow-y-auto transition-all duration-300">
           <Routes>
-            <Route
-              path="/"
-              element={<HomePage toggleSidebar={toggleSidebar} />}
-            />
-            <Route path="/admin" element={<CombinedPages />} />
-            <Route path="/kassa" element={<KassaPanelPage />} /> // YANGI ROUTE
-            <Route path="/qurilmalar" element={<CombinedPages />} /> // YANGI
-            ROUTE
-            <Route path="/savollar" element={<CombinedPages />} /> // YANGI ROUTE
-            <Route path="/test" element={<QuizCom />} /> // YANGI ROUTE
+            {/* ⬇️ Har qanday ichki yo‘lni AllInOne boshqaradi */}
+            <Route path="/*" element={<AllInOne toggleSidebar={toggleSidebar} />} />
           </Routes>
         </div>
       </div>
