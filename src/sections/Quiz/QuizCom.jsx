@@ -238,17 +238,15 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
 
       const percent = Math.round((score / total) * 100);
 
-      // read base URL from Vite env (set VITE_API_BASE_URL), fallback to relative path
+      // Prefer VITE_API_BASE_URL; if not present (e.g. built without env) use deployed backend
       const rawBase =
         typeof import.meta !== "undefined" &&
         import.meta.env &&
         import.meta.env.VITE_API_BASE_URL
           ? import.meta.env.VITE_API_BASE_URL
-          : "";
+          : "https://idokon-course-backend.onrender.com";
       const API_BASE = String(rawBase).replace(/\/+$/, ""); // remove trailing slash
-      const url = API_BASE
-        ? `${API_BASE}/api/telegram-notify`
-        : `/api/telegram-notify`;
+      const url = `${API_BASE}/api/telegram-notify`;
 
       const res = await fetch(url, {
         method: "POST",
