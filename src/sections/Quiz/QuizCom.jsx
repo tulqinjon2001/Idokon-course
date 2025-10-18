@@ -120,7 +120,9 @@ const SAMPLE_QUESTIONS = [
 export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
   const [step, setStep] = useState("intro");
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const PREFIX = "+998 ";
+  const [phone, setPhone] = useState(PREFIX);
+  const phoneRef = useRef(null);
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [current, setCurrent] = useState(0);
@@ -144,7 +146,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
     if (!s) return;
     setStep(s.step || "intro");
     setName(s.name || "");
-    setPhone(s.phone || "");
+    setPhone(s.phone || PREFIX);
     setQuestions(s.questions || []);
     setAnswers(s.answers || {});
     setCurrent(s.current ?? 0);
@@ -155,11 +157,56 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
     saveState({ step, name, phone, questions, answers, current, score });
   }, [step, name, phone, questions, answers, current, score]);
 
+  // helper: format digits into "(AA) - BBB - CC - DD"
+  function formatPhoneDigits(digits) {
+    const a = digits.slice(0, 2);
+    const b = digits.slice(2, 5);
+    const c = digits.slice(5, 7);
+    const d = digits.slice(7, 9);
+    const parts = [];
+    if (a) parts.push(`(${a})`);
+    if (b) parts.push(b);
+    if (c) parts.push(c);
+    if (d) parts.push(d);
+    return parts.join(" - ");
+  }
+
+  function handlePhoneChange(e) {
+    let v = e.target.value || "";
+    // remove prefix if user pasted full number or typed differently
+    v = v.replace(/^\+?998\s*/, "");
+    // keep only digits, max 9
+    const digits = v.replace(/\D/g, "").slice(0, 9);
+    const formatted = formatPhoneDigits(digits);
+    setPhone(PREFIX + formatted);
+  }
+
+  function handlePhoneFocus() {
+    // move caret to end so prefix can't be accidentally edited
+    setTimeout(() => {
+      const el = phoneRef.current;
+      if (el && typeof el.setSelectionRange === "function") {
+        const len = el.value.length;
+        el.setSelectionRange(len, len);
+      }
+    }, 0);
+  }
+
   async function startTest(e) {
     e?.preventDefault();
     setErr("");
     if (!name.trim() || !phone.trim()) {
       setErr("Ism va telefon raqamni kiriting.");
+      return;
+    }
+    // validate phone: must contain 9 digits after +998
+    const digitsOnly = (phone || "").replace(/\D/g, "");
+    // digitsOnly includes country code 998 if user left prefix; remove leading 998 if present
+    const afterPrefix = digitsOnly.replace(/^998/, "");
+    if (afterPrefix.length !== 9) {
+      setErr(
+        "Telefon raqamni to'g'ri kiriting (masalan: +998 (90) - 123 - 45 - 67)."
+      );
       return;
     }
     setLoading(true);
@@ -191,23 +238,28 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
 
       const percent = Math.round((score / total) * 100);
 
-      // 🔧 Backend manzili env’dan olinadi (Vite)
-      const API_BASE =
-        (typeof import.meta !== "undefined" &&
-          import.meta.env &&
-          import.meta.env.VITE_API_BASE_URL) ||
-        ""; // bo'sh qolsa relative yo'l ishlatiladi
-
-      const url = `https://idokon.uz/bot2/api/telegram-notify`;
+      // read base URL from Vite env (set VITE_API_BASE_URL), fallback to relative path
+      const rawBase =
+        typeof import.meta !== "undefined" &&
+        import.meta.env &&
+        import.meta.env.VITE_API_BASE_URL
+          ? import.meta.env.VITE_API_BASE_URL
+          : "";
+      const API_BASE = String(rawBase).replace(/\/+$/, ""); // remove trailing slash
+      const url = API_BASE
+        ? `${API_BASE}/api/telegram-notify`
+        : `/api/telegram-notify`;
 
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // ⚠️ Token/ChatID frontga yozilmaydi — ular backend env’da bo‘ladi
         body: JSON.stringify({ name, phone, score, total, percent, passed }),
       });
 
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        const txt = await res.text().catch(() => "");
+        throw new Error(txt || `HTTP ${res.status}`);
+      }
       setNotifyStatus("ok");
     } catch (e) {
       console.error("Telegramga yuborishda xatolik:", e);
@@ -394,9 +446,13 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
                 Telefon raqam
               </label>
               <input
+                ref={phoneRef}
                 className="w-full rounded-lg border px-3 py-2"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={handlePhoneChange}
+                onFocus={handlePhoneFocus}
+                placeholder="+998 (XX) - XXX - XX - XX"
+                inputMode="numeric"
               />
             </div>
             <button
