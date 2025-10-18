@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import questionsData from "../../data/quiz-questions.json";
 
-const DEFAULT_QUESTION_COUNT = 1;
+const DEFAULT_QUESTION_COUNT = 20;
 const LS_KEY = "quiz_state_v1";
 const PASS_RATE = 0.8;
 
@@ -19,29 +19,64 @@ function shuffle(arr) {
 function hydrateQuestions(raw) {
   const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   return raw.map((q) => {
-    let choices = [];
+    // Build choices with original references so we can remap correct answer after shuffling
+    let choicesRaw = [];
     if (Array.isArray(q.options)) {
-      choices = q.options.map((label, i) => ({
-        key: LETTERS[i] || String(i),
+      choicesRaw = q.options.map((label, i) => ({
         label,
+        originalIndex: i,
       }));
     } else if (q.options && typeof q.options === "object") {
-      choices = Object.entries(q.options).map(([key, label]) => ({
-        key,
+      choicesRaw = Object.entries(q.options).map(([key, label], i) => ({
         label,
+        originalKey: key,
+        originalIndex: i,
       }));
     }
-    choices = shuffle(choices);
 
-    let correctKey = q.correct ?? q.correct_option ?? q.correctOption ?? q.correct_answer;
+    // Shuffle positions so the correct answer won't always be at the same letter
+    choicesRaw = shuffle(choicesRaw);
+
+    // Assign display keys A, B, C... in the shuffled order
+    const choices = choicesRaw.map((c, i) => ({
+      key: LETTERS[i] || String(i),
+      label: c.label,
+      // keep originals for mapping correct answer
+      __origKey: c.originalKey,
+      __origIndex: c.originalIndex,
+    }));
+
+    // Determine correct key in the new shuffled+rekeyed choices
+    let correctKey =
+      q.correct ?? q.correct_option ?? q.correctOption ?? q.correct_answer;
+
     if (typeof correctKey === "number") {
-      correctKey = choices[correctKey]?.key;
+      // original was an index -> find the choice that had that originalIndex
+      const found = choices.find((c) => c.__origIndex === correctKey);
+      correctKey = found ? found.key : undefined;
+    } else if (typeof correctKey === "string") {
+      // 1) If original options were an object with keys (e.g. "A","B"), map by originalKey
+      const byOrigKey = choices.find((c) => c.__origKey === correctKey);
+      if (byOrigKey) {
+        correctKey = byOrigKey.key;
+      } else {
+        // 2) If correct was a letter corresponding to original sequential index (e.g. "A" -> 0)
+        const idx = LETTERS.indexOf(correctKey.toUpperCase());
+        if (idx >= 0) {
+          const byIndex = choices.find((c) => c.__origIndex === idx);
+          if (byIndex) correctKey = byIndex.key;
+        }
+        // otherwise leave as-is (fallback)
+      }
     }
+
+    // Return sanitized choices (drop internal mapping fields)
+    const outChoices = choices.map(({ key, label }) => ({ key, label }));
 
     return {
       id: String(q.id ?? Math.random().toString(36).slice(2, 9)),
       text: q.text || q.question,
-      choices,
+      choices: outChoices,
       correct: correctKey,
     };
   });
@@ -49,7 +84,9 @@ function hydrateQuestions(raw) {
 
 // storage
 function saveState(state) {
-  try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch {}
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify(state));
+  } catch {}
 }
 function loadState() {
   try {
@@ -59,7 +96,9 @@ function loadState() {
   return null;
 }
 function clearState() {
-  try { localStorage.removeItem(LS_KEY); } catch {}
+  try {
+    localStorage.removeItem(LS_KEY);
+  } catch {}
 }
 
 // fallback
@@ -128,7 +167,10 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
       Array.isArray(questionsData) && questionsData.length > 0
         ? questionsData
         : SAMPLE_QUESTIONS;
-    const selectedRaw = shuffle(pool).slice(0, Math.min(questionCount, pool.length));
+    const selectedRaw = shuffle(pool).slice(
+      0,
+      Math.min(questionCount, pool.length)
+    );
     const hydrated = hydrateQuestions(selectedRaw);
     setQuestions(hydrated);
     setAnswers({});
@@ -142,37 +184,36 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
   }
 
   // NEW: backendga xabar yuborish helper
- // FRONTENDDAN BACKENDGA XABAR YUBORISH (env orqali)
-async function notifyTelegram({ name, phone, score, total, passed }) {
-  try {
-    setNotifyStatus("sending");
+  // FRONTENDDAN BACKENDGA XABAR YUBORISH (env orqali)
+  async function notifyTelegram({ name, phone, score, total, passed }) {
+    try {
+      setNotifyStatus("sending");
 
-    const percent = Math.round((score / total) * 100);
+      const percent = Math.round((score / total) * 100);
 
-    // 🔧 Backend manzili env’dan olinadi (Vite)
-    const API_BASE =
-      (typeof import.meta !== "undefined" &&
-        import.meta.env &&
-        import.meta.env.VITE_API_BASE_URL) || ""; // bo'sh qolsa relative yo'l ishlatiladi
+      // 🔧 Backend manzili env’dan olinadi (Vite)
+      const API_BASE =
+        (typeof import.meta !== "undefined" &&
+          import.meta.env &&
+          import.meta.env.VITE_API_BASE_URL) ||
+        ""; // bo'sh qolsa relative yo'l ishlatiladi
 
-    const url = `https://idokon.uz/bot2/api/telegram-notify`;
+      const url = `https://idokon.uz/bot2/api/telegram-notify`;
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      // ⚠️ Token/ChatID frontga yozilmaydi — ular backend env’da bo‘ladi
-      body: JSON.stringify({ name, phone, score, total, percent, passed }),
-      
-    });
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // ⚠️ Token/ChatID frontga yozilmaydi — ular backend env’da bo‘ladi
+        body: JSON.stringify({ name, phone, score, total, percent, passed }),
+      });
 
-    if (!res.ok) throw new Error(await res.text());
-    setNotifyStatus("ok");
-  } catch (e) {
-    console.error("Telegramga yuborishda xatolik:", e);
-    setNotifyStatus("err");
+      if (!res.ok) throw new Error(await res.text());
+      setNotifyStatus("ok");
+    } catch (e) {
+      console.error("Telegramga yuborishda xatolik:", e);
+      setNotifyStatus("err");
+    }
   }
-}
-
 
   async function submitAnswers() {
     let sc = 0;
@@ -207,6 +248,11 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
   const q = questions[current];
   const pillsRef = useRef(null);
 
+  // show score percent and pass threshold in UI
+  const percentScore =
+    score != null && total > 0 ? Math.round((score / total) * 100) : 0;
+  const passPercent = Math.round(PASS_RATE * 100);
+
   function handlePillsWheel(e) {
     const el = pillsRef.current;
     if (!el) return;
@@ -238,7 +284,11 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
     if (!el) return;
     const btn = el.children[current];
     if (btn && typeof btn.scrollIntoView === "function") {
-      btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      btn.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
     }
   }, [current]);
 
@@ -250,7 +300,15 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
         setFailVisible(false);
         t = setTimeout(() => setCongratsVisible(true), 200);
         g = setTimeout(() => {
-          const colors = ["#EF4444","#F97316","#F59E0B","#10B981","#06B6D4","#6366F1","#EC4899"];
+          const colors = [
+            "#EF4444",
+            "#F97316",
+            "#F59E0B",
+            "#10B981",
+            "#06B6D4",
+            "#6366F1",
+            "#EC4899",
+          ];
           const pieces = Array.from({ length: 28 }).map((_, i) => ({
             id: `c${Date.now()}_${i}`,
             left: Math.round(Math.random() * 100),
@@ -284,7 +342,9 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
     <div className="mx-auto max-w-6xl p-4 md:p-6 pb-20">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Idokon bo'yicha bilim darajangizni tekshiring</h1>
+          <h1 className="text-2xl font-bold text-gray-900">
+            Idokon bo'yicha bilim darajangizni tekshiring
+          </h1>
           <p className="text-gray-500">
             Hurmatli mijoz sizga {questionCount} ta test beriladi.
           </p>
@@ -294,11 +354,16 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
             <span className="text-sm text-gray-600">
               {answeredCount}/{total}
             </span>
-            <div className="h-2 w-40 rounded-full bg-gray-200">
-              <div
-                className="h-full bg-indigo-600 transition-all"
-                style={{ width: `${progress}%` }}
-              />
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-40 rounded-full bg-gray-200">
+                <div
+                  className="h-full bg-indigo-600 transition-all"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <span className="text-sm font-semibold text-gray-700">
+                {progress}%
+              </span>
             </div>
           </div>
         )}
@@ -359,19 +424,33 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
                 touchAction: "pan-y",
               }}
             >
-              {questions.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrent(idx)}
-                  className={`px-3 py-1 rounded-md border text-sm font-semibold whitespace-nowrap ${
-                    idx === current
-                      ? "bg-indigo-600 text-white border-indigo-600"
-                      : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
-                  }`}
-                >
-                  {idx + 1}
-                </button>
-              ))}
+              {questions.map((_, idx) => {
+                const q = questions[idx];
+                const isCurrent = idx === current;
+                const isAnswered = q && answers && !!answers[q.id];
+                const base =
+                  "px-3 py-1 rounded-md border text-sm font-semibold whitespace-nowrap";
+                const stateClass = isCurrent
+                  ? "bg-blue-400 text-white border-blue-400"
+                  : isAnswered
+                  ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                  : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50";
+
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrent(idx)}
+                    className={`${base} ${stateClass}`}
+                    title={
+                      isAnswered
+                        ? "Bu savol javoblangan"
+                        : "Bu savol javoblanmagan"
+                    }
+                  >
+                    {idx + 1}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -399,7 +478,9 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
                   >
                     <div
                       className={`flex items-center justify-center h-9 w-9 rounded-md font-bold ${
-                        selected ? "bg-indigo-600 text-white" : "bg-gray-100 text-gray-700"
+                        selected
+                          ? "bg-indigo-600 text-white"
+                          : "bg-gray-100 text-gray-700"
                       }`}
                     >
                       {key}
@@ -446,8 +527,17 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
         <div className="mx-auto max-w-xl">
           {/* pass card */}
           {score != null && total > 0 && score / total >= PASS_RATE && (
-            <div className={`mb-4 rounded-xl border bg-white p-6 text-center shadow-sm transform transition-all duration-700 ease-out relative overflow-visible ${congratsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-              <div aria-hidden className="pointer-events-none absolute inset-0 overflow-visible">
+            <div
+              className={`mb-4 rounded-xl border bg-white p-6 text-center shadow-sm transform transition-all duration-700 ease-out relative overflow-visible ${
+                congratsVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 overflow-visible"
+              >
                 {confetti.map((p) => (
                   <span
                     key={p.id}
@@ -469,10 +559,14 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
               </div>
 
               <div className="text-green-700 text-2xl md:text-3xl font-extrabold mb-2">
-                🎉 Tabriklaymiz{ name ? `, ${name}` : "" }!
+                🎉 Tabriklaymiz{name ? `, ${name}` : ""}!
               </div>
               <div className="text-gray-700 mb-4">
-                Siz testdan {Math.round((score / total) * 100)}% natija bilan o'tdingiz.
+                Siz testdan {percentScore}% natija bilan o'tdingiz.
+              </div>
+              <div className="text-gray-600">
+                O'tish uchun kerak bo'lgan foiz:{" "}
+                <span className="font-semibold">{passPercent}%</span>
               </div>
               <div className="text-gray-600">
                 Siz Idokondan foydalanish uchun ro'yxatdan o'tishingiz mumkin.
@@ -498,10 +592,23 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
 
           {/* fail card */}
           {score != null && total > 0 && score / total < PASS_RATE && (
-            <div className={`mb-4 rounded-xl border bg-red-50 p-6 text-center shadow-sm transform transition-all duration-500 ease-out ${failVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-              <div className="text-red-700 text-xl font-bold mb-2">Afsuski, bu safar testdan o‘ta olmadingiz.</div>
+            <div
+              className={`mb-4 rounded-xl border bg-red-50 p-6 text-center shadow-sm transform transition-all duration-500 ease-out ${
+                failVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
+              <div className="text-red-700 text-xl font-bold mb-2">
+                Afsuski, bu safar testdan o‘ta olmadingiz.
+              </div>
+              <div className="text-gray-700 mb-2">
+                Siz {percentScore}% to'pladingiz. O'tish uchun kerak:{" "}
+                {passPercent}%.
+              </div>
               <div className="text-gray-700 mb-3">
-                Lekin tashvishlanmang — biroz ko‘proq tayyorgarlik ko‘rib, qayta urinib ko‘ring! 💪
+                Lekin tashvishlanmang — biroz ko‘proq tayyorgarlik ko‘rib, qayta
+                urinib ko‘ring! 💪
               </div>
             </div>
           )}
@@ -524,6 +631,10 @@ async function notifyTelegram({ name, phone, score, total, passed }) {
               <span className="font-bold">
                 {score}/{total}
               </span>
+            </p>
+            <p className="mb-2 text-gray-600">
+              Foiz: <span className="font-bold">{percentScore}%</span> — O'tish
+              uchun: <span className="font-bold">{passPercent}%</span>
             </p>
             <button
               onClick={resetAll}
