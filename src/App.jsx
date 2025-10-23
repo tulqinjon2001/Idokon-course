@@ -38,7 +38,7 @@ function App() {
             <img
               src="https://optim.tildacdn.one/tild6563-3735-4562-a136-303435623931/-/resize/412x/-/format/webp/-removebg-preview.png.webp"
               alt="IDOKON Logo"
-              className="h-5 object-contain"
+              className="h-6 object-contain max-w-xs"
             />
             <button
               onClick={toggleSidebar}
