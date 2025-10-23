@@ -34,14 +34,14 @@ function App() {
         {/* Main Content */}
         <div className="flex-1 w-full lg:ml-64 overflow-y-auto transition-all duration-300">
           {/* Mobile Header */}
-          <div className="lg:hidden sticky top-0 z-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3 flex items-center justify-between">
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">I-DOKON</h1>
+          <div className="lg:hidden sticky top-0 z-20 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+            <h1 className="text-xl font-bold text-gray-900">I-DOKON</h1>
             <button
               onClick={toggleSidebar}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               aria-label="Toggle menu"
             >
-              <svg className="w-6 h-6 text-gray-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isSidebarOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
               </svg>
             </button>
