@@ -35,7 +35,11 @@ function App() {
         <div className="flex-1 w-full lg:ml-64 overflow-y-auto transition-all duration-300">
           {/* Mobile Header */}
           <div className="lg:hidden sticky top-0 z-20 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
-            <h1 className="text-xl font-bold text-gray-900">I-DOKON</h1>
+            <img
+              src="https://optim.tildacdn.one/tild6563-3735-4562-a136-303435623931/-/resize/412x/-/format/webp/-removebg-preview.png.webp"
+              alt="IDOKON Logo"
+              className="h-8 object-contain"
+            />
             <button
               onClick={toggleSidebar}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
