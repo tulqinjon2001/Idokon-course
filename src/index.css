@@ -8,4 +8,85 @@ body,
   padding: 0;
 }
 
+/* Mobile-first responsive utilities */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+}
 
+/* Ensure proper overflow handling on mobile */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fix for sidebar transitions on mobile */
+@media (max-width: 1024px) {
+  .lg\:hidden {
+    display: block !important;
+  }
+
+  .lg\:block {
+    display: none !important;
+  }
+
+  .lg\:ml-64 {
+    margin-left: 0 !important;
+  }
+}
+
+/* Responsive image handling */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive table handling */
+table {
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  table {
+    display: table;
+  }
+}
+
+/* Touch-friendly buttons on mobile */
+@media (max-width: 640px) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Responsive iframe container */
+.aspect-video {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+
+.aspect-video > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ensure modals are responsive */
+@media (max-width: 640px) {
+  .fixed {
+    position: fixed;
+    z-index: 999;
+  }
+}
