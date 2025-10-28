@@ -66,7 +66,7 @@ const ROUTES = [
 export default function AllInOne() {
   const location = useLocation();
 
-  // 🔍 path’ni `startsWith` orqali qidirish
+  // 🔍 path'ni `startsWith` orqali qidirish
   const current = ROUTES.find((r) => location.pathname.startsWith(r.path));
 
   // 🧩 Komponent topilmasa, default yoki 404
@@ -75,14 +75,14 @@ export default function AllInOne() {
     : location.pathname === "/" || location.pathname === ""
     ? AboutIdokon
     : () => (
-        <div className="p-8 text-center text-red-500 font-semibold">
+        <div className="p-4 sm:p-6 md:p-8 text-center text-red-500 font-semibold">
           Sahifa topilmadi (404)
         </div>
       );
 
   return (
-    <div className="flex flex-col h-full w-full bg-gray-50 overflow-y-auto">
-      <div className="p-4 md:p-6">
+    <div className="flex flex-col min-h-screen w-full bg-gray-50 overflow-x-hidden">
+      <div className="flex-1 px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8">
         <PageComponent />
       </div>
     </div>

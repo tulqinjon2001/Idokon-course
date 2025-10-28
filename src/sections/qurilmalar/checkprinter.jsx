@@ -16,19 +16,35 @@ export default function CheckPrinter() {
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 border-b-2 border-gray-200 dark:border-gray-600 pb-2">
           1. Ulanish bo'yicha video-qo'llanma
         </h2>
-        <div className="w-full h-64 md:h-96 rounded-lg overflow-hidden shadow">
-          <iframe
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/LSZg_qKglKo"
-            title="Printerga ulanish videosi"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+        <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-3 sm:p-4">
+          <div className="w-full aspect-video rounded-lg overflow-hidden">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/LSZg_qKglKo"
+              title="Printerga ulanish videosi"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          </div>
+
+          {/* YouTube va Playlist tugmalari */}
+          <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
+            <a
+              href="https://www.youtube.com/watch?v=LSZg_qKglKo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-cyan-600 text-white rounded-md text-sm sm:text-base hover:bg-cyan-700 transition text-center"
+              aria-label="YouTube videoni yangi oynada ochish"
+            >
+              YouTube-da ochish
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Drayver va qo‘llanma yuklab olish */}
+      {/* Drayver va qo'llanma yuklab olish */}
       <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8">
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 border-b-2 border-gray-200 dark:border-gray-600 pb-2">
           2. Yuklab olish
@@ -48,7 +64,7 @@ export default function CheckPrinter() {
             rel="noopener noreferrer"
             className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
           >
-            Qo‘llanmani yuklab olish (PDF)
+            Qo'llanmani yuklab olish (PDF)
           </a>
         </div>
       </div>
@@ -64,7 +80,7 @@ export default function CheckPrinter() {
               text: `Drayver faylini ishga tushiring. Sichqonchaning o'ng tugmasini bosib, "Открыть" ni tanlang.`,
               img: "10.jpg",
             },
-            { text: `O‘rnatish oynasida "Да" tugmasini bosing.`, img: "1.jpg" },
+            { text: `O'rnatish oynasida "Да" tugmasini bosing.`, img: "1.jpg" },
             {
               text: `Qaysi interfeysda davom etishni tanlang va OK tugmasini bosing.`,
               img: "9.jpg",
@@ -75,11 +91,11 @@ export default function CheckPrinter() {
             },
             { text: `Next tugmasini bosing va davom eting.`, img: "7.jpg" },
             {
-              text: `O‘rnatishni davom ettirish uchun "Install" tugmasini bosing.`,
+              text: `O'rnatishni davom ettirish uchun "Install" tugmasini bosing.`,
               img: "6.jpg",
             },
             {
-              text: `O‘rnatish yakunida “Finish” tugmasini bosing.`,
+              text: `O'rnatish yakunida "Finish" tugmasini bosing.`,
               img: "5.jpg",
             },
             {
@@ -91,7 +107,7 @@ export default function CheckPrinter() {
               img: "3.jpg",
             },
             {
-              text: `Install Now tugmasini bosish orqali drayverni o‘rnatishni yakunlaymiz.`,
+              text: `Install Now tugmasini bosish orqali drayverni o'rnatishni yakunlaymiz.`,
               img: "2.jpg",
             },
             {

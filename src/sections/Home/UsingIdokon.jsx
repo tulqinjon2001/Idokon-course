@@ -1,10 +1,8 @@
-// idokon_kursi/frontend/src/sections/UsingIdokon.jsx
-
 import React from "react";
 
 const steps = [
   {
-    title: "1. Ro‘yxatdan o‘tish",
+    title: "1. Ro'yxatdan o'tish",
     desc: (
       <>
         <p>
@@ -19,24 +17,23 @@ const steps = [
           manziliga kiring.
         </p>
         <p>
-          Ma’lumotlarni to‘ldirib, <b>login va parol</b> tanlang.
+          Ma'lumotlarni to'ldirib, <b>login va parol</b> tanlang.
         </p>
         <p>
-          Ko‘rsatilgan tartibda <b>to‘lovni amalga oshiring</b>.
+          Ko'rsatilgan tartibda <b>to'lovni amalga oshiring</b>.
         </p>
         <p>
-          To‘lov tasdiqlangandan so‘ng, IDOKON xodimlari siz uchun account ochib
+          To'lov tasdiqlangandan so'ng, IDOKON xodimlari siz uchun account ochib
           berishadi.
         </p>
       </>
     ),
     video: (
       <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
-        {/* Bu yerga 1-bosqich video iframe kiritiladi */}
         <iframe
           className="w-full h-full rounded-lg"
           src="https://www.youtube.com/embed/F6U6gbD2W-0"
-          title="IDOKON Ro‘yxatdan o‘tish"
+          title="IDOKON Ro'yxatdan o'tish"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -63,7 +60,7 @@ const steps = [
           manziliga kiring.
         </p>
         <p>
-          Ro‘yxatdan o‘tishda tanlagan <b>login va parol</b> orqali tizimga
+          Ro'yxatdan o'tishda tanlagan <b>login va parol</b> orqali tizimga
           kiring.
         </p>
         <p>
@@ -73,7 +70,6 @@ const steps = [
     ),
     video: (
       <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
-        {/* Bu yerga 2-bosqich video iframe kiritiladi */}
         <iframe
           className="w-full h-full"
           src="https://www.youtube.com/embed/waknksArg8E?rel=0&modestbranding=1"
@@ -87,15 +83,15 @@ const steps = [
     ),
   },
   {
-    title: "3. Kassir qo‘shish",
+    title: "3. Kassir qo'shish",
     desc: (
       <>
         <p>
           Admin panelga kirib, chap menyudan <b>Mening foydalanuvchilarim</b>{" "}
-          bo‘limini tanlang.
+          bo'limini tanlang.
         </p>
         <p>
-          Yuqoridagi <b>“Qo‘shish”</b> tugmasini bosing.
+          Yuqoridagi <b>"Qo'shish"</b> tugmasini bosing.
         </p>
         <p>
           <b>Rol</b> maydonidan <b>Kassir</b>ni tanlang va kassir uchun ism,
@@ -109,7 +105,6 @@ const steps = [
     ),
     video: (
       <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
-        {/* Bu yerga 3-bosqich video iframe kiritiladi */}
         <iframe
           className="w-full h-full"
           src="https://www.youtube.com/embed/V1mcKNpba-A?rel=0&modestbranding=1"
@@ -123,15 +118,15 @@ const steps = [
     ),
   },
   {
-    title: "4. Do'kon uchun kassa qo‘shish",
+    title: "4. Do'kon uchun kassa qo'shish",
     desc: (
       <>
         <p>
           Admin panelga kirib, chap menyudan <b>Savdo nuqtasi kassa</b>{" "}
-          bo‘limini tanlang.
+          bo'limini tanlang.
         </p>
         <p>
-          Yuqoridagi <b>“Qo‘shish”</b> tugmasini bosing.
+          Yuqoridagi <b>"Qo'shish"</b> tugmasini bosing.
         </p>
         <p>
           Bu joydan <b>Kassa nomi</b>ni kiriting, <b>Savdo nuqtasi</b> va{" "}
@@ -145,11 +140,10 @@ const steps = [
     ),
     video: (
       <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
-        {/* Bu yerga 3-bosqich video iframe kiritiladi */}
         <iframe
           className="w-full h-full"
           src="https://www.youtube.com/embed/eM_xCZ-0ONk?rel=0&modestbranding=1"
-          title="IDOKON — Kassir qo‘shish"
+          title="IDOKON — Kassir qo'shish"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
           loading="lazy"
@@ -162,17 +156,17 @@ const steps = [
     title: "5. Kassaga kirish",
     desc: (
       <>
-        <p>Kassa dasturini kompyuteringizga o‘rnatishingiz kerak.</p>
+        <p>Kassa dasturini kompyuteringizga o'rnatishingiz kerak.</p>
         <p>
-          Dastur faylini quyidagi havola orqali yuklab oling va o‘rnatishni
-          tugatgandan so‘ng, kassir uchun berilgan login va parol bilan tizimga
+          Dastur faylini quyidagi havola orqali yuklab oling va o'rnatishni
+          tugatgandan so'ng, kassir uchun berilgan login va parol bilan tizimga
           kiring.
         </p>
         <div className="mt-4">
           <a
             href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokon1.2.2.x64.exe"
             download
-            className="inline-block px-5 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow hover:bg-cyan-700 transition"
+            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow hover:bg-cyan-700 transition text-sm sm:text-base"
           >
             📥 Kassani yuklab olish
           </a>
@@ -181,7 +175,6 @@ const steps = [
     ),
     video: (
       <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
-        {/* Bu yerga 4-bosqich video iframe kiritiladi */}
         <iframe
           className="w-full h-full"
           src="https://www.youtube.com/embed/iLP0_W_1cxg?rel=0&modestbranding=1"
@@ -198,28 +191,29 @@ const steps = [
 
 const UsingIdokon = () => {
   return (
-    <section className="py-16 bg-gradient-to-b from-slate-50 to-white">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-center text-slate-800 mb-12">
+    <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-b from-slate-50 to-white">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-slate-800 mb-8 sm:mb-10 md:mb-12">
           IDOKONdan qanday foydalaniladi?
         </h2>
 
-        <div className="space-y-16">
+        <div className="space-y-8 sm:space-y-10 md:space-y-16">
           {steps.map((step, idx) => (
             <div
               key={idx}
-              className="grid md:grid-cols-2 gap-8 items-center bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-center bg-white rounded-lg sm:rounded-2xl shadow-md p-4 sm:p-5 md:p-6 hover:shadow-lg transition"
             >
-              {/* Agar juft bosqich bo‘lsa – video o‘ngda chiqsin */}
               <div className={idx % 2 === 0 ? "" : "md:order-2"}>
                 {step.video}
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold text-slate-800 mb-3">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-slate-800 mb-3 sm:mb-4">
                   {step.title}
                 </h3>
-                <div className="text-slate-600 space-y-2">{step.desc}</div>
+                <div className="text-slate-600 space-y-2 text-xs sm:text-sm md:text-base">
+                  {step.desc}
+                </div>
               </div>
             </div>
           ))}
