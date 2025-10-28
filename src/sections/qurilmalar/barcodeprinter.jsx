@@ -12,7 +12,7 @@ export default function BarcodePrinter() {
       </h1>
       <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
         Barcode printer qurilmasini kompyuteringizga ulash uchun quyidagi video
-        qo‘llanmalarni ko‘ring va keyingi bosqichlarni bajaring.
+        qo'llanmalarni ko'ring va keyingi bosqichlarni bajaring.
       </p>
 
       {/* 1. Barcode printerni ulash video */}
@@ -51,31 +51,44 @@ export default function BarcodePrinter() {
       {/* 2. Qog'oz razmerini sozlash video */}
       <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8">
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
-          2. Qog‘oz razmerini sozlash (video)
+          2. Qog'oz razmerini sozlash (video)
         </h2>
-        <div
-          className="relative w-full overflow-hidden rounded-lg"
-          style={{ paddingTop: "56.25%" }}
-        >
-          <iframe
-            className="absolute top-0 left-0 w-full h-full"
-            src="https://www.youtube.com/embed/hISTcdXwjU8"
-            title="Barcode printer qog'oz razmerini sozlash videosi"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+        <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-3 sm:p-4">
+          <div className="w-full aspect-video rounded-lg overflow-hidden">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/hISTcdXwjU8"
+              title="Barcode printer qog'oz razmerini sozlash videosi"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          </div>
+
+          {/* YouTube va Playlist tugmalari */}
+          <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
+            <a
+              href="https://www.youtube.com/watch?v=hISTcdXwjU8"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-cyan-600 text-white rounded-md text-sm sm:text-base hover:bg-cyan-700 transition text-center"
+              aria-label="YouTube videoni yangi oynada ochish"
+            >
+              YouTube-da ochish
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* 3. Yuklab olish bo‘limi */}
+      {/* 3. Yuklab olish bo'limi */}
       <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8">
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
           3. Yuklab olish
         </h2>
         <p className="text-gray-600 dark:text-gray-400 mb-4">
           Qurilmaning toʻgʻri ishlashi uchun drayverni oʻrnatish shart.
-          Shuningdek, printer sozlash bo‘yicha PDF qo‘llanmani ham yuklab
+          Shuningdek, printer sozlash bo'yicha PDF qo'llanmani ham yuklab
           olishingiz mumkin:
         </p>
         <div className="flex flex-wrap gap-4">
@@ -93,20 +106,20 @@ export default function BarcodePrinter() {
             rel="noopener noreferrer"
             className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
           >
-            Qo‘llanmani yuklab olish (PDF)
+            Qo'llanmani yuklab olish (PDF)
           </a>
         </div>
         <p className="text-sm text-gray-500 mt-2">
-          ⚠️ Fayl katta bo‘lgani uchun Google Drive virusni tekshira olmaydi.
+          ⚠️ Fayl katta bo'lgani uchun Google Drive virusni tekshira olmaydi.
           Ochilgan oynada <strong>Download anyway</strong> tugmasini bosish
-          kerak bo‘ladi.
+          kerak bo'ladi.
         </p>
       </div>
 
-      {/* 4. O‘rnatish bo‘yicha bosqichlar */}
+      {/* 4. O'rnatish bo'yicha bosqichlar */}
       <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
-          4. O‘rnatish bo‘yicha bosqichlar
+          4. O'rnatish bo'yicha bosqichlar
         </h2>
         <ol className="list-decimal list-inside text-gray-600 dark:text-gray-400 space-y-2">
           <li>
