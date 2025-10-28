@@ -173,8 +173,8 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
                       onClick={handleNavClick}
                       className={`px-3 py-2 rounded-md text-sm transition-colors ${
                         location.pathname === sub.path
-                          ? "bg-[#5d79b7] text-white"
-                          : "hover:bg-[#e0e8f7] text-gray-700"
+                          ? "bg-[#3b5998] text-white" // Darker background for active submenu
+                          : "hover:bg-[#8b9dc3] text-gray-800" // Darker hover background for submenu
                       }`}
                     >
                       {sub.name}
