@@ -7,13 +7,21 @@ import UsingIdokon from "../sections/Home/UsingIdokon";
 import NewsSection from "../sections/Home/NewsSection";
 
 /* 🧰 Admin Panel komponentlari */
-import AdmingaKirish from "../sections/admin panel/adminga-kirish";
-import MahsulotQabulQilish from "../sections/admin panel/1-bolim/mahsulot-qabul-qilish";
-import BuyurtmalarSD from "../sections/admin panel/1-bolim/buyurtmalar-sd";
-import Inventarizatsiya from "../sections/admin panel/1-bolim/Inventarizatsiya";
+import AdmingaKirish from "../sections/admin_panel/adminga-kirish";
+import MahsulotQabulQilish from "../sections/admin_panel/1-bolim/mahsulot-qabul-qilish";
+import BuyurtmalarSD from "../sections/admin_panel/1-bolim/buyurtmalar-sd";
+import Inventarizatsiya from "../sections/admin_panel/1-bolim/Inventarizatsiya";
+import Nomenklatura from "../sections/admin_panel/1-bolim/nomenklatura";
+import TaminotchigaQaytar_hisobdanChiqar from "../sections/admin_panel/1-bolim//taminotchiqaytar-hisobchiqar";
+import QaytaNarx_tarix from "../sections/admin_panel/1-bolim/qaytaNarx_tarix";
+import Guruhlash from "../sections/admin_panel/1-bolim/guruhlash-toplam-aksiya";
+import MahsulotKochir from "../sections/admin_panel/1-bolim//mahsulotKochir";
+import Tarozi from "../sections/admin_panel/1-bolim/tarozi";
+import Cheklar from "../sections/admin_panel/1-bolim/cheklar";
+import Bildirishnomalar from "../sections/admin_panel/1-bolim/bildirishnomalar";
 
 /* 💰 Kassa Panel komponentlari */
-import KassagaKirish from "../sections/kassaPanel/KassagaKirish";
+import KassagaKirish from "../sections/kassaPanel/Kassa_yuklash_ornatish";
 import kassadasotish from "../sections/kassaPanel/kassadaSotish";
 import kassadaQaytarish from "../sections/kassaPanel/kassadaQaytarish";
 import kassaSozlamalari from "../sections/kassaPanel/kassaSozlamalari";
@@ -42,9 +50,20 @@ const ROUTES = [
   { path: "/admin/mahsulot-qabul", component: MahsulotQabulQilish },
   { path: "/admin/buyurtmalar-sd", component: BuyurtmalarSD },
   { path: "/admin/inventarizatsiya", component: Inventarizatsiya },
+  { path: "/admin/nomenklatura", component: Nomenklatura },
+  {
+    path: "/admin/taminotchiga-qaytarish",
+    component: TaminotchigaQaytar_hisobdanChiqar,
+  },
+  { path: "/admin/qayta-narx-tarix", component: QaytaNarx_tarix },
+  { path: "/admin/guruhlash", component: Guruhlash },
+  { path: "/admin/mahsulot-kochir", component: MahsulotKochir },
+  { path: "/admin/tarozi", component: Tarozi },
+  { path: "/admin/cheklar", component: Cheklar },
+  { path: "/admin/bildirishnomalar", component: Bildirishnomalar },
 
   /* 💰 Kassa Panel */
-  { path: "/kassa/kirish", component: KassagaKirish },
+  { path: "/kassa/yuklash-ornatish", component: KassagaKirish },
   { path: "/kassa/sotish", component: kassadasotish },
   { path: "/kassa/qaytarish", component: kassadaQaytarish },
   { path: "/kassa/sozlamalar", component: kassaSozlamalari },

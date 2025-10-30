@@ -7,55 +7,44 @@ import "./index.css";
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-  const closeSidebar = () => setIsSidebarOpen(false);
 
   return (
     <Router>
-      <div className="flex bg-gray-100 min-h-screen dark:bg-gray-900 overflow-x-hidden">
-        {/* Sidebar - Hidden on mobile, visible on lg+ */}
-        <div className="hidden lg:block fixed left-0 top-0 h-full z-40">
-          <Sidebar isOpen={true} toggleSidebar={toggleSidebar} />
-        </div>
-
-        {/* Mobile Sidebar Overlay */}
+      <div className="flex min-h-screen bg-gray-100">
+        {/* Overlay */}
         {isSidebarOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 lg:hidden z-30"
-            onClick={closeSidebar}
-            aria-hidden="true"
+            className="fixed inset-0 bg-black/50 z-20 md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
           />
         )}
 
-        {/* Mobile Sidebar */}
-        <div className="lg:hidden fixed left-0 top-0 h-full z-40">
-          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        </div>
+        {/* Single Sidebar Component */}
+        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
         {/* Main Content */}
-        <div className="flex-1 w-full lg:ml-64 overflow-y-auto transition-all duration-300">
-          {/* Mobile Header */}
-          <div className="lg:hidden sticky top-0 z-20 bg-white border-b border-gray-200 px-4 py-3 flex items-center">
+        <main className="flex-1 ml-0 md:ml-64">
+          {/* Mobile Header - Updated logo styling */}
+          <div className="sticky top-0 z-10 md:hidden bg-white border-b px-4 py-2 flex items-center justify-between">
             <img
               src="https://optim.tildacdn.one/tild6563-3735-4562-a136-303435623931/-/resize/412x/-/format/webp/-removebg-preview.png.webp"
               alt="IDOKON Logo"
-              className="h-4 object-contain"
+              className="h-5 w-auto max-w-[120px] object-contain"
             />
             <button
               onClick={toggleSidebar}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors ml-auto"
-              aria-label="Toggle menu"
+              className="p-2 hover:bg-gray-100 rounded-lg"
             >
-              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isSidebarOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-              </svg>
+              <i className="fa-solid fa-bars text-xl" />
             </button>
           </div>
 
-          <Routes>
-            {/* ⬇️ Har qanday ichki yo'lni AllInOne boshqaradi */}
-            <Route path="/*" element={<AllInOne toggleSidebar={closeSidebar} />} />
-          </Routes>
-        </div>
+          <div className="p-4">
+            <Routes>
+              <Route path="/*" element={<AllInOne />} />
+            </Routes>
+          </div>
+        </main>
       </div>
     </Router>
   );

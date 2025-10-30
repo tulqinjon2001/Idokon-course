@@ -21,14 +21,25 @@ const navLinks = [
       { name: "Adminga kirish", path: "/admin/adminga-kirish" },
       { name: "Mahsulot qabul qilish", path: "/admin/mahsulot-qabul" },
       { name: "Buyurtmalar SD", path: "/admin/buyurtmalar-sd" },
+      { name: "Nomenklatura", path: "/admin/nomenklatura" },
+      { name: "Qayta narx tarix", path: "/admin/qayta-narx-tarix" },
+      {
+        name: "Taminotchiga qaytarish",
+        path: "/admin/taminotchiga-qaytarish",
+      },
       { name: "Inventarizatsiya", path: "/admin/inventarizatsiya" },
+      { name: "Guruhlash", path: "/admin/guruhlash" },
+      { name: "Mahsulot ko'chir", path: "/admin/mahsulot-kochir" },
+      { name: "Tarozi", path: "/admin/tarozi" },
+      { name: "Cheklar", path: "/admin/cheklar" },
+      { name: "Bildirishnomalar", path: "/admin/bildirishnomalar" },
     ],
   },
   {
     name: "Kassa Panel",
     icon: "creditcard",
     submenu: [
-      { name: "Kassaga kirish", path: "/kassa/kirish" },
+      { name: "Kassani yuklash va o'rnatish", path: "/kassa/yuklash-ornatish" },
       { name: "Kassada sotish", path: "/kassa/sotish" },
       { name: "Qaytarish", path: "/kassa/qaytarish" },
       { name: "Sozlamalar", path: "/kassa/sozlamalar" },
@@ -51,13 +62,11 @@ const navLinks = [
       { name: "To'lov qilish", path: "/savollar/tolov" },
     ],
   },
-  { 
-    name: "Test ishlash", 
-    icon: "checkcircle", 
-    submenu: [
-      { name: "Test ishlash", path: "/test" },
-    ],
-  }
+  {
+    name: "Test ishlash",
+    icon: "checkcircle",
+    submenu: [{ name: "Test ishlash", path: "/test" }],
+  },
 ];
 
 /* -------------------------------- ICONLAR -------------------------------- */
@@ -101,81 +110,72 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
   };
 
   return (
-    <div
-      className={`bg-[#eee] text-gray-900 flex flex-col h-screen transition-all duration-300 overflow-y-auto ${
-        isOpen ? "w-64" : "w-0 lg:w-64"
-      }`}
+    <aside
+      className={`fixed top-0 left-0 h-full bg-[#eee] z-30 transition-all duration-300
+        md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        w-64 shadow-lg`}
     >
-      {/* 🔹 LOGO + TOGGLE */}
-      <div className="py-3 px-4 flex items-center justify-between flex-shrink-0 border-b border-gray-200">
-        {isOpen && (
-          <img
-            src="https://optim.tildacdn.one/tild6563-3735-4562-a136-303435623931/-/resize/412x/-/format/webp/-removebg-preview.png.webp"
-            alt="IDOKON Logo"
-            className="h-10 object-contain"
-          />
-        )}
+      {/* Header - Updated height and logo size */}
+      {/* <div className="h-12 px-3 flex items-center justify-between border-b border-gray-200">
+        <img
+          src="https://optim.tildacdn.one/tild6563-3735-4562-a136-303435623931/-/resize/412x/-/format/webp/-removebg-preview.png.webp"
+          alt="IDOKON Logo"
+          className="h-12 w-auto object-contain" // Reduced from h-8 to h-6
+        />
         <button
           onClick={toggleSidebar}
-          className="text-gray-700 hover:text-gray-900 transition-colors lg:hidden p-1"
-          aria-label="Close menu"
+          className="md:hidden p-1.5 hover:bg-gray-200 rounded-lg"
         >
-          <i className="fa-solid fa-xmark text-xl"></i>
+          <i className="fa-solid fa-xmark text-lg" />
         </button>
-      </div>
+      </div> */}
 
-      {/* 🔹 ASOSIY MENYU */}
-      <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
+      {/* Navigation - Adjusted top spacing */}
+      <nav className="p-4 overflow-y-auto h-[calc(100vh-3rem)]">
+        {" "}
+        {/* Updated from 3.5rem to 3rem */}
         {navLinks.map((link) => {
-          const hasSubmenu = link.submenu && link.submenu.length > 0;
+          const hasSubmenu = link.submenu?.length > 0;
           const isOpenDropdown = openDropdown === link.name;
           const isActive =
             location.pathname === link.path ||
             link.submenu?.some((s) => location.pathname === s.path);
 
           return (
-            <div key={link.name}>
-              {/* BOSHQI MENU */}
+            <div key={link.name} className="mb-2">
               <button
                 onClick={() =>
-                  hasSubmenu
-                    ? setOpenDropdown(isOpenDropdown ? null : link.name)
-                    : setOpenDropdown(null)
+                  hasSubmenu &&
+                  setOpenDropdown(isOpenDropdown ? null : link.name)
                 }
-                className={`flex items-center w-full p-3 rounded-lg transition-colors duration-200 font-semibold ${
-                  isActive
-                    ? "bg-[#5d79b7] text-white"
-                    : "hover:bg-[#d9e2f3] text-gray-800"
-                } ${isOpen ? "space-x-3" : ""}`}
+                className={`w-full flex items-center p-2 rounded-lg
+                  ${isActive ? "bg-[#5d79b7] text-white" : "hover:bg-[#d9e2f3]"}
+                  transition-colors duration-200`}
               >
                 {renderIcon(link.icon)}
-                {isOpen && (
-                  <>
-                    <span className="flex-1 text-left">{link.name}</span>
-                    {hasSubmenu && (
-                      <i
-                        className={`fa-solid fa-chevron-${
-                          isOpenDropdown ? "up" : "down"
-                        } text-xs`}
-                      />
-                    )}
-                  </>
+                <span className="ml-3 flex-1 text-left">{link.name}</span>
+                {hasSubmenu && (
+                  <i
+                    className={`fa-solid fa-chevron-${
+                      isOpenDropdown ? "up" : "down"
+                    } text-xs`}
+                  />
                 )}
               </button>
 
-              {/* SUBMENU */}
-              {isOpen && hasSubmenu && isOpenDropdown && (
-                <div className="ml-3 mt-1 flex flex-col space-y-1 animate-slide-down border-l-2 border-[#5d79b7]">
+              {hasSubmenu && isOpenDropdown && (
+                <div className="ml-4 mt-1 border-l-2 border-[#5d79b7] pl-4 space-y-1">
                   {link.submenu.map((sub) => (
                     <Link
                       key={sub.path}
                       to={sub.path}
-                      onClick={handleNavClick}
-                      className={`px-3 py-2 rounded-md text-sm transition-colors ${
-                        location.pathname === sub.path
-                          ? "bg-[#3b5998] text-white" // Darker background for active submenu
-                          : "hover:bg-[#8b9dc3] text-gray-800" // Darker hover background for submenu
-                      }`}
+                      onClick={() => window.innerWidth < 768 && toggleSidebar()}
+                      className={`block p-2 rounded-lg text-sm
+                        ${
+                          location.pathname === sub.path
+                            ? "bg-[#3b5998] text-white"
+                            : "hover:bg-[#8b9dc3]"
+                        }`}
                     >
                       {sub.name}
                     </Link>
@@ -186,7 +186,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
           );
         })}
       </nav>
-    </div>
+    </aside>
   );
 }
 

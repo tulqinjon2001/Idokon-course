@@ -71,7 +71,11 @@ function Section({ title, steps = [], note, videoUrl, vertical, playlistUrl }) {
                 : "w-full bg-slate-100 rounded-lg overflow-hidden"
             }
           >
-            <div className={vertical ? "aspect-[9/16] w-full" : "aspect-video w-full"}>
+            <div
+              className={
+                vertical ? "aspect-[9/16] w-full" : "aspect-video w-full"
+              }
+            >
               <iframe
                 className="w-full h-full"
                 src={embed}
@@ -120,7 +124,7 @@ const AdmingaKirish = () => {
     <div className="w-full max-w-6xl mx-auto space-y-6 sm:space-y-8 px-4">
       {/* 1) Kompyuter orqali kirish */}
       <Section
-        title="�� Kompyuter orqali kirish"
+        title="🖥 Kompyuter orqali kirish"
         steps={[
           "Kompyuteringizda <b>Google Chrome</b>ni oching.",
           ` <a class="text-cyan-600 underline font-medium" href="https://my.idokon.uz" target="_blank" rel="noreferrer">my.idokon.uz</a> manziliga kiring.`,
@@ -128,7 +132,7 @@ const AdmingaKirish = () => {
           "Kirgandan so'ng boshqaruv oynasi (Admin panel) ochiladi.",
         ]}
         note="Parolni unutib qo'ysangiz, 'Kalit so'zni unutdingizmi?' yozuviga bosish orqali qayta tiklash mumkin."
-        videoUrl="https://www.youtube.com/watch?v=V1mcKNpba-A"
+        videoUrl="https://www.youtube.com/watch?v=waknksArg8E&list=PLNt3xrjLbs_hfUO2_2sN3lsaMAvtMmADq&index=2"
         vertical={false}
       />
 
