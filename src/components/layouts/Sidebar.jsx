@@ -2,6 +2,7 @@ import { Component } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import QuizCom from "../../sections/Quiz/QuizCom.jsx";
+import idokon_logo from "../../../public/assets/idokon_logo.png";
 
 /* -------------------------------- NAVIGATSIYA -------------------------------- */
 const navLinks = [
@@ -116,19 +117,13 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
         w-64 shadow-lg`}
     >
       {/* Header - Updated height and logo size */}
-      {/* <div className="h-12 px-3 flex items-center justify-between border-b border-gray-200">
+      <div className="h-15 px-3 flex items-center justify-between border-b border-gray-200">
         <img
-          src="https://optim.tildacdn.one/tild6563-3735-4562-a136-303435623931/-/resize/412x/-/format/webp/-removebg-preview.png.webp"
+          src={idokon_logo}
           alt="IDOKON Logo"
-          className="h-12 w-auto object-contain" // Reduced from h-8 to h-6
+          className="object-contain" // Reduced from h-8 to h-6
         />
-        <button
-          onClick={toggleSidebar}
-          className="md:hidden p-1.5 hover:bg-gray-200 rounded-lg"
-        >
-          <i className="fa-solid fa-xmark text-lg" />
-        </button>
-      </div> */}
+      </div>
 
       {/* Navigation - Adjusted top spacing */}
       <nav className="p-4 overflow-y-auto h-[calc(100vh-3rem)]">

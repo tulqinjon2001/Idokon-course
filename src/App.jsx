@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/layouts/Sidebar.jsx";
 import AllInOne from "./pages/AllInPages.jsx";
 import "./index.css";
+import idokon_logo from "../public/assets/idokon_logo.png";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -23,13 +24,13 @@ function App() {
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
         {/* Main Content */}
-        <main className="flex-1 ml-0 md:ml-64">
+        <main className="ml-0 md:ml-64">
           {/* Mobile Header - Updated logo styling */}
-          <div className="sticky top-0 z-10 md:hidden bg-white border-b px-4 py-2 flex items-center justify-between">
+          <div className="top-0 z-10 md:hidden bg-white border-b px-4 py-2 flex items-center justify-between">
             <img
-              src="https://optim.tildacdn.one/tild6563-3735-4562-a136-303435623931/-/resize/412x/-/format/webp/-removebg-preview.png.webp"
+              src={idokon_logo}
               alt="IDOKON Logo"
-              className="h-5 w-auto max-w-[120px] object-contain"
+              className="object-contain w-[200px]"
             />
             <button
               onClick={toggleSidebar}
