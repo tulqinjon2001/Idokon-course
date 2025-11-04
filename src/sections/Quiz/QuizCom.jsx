@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import questionsData from "../../data/quiz-questions.json";
 
-const DEFAULT_QUESTION_COUNT = 2;
+const DEFAULT_QUESTION_COUNT = 20;
 const LS_KEY = "quiz_state_v1";
 const PASS_RATE = 0.8;
 
