@@ -75,7 +75,7 @@ const KassagaKirish = () => {
       {/* Yuklab olish va qo'llanma tugmalari */}
       <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
         <a
-          href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokon1.2.2.x64.exe"
+          href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokon1.2.2.x64.2.exe"
           download
           className="flex-1 sm:flex-none px-4 sm:px-5 py-2 sm:py-3 bg-emerald-600 text-white rounded-md text-sm sm:text-base hover:bg-emerald-700 transition text-center"
           aria-label="IDOKON Kassa dasturini yuklab olish"
