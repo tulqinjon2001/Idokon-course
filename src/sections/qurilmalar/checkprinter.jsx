@@ -2,24 +2,24 @@ import React from "react";
 
 export default function CheckPrinter() {
   return (
-    <div className="container mx-auto p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-lg mt-10 max-w-4xl">
-      <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6">
+    <div className="container mx-auto p-6 bg-white dark:bg-white rounded-xl shadow-lg mt-10 max-w-4xl">
+      <h1 className="text-3xl font-bold text-center mb-6">
         Chek Printerga ulanish va sozlash
       </h1>
-      <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+      <p className="text-center mb-8">
         Chek printer qurilmasini kompyuteringizga ulash uchun quyidagi
         bosqichlarni bajaring.
       </p>
 
       {/* Video-qo'llanma */}
-      <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 border-b-2 border-gray-200 dark:border-gray-600 pb-2">
-          1. Ulanish bo'yicha video-qo'llanma
+      <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 className="text-2xl font-semibold mb-4 border-b-2 pb-2">
+          Ulanish bo'yicha video-qo'llanma
         </h2>
-        <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-3 sm:p-4">
-          <div className="w-full aspect-video rounded-lg overflow-hidden">
-            <iframe
-              className="w-full h-full"
+          <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-3 sm:p-4">
+            <div className="w-full max-w-2xl mx-auto aspect-video rounded-lg overflow-hidden">
+              <iframe
+                className="w-full h-full"
               src="https://www.youtube.com/embed/LSZg_qKglKo"
               title="Printerga ulanish videosi"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -40,41 +40,34 @@ export default function CheckPrinter() {
             >
               YouTube-da ochish
             </a>
+
+            <a
+              href="https://github.com/tulqinjon2001/Idokon-course/releases/download/Check_printer/XPrinter.Driver.Setup.V7.77.exe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+            >
+              Drayverni yuklab olish
+            </a>
+
+            <a
+              href="https://github.com/tulqinjon2001/Idokon-course/releases/download/Qollanmalar/Check.printerni.ulash.qo.llanmasi.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+            >
+              Qo'llanmani yuklab olish (PDF)
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Drayver va qo'llanma yuklab olish */}
-      <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 border-b-2 border-gray-200 dark:border-gray-600 pb-2">
-          2. Yuklab olish
-        </h2>
-        <div className="flex flex-wrap gap-4">
-          <a
-            href="https://github.com/tulqinjon2001/Idokon-course/releases/download/Check_printer/XPrinter.Driver.Setup.V7.77.exe"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
-          >
-            Drayverni yuklab olish
-          </a>
-          <a
-            href="https://github.com/tulqinjon2001/Idokon-course/releases/download/Qollanmalar/Check.printerni.ulash.qo.llanmasi.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
-          >
-            Qo'llanmani yuklab olish (PDF)
-          </a>
-        </div>
-      </div>
-
       {/* O'rnatish bosqichlari + rasmlar */}
-      <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 border-b-2 border-gray-200 dark:border-gray-600 pb-2">
-          3. O'rnatish bo'yicha bosqichlar
+      <div className="p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold mb-4 border-b-2 pb-2">
+          O'rnatish bo'yicha bosqichlar
         </h2>
-        <ol className="list-decimal list-inside text-gray-600 dark:text-gray-400 space-y-6">
+        <ol className="list-decimal list-inside space-y-6">
           {[
             {
               text: `Drayver faylini ishga tushiring. Sichqonchaning o'ng tugmasini bosib, "Открыть" ni tanlang.`,
@@ -123,9 +116,13 @@ export default function CheckPrinter() {
               {step.text}
               <div className="mt-3 flex justify-center">
                 <img
-                  src={`assets/devices/checkprinter/${step.img}`}
+                  src={`/assets/devices/checkprinter/${step.img}`}
                   alt={`Step ${i + 1}`}
-                  className="rounded-lg shadow-lg max-w-md w-full object-contain"
+                  className="rounded-lg shadow-lg max-w-sm md:max-w-md object-contain"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/400x300?text=Rasm+topilmadi';
+                    e.target.alt = 'Rasm topilmadi';
+                  }}
                 />
               </div>
             </li>

@@ -5,7 +5,7 @@ import React from "react";
  */
 export default function BarcodePrinter() {
   return (
-    <div className="container mx-auto p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-lg max-w-4xl">
+    <div className="container mx-auto p-6 bg-white dark:bg-white rounded-xl shadow-lg max-w-4xl">
       {/* Title */}
       <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-4">
         Barcode Printerga ulanish va sozlash

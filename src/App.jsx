@@ -11,7 +11,7 @@ function App() {
 
   return (
     <Router>
-      <div className="flex min-h-screen bg-gray-100">
+      <div className="flex min-h-screen bg-white">
         {/* Overlay */}
         {isSidebarOpen && (
           <div
@@ -24,23 +24,23 @@ function App() {
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
         {/* Main Content */}
-        <main className="ml-0 md:ml-64">
+        <main className="ml-0 md:ml-72 flex-1">
           {/* Mobile Header - Updated logo styling */}
-          <div className="top-0 z-10 md:hidden bg-white border-b px-4 py-2 flex items-center justify-between">
+          <div className="sticky top-0 z-10 md:hidden bg-white border-b px-4 py-3 flex items-center justify-between">
             <img
               src={idokon_logo}
               alt="IDOKON Logo"
-              className="object-contain w-[200px]"
+              className="object-contain h-10"
             />
             <button
               onClick={toggleSidebar}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <i className="fa-solid fa-bars text-xl" />
             </button>
           </div>
 
-          <div className="p-4">
+          <div className="p-6 md:p-8 max-w-6xl">
             <Routes>
               <Route path="/*" element={<AllInOne />} />
             </Routes>
