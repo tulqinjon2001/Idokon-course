@@ -26,17 +26,26 @@ function App() {
         {/* Main Content */}
         <main className="ml-0 md:ml-72 flex-1">
           {/* Mobile Header - Updated logo styling */}
-          <div className="sticky top-0 z-10 md:hidden bg-white border-b px-4 py-3 flex items-center justify-between">
-            <img
+          <div className="sticky top-0 z-10 md:hidden bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+                  <i className="fa-solid fa-book text-white text-sm"></i>
+                </div>
+                <span className="text-sm font-semibold text-gray-800">Idokon Docs</span>
+              </div>
+            </div>
+            {/* <img
               src={idokon_logo}
               alt="IDOKON Logo"
-              className="object-contain h-10"
-            />
+              className="object-contain h-7"
+            /> */}
             <button
               onClick={toggleSidebar}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-200 active:bg-gray-300 rounded-lg transition-colors flex items-center justify-center"
+              aria-label="Open menu"
             >
-              <i className="fa-solid fa-bars text-xl" />
+              <i className="fa-solid fa-bars text-2xl text-gray-800" />
             </button>
           </div>
 
