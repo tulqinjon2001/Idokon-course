@@ -7,6 +7,7 @@ import idokon_logo from "../public/assets/idokon_logo.png";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
@@ -21,35 +22,36 @@ function App() {
         )}
 
         {/* Single Sidebar Component */}
-        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        <Sidebar 
+          isOpen={isSidebarOpen} 
+          toggleSidebar={toggleSidebar}
+          isCollapsed={isSidebarCollapsed}
+          setIsCollapsed={setIsSidebarCollapsed}
+        />
 
         {/* Main Content */}
-        <main className="ml-0 md:ml-72 flex-1">
-          {/* Mobile Header - Updated logo styling */}
-          <div className="sticky top-0 z-10 md:hidden bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-                  <i className="fa-solid fa-book text-white text-sm"></i>
-                </div>
-                <span className="text-sm font-semibold text-gray-800">Idokon Docs</span>
+        <main className={`ml-0 ${isSidebarCollapsed ? "md:ml-20" : "md:ml-72"} flex-1 transition-all duration-300 w-full overflow-x-hidden`}>
+          {/* Mobile Header */}
+          <div className="sticky top-0 z-10 md:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i className="fa-solid fa-book text-white text-sm"></i>
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="text-sm font-bold text-gray-900 truncate">Dastur Qo'llanmasi</span>
+                <span className="text-xs text-gray-500 truncate">Mijozlar uchun</span>
               </div>
             </div>
-            {/* <img
-              src={idokon_logo}
-              alt="IDOKON Logo"
-              className="object-contain h-7"
-            /> */}
             <button
               onClick={toggleSidebar}
-              className="p-2 hover:bg-gray-200 active:bg-gray-300 rounded-lg transition-colors flex items-center justify-center"
+              className="p-2 hover:bg-gray-100 active:bg-gray-200 rounded-lg transition-colors flex items-center justify-center flex-shrink-0"
               aria-label="Open menu"
             >
-              <i className="fa-solid fa-bars text-2xl text-gray-800" />
+              <i className="fa-solid fa-bars text-xl text-gray-700" />
             </button>
           </div>
 
-          <div className="p-6 md:p-8 max-w-6xl">
+          <div className="p-4 sm:p-6 md:p-8 w-full max-w-6xl mx-auto">
             <Routes>
               <Route path="/*" element={<AllInOne />} />
             </Routes>

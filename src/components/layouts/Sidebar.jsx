@@ -71,7 +71,7 @@ const navLinks = [
 ];
 
 /* -------------------------------- ICONLAR -------------------------------- */
-function renderIcon(type) {
+function renderIcon(type, isActive = false) {
   const icons = {
     user: "fa-user",
     cog: "fa-gear",
@@ -81,14 +81,14 @@ function renderIcon(type) {
     checkcircle: "fa-circle-check",
   };
   return (
-    <span className="flex items-center justify-center w-5 h-5">
-      <i className={`fa-solid ${icons[type]} fa-fw text-sm`} />
+    <span className={`flex items-center justify-center w-5 h-5 ${isActive ? "text-blue-600" : "text-gray-500"}`}>
+      <i className={`fa-solid ${icons[type]} fa-fw text-base`} />
     </span>
   );
 }
 
 /* -------------------------------- SIDEBAR -------------------------------- */
-export default function Sidebar({ isOpen, toggleSidebar }) {
+export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) {
   const location = useLocation();
   const [openDropdown, setOpenDropdown] = useState(null);
 
@@ -114,32 +114,34 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
     <aside
       className={`fixed top-0 left-0 h-full bg-gray-50 border-r border-gray-200 z-30 transition-all duration-300
         md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        w-72 shadow-lg md:shadow-none overflow-hidden flex flex-col`}
+        ${isCollapsed ? "w-20" : "w-72"} shadow-lg md:shadow-none overflow-hidden flex flex-col`}
     >
       {/* Header with border */}
-      <div className="px-6 py-4 border-b border-gray-200">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-            <i className="fa-solid fa-book text-white text-sm"></i>
+      <div className={`${isCollapsed ? "px-3" : "px-6"} py-4 border-b border-gray-200`}>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center flex-shrink-0">
+              <i className="fa-solid fa-book text-white text-sm"></i>
+            </div>
+            {!isCollapsed && (
+              <div className="flex flex-col min-w-0">
+                <span className="text-sm font-bold text-gray-900 truncate">Dastur Qo'llanmasi</span>
+                <span className="text-xs text-gray-500 truncate">Mijozlar uchun</span>
+              </div>
+            )}
           </div>
-          <span className="text-sm font-semibold text-gray-800">Idokon Docs</span>
-        </div>
-      </div>
-
-      {/* Search bar - Optional */}
-      <div className="px-6 py-3 border-b border-gray-200">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-          />
-          <i className="fa-solid fa-search absolute right-3 top-2.5 text-gray-400 text-sm"></i>
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="hidden md:flex p-2 hover:bg-gray-200 active:bg-gray-300 rounded-lg transition-all duration-200 items-center justify-center flex-shrink-0 group"
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            <i className={`fa-solid fa-chevron-${isCollapsed ? "right" : "left"} text-gray-600 group-hover:text-gray-800 text-sm transition-transform duration-200`}></i>
+          </button>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto px-4 py-4">
+      <nav className={`flex-1 overflow-y-auto ${isCollapsed ? "px-2" : "px-3"} py-3`}>
         {navLinks.map((link) => {
           const hasSubmenu = link.submenu?.length > 0;
           const isOpenDropdown = openDropdown === link.name;
@@ -148,47 +150,59 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
             link.submenu?.some((s) => location.pathname === s.path);
 
           return (
-            <div key={link.name} className="mb-2">
+            <div key={link.name} className="mb-1">
               <button
-                onClick={() =>
-                  hasSubmenu &&
-                  setOpenDropdown(isOpenDropdown ? null : link.name)
-                }
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                onClick={() => {
+                  if (hasSubmenu && !isCollapsed) {
+                    setOpenDropdown(isOpenDropdown ? null : link.name);
+                  }
+                }}
+                className={`w-full flex items-center ${isCollapsed ? "justify-center" : ""} gap-2.5 ${isCollapsed ? "px-2" : "px-3"} py-2.5 rounded-lg text-sm font-medium transition-all duration-200
                   ${
                     isActive
-                      ? "bg-green-50 text-green-700 border-l-4 border-green-500"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-blue-50 text-blue-700"
+                      : "text-gray-700 hover:bg-gray-50"
                   }`}
+                title={isCollapsed ? link.name : ""}
               >
-                {renderIcon(link.icon)}
-                <span className="flex-1 text-left">{link.name}</span>
-                {hasSubmenu && (
-                  <i
-                    className={`fa-solid fa-chevron-${
-                      isOpenDropdown ? "up" : "down"
-                    } text-xs transition-transform`}
-                  />
+                <div className="flex-shrink-0">
+                  {renderIcon(link.icon, isActive)}
+                </div>
+                {!isCollapsed && (
+                  <>
+                    <span className="flex-1 text-left">{link.name}</span>
+                    {hasSubmenu && (
+                      <i
+                        className={`fa-solid fa-chevron-${
+                          isOpenDropdown ? "up" : "down"
+                        } text-xs text-gray-400 transition-transform`}
+                      />
+                    )}
+                  </>
                 )}
               </button>
 
-              {hasSubmenu && isOpenDropdown && (
-                <div className="mt-1 ml-2 space-y-1 border-l-2 border-gray-300 pl-4">
-                  {link.submenu.map((sub) => (
-                    <Link
-                      key={sub.path}
-                      to={sub.path}
-                      onClick={() => window.innerWidth < 768 && toggleSidebar()}
-                      className={`block px-3 py-1.5 text-xs rounded-lg transition-all duration-200
-                        ${
-                          location.pathname === sub.path
-                            ? "bg-green-100 text-green-700 font-medium border-l-2 border-green-500 pl-2"
-                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                        }`}
-                    >
-                      {sub.name}
-                    </Link>
-                  ))}
+              {hasSubmenu && isOpenDropdown && !isCollapsed && (
+                <div className="mt-1 ml-1 space-y-0.5 pl-8">
+                  {link.submenu.map((sub) => {
+                    const isSubActive = location.pathname === sub.path;
+                    return (
+                      <Link
+                        key={sub.path}
+                        to={sub.path}
+                        onClick={() => window.innerWidth < 768 && toggleSidebar()}
+                        className={`flex items-center gap-2 px-2 py-1.5 text-xs rounded-md transition-all duration-200
+                          ${
+                            isSubActive
+                              ? "bg-blue-50 text-blue-700 font-medium"
+                              : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                          }`}
+                      >
+                        <span className={`w-1.5 h-1.5 rounded-full ${isSubActive ? "bg-blue-500" : "bg-gray-400"}`}></span>
+                        <span>{sub.name}</span>
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -197,11 +211,13 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
       </nav>
 
       {/* Footer */}
-      <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
-        <p className="text-xs text-gray-500">
-          © 2024 Idokon. All rights reserved.
-        </p>
-      </div>
+      {!isCollapsed && (
+        <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
+          <p className="text-xs text-gray-500">
+            © 2024 Idokon. All rights reserved.
+          </p>
+        </div>
+      )}
     </aside>
   );
 }
