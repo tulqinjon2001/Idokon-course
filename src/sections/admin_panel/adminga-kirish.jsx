@@ -95,7 +95,7 @@ function Section({ title, steps = [], note, videoUrl, vertical, playlistUrl }) {
                 href={videoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-3 sm:px-4 py-2 sm:py-2 bg-cyan-600 text-white rounded-md text-xs sm:text-sm hover:bg-cyan-700 transition text-center flex-1"
+                className="inline-block px-3 sm:px-4 py-2 sm:py-2 bg-primary-600 text-white rounded-md text-xs sm:text-sm hover:bg-primary-700 transition text-center flex-1"
                 aria-label="YouTube videoni yangi oynada ochish"
               >
                 YouTube-da ochish
@@ -127,7 +127,7 @@ const AdmingaKirish = () => {
         title="🖥 Kompyuter orqali kirish"
         steps={[
           "Kompyuteringizda <b>Google Chrome</b>ni oching.",
-          ` <a class="text-cyan-600 underline font-medium" href="https://my.idokon.uz" target="_blank" rel="noreferrer">my.idokon.uz</a> manziliga kiring.`,
+          ` <a class="text-primary-600 underline font-medium" href="https://my.idokon.uz" target="_blank" rel="noreferrer">my.idokon.uz</a> manziliga kiring.`,
           "Ro'yxatdan o'tishda tanlagan <b>login</b> va <b>parol</b>ni kiriting.",
           "Kirgandan so'ng boshqaruv oynasi (Admin panel) ochiladi.",
         ]}
@@ -141,7 +141,7 @@ const AdmingaKirish = () => {
         title="📱 Telefon (mobil) orqali kirish"
         steps={[
           "Telefoningizda <b>Chrome (Android)</b> yoki <b>Safari (iOS)</b>ni oching.",
-          ` <a class="text-cyan-600 underline font-medium" href="https://my.idokon.uz" target="_blank" rel="noreferrer">my.idokon.uz</a> manziliga kiring va login/parolni kiriting.`,
+          ` <a class="text-primary-600 underline font-medium" href="https://my.idokon.uz" target="_blank" rel="noreferrer">my.idokon.uz</a> manziliga kiring va login/parolni kiriting.`,
           "<b>iOS (Safari)</b>: Share → <b>Add to Home Screen</b> — tezkor kirish uchun.",
           "<b>Android (Chrome)</b>: ⋮ menyu → <b>Add to Home screen</b>.",
           "Jadval/keng oynalar to'liq ko'rinmasa, Chrome'da <b>⋮ → Desktop site</b> ni yoqing.",

@@ -67,7 +67,7 @@ export default function VideoSection({
             href={videoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-cyan-600 text-white rounded-md text-sm sm:text-base hover:bg-cyan-700 transition text-center"
+            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-600 text-white rounded-md text-sm sm:text-base hover:bg-primary-700 transition text-center"
             aria-label="YouTube videoni yangi oynada ochish"
           >
             YouTube-da ochish

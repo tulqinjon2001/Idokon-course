@@ -485,7 +485,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
                 const base =
                   "px-3 py-1 rounded-md border text-sm font-semibold whitespace-nowrap";
                 const stateClass = isCurrent
-                  ? "bg-blue-400 text-white border-blue-400"
+                  ? "bg-primary-400 text-white border-primary-400"
                   : isAnswered
                   ? "bg-emerald-100 text-emerald-800 border-emerald-200"
                   : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50";

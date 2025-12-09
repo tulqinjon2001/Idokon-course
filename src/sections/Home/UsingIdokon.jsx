@@ -10,7 +10,7 @@ const steps = [
             href="https://admin.idokon.uz/#/register"
             target="_blank"
             rel="noreferrer"
-            className="text-cyan-600 underline"
+            className="text-primary-600 underline"
           >
             admin.idokon.uz/#/register
           </a>{" "}
@@ -53,7 +53,7 @@ const steps = [
             href="https://my.idokon.uz"
             target="_blank"
             rel="noreferrer"
-            className="text-cyan-600 underline"
+            className="text-primary-600 underline"
           >
             my.idokon.uz
           </a>{" "}
@@ -166,7 +166,7 @@ const steps = [
           <a
             href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokon1.2.2.x64.Update.exe"
             download
-            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow hover:bg-cyan-700 transition text-sm sm:text-base"
+            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-600 text-white font-semibold rounded-lg shadow hover:bg-primary-700 transition text-sm sm:text-base"
           >
             📥 Kassani yuklab olish
           </a>

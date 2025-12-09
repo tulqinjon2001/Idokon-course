@@ -22,12 +22,7 @@ const navLinks = [
       { name: "Adminga kirish", path: "/admin/adminga-kirish" },
       { name: "Mahsulot qabul qilish", path: "/admin/mahsulot-qabul" },
       { name: "Buyurtmalar SD", path: "/admin/buyurtmalar-sd" },
-      { name: "Nomenklatura", path: "/admin/nomenklatura" },
-      { name: "Qayta narx tarix", path: "/admin/qayta-narx-tarix" },
-      {
-        name: "Taminotchiga qaytarish",
-        path: "/admin/taminotchiga-qaytarish",
-      },
+      { name: "Nomenklatura, Qayta narxlash va Tarix", path: "/admin/nomenklatura-qayta-narx-tarix" },
       { name: "Inventarizatsiya", path: "/admin/inventarizatsiya" },
       { name: "Guruhlash", path: "/admin/guruhlash" },
       { name: "Mahsulot ko'chir", path: "/admin/mahsulot-kochir" },
@@ -81,14 +76,14 @@ function renderIcon(type, isActive = false) {
     checkcircle: "fa-circle-check",
   };
   return (
-    <span className={`flex items-center justify-center w-5 h-5 ${isActive ? "text-blue-600" : "text-gray-500"}`}>
+    <span className={`flex items-center justify-center w-5 h-5 ${isActive ? "text-primary-500" : "text-gray-500"}`}>
       <i className={`fa-solid ${icons[type]} fa-fw text-base`} />
     </span>
   );
 }
 
 /* -------------------------------- SIDEBAR -------------------------------- */
-export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) {
+export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed, isDarkMode }) {
   const location = useLocation();
   const [openDropdown, setOpenDropdown] = useState(null);
 
@@ -112,15 +107,15 @@ export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsColla
 
   return (
     <aside
-      className={`fixed top-0 left-0 h-full bg-gray-50 border-r border-gray-200 z-30 transition-all duration-300
+      className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 z-30 transition-all duration-300
         md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}
         ${isCollapsed ? "w-20" : "w-72"} shadow-lg md:shadow-none overflow-hidden flex flex-col`}
     >
       {/* Header with border */}
-      <div className={`${isCollapsed ? "px-3" : "px-6"} py-4 border-b border-gray-200`}>
+      <div className={`${isCollapsed ? "px-3" : "px-6"} py-4 border-b border-gray-200 bg-white`}>
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
               <i className="fa-solid fa-book text-white text-sm"></i>
             </div>
             {!isCollapsed && (
@@ -132,16 +127,16 @@ export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsColla
           </div>
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="hidden md:flex p-2 hover:bg-gray-200 active:bg-gray-300 rounded-lg transition-all duration-200 items-center justify-center flex-shrink-0 group"
+            className="hidden md:flex p-2 hover:bg-gray-100 active:bg-gray-200 rounded-lg transition-all duration-200 items-center justify-center flex-shrink-0 group"
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            <i className={`fa-solid fa-chevron-${isCollapsed ? "right" : "left"} text-gray-600 group-hover:text-gray-800 text-sm transition-transform duration-200`}></i>
+            <i className={`fa-solid fa-chevron-${isCollapsed ? "right" : "left"} text-gray-500 group-hover:text-gray-700 text-sm transition-transform duration-200`}></i>
           </button>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className={`flex-1 overflow-y-auto ${isCollapsed ? "px-2" : "px-3"} py-3`}>
+      <nav className={`flex-1 overflow-y-auto ${isCollapsed ? "px-2" : "px-4"} py-4 bg-white`}>
         {navLinks.map((link) => {
           const hasSubmenu = link.submenu?.length > 0;
           const isOpenDropdown = openDropdown === link.name;
@@ -150,17 +145,17 @@ export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsColla
             link.submenu?.some((s) => location.pathname === s.path);
 
           return (
-            <div key={link.name} className="mb-1">
+            <div key={link.name} className="mb-0.5">
               <button
                 onClick={() => {
                   if (hasSubmenu && !isCollapsed) {
                     setOpenDropdown(isOpenDropdown ? null : link.name);
                   }
                 }}
-                className={`w-full flex items-center ${isCollapsed ? "justify-center" : ""} gap-2.5 ${isCollapsed ? "px-2" : "px-3"} py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                className={`w-full flex items-center ${isCollapsed ? "justify-center" : ""} gap-3 ${isCollapsed ? "px-2" : "px-3"} py-2.5 rounded-md text-sm font-medium transition-all duration-150
                   ${
                     isActive
-                      ? "bg-blue-50 text-blue-700"
+                      ? "bg-primary-50 text-primary-700"
                       : "text-gray-700 hover:bg-gray-50"
                   }`}
                 title={isCollapsed ? link.name : ""}
@@ -175,7 +170,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsColla
                       <i
                         className={`fa-solid fa-chevron-${
                           isOpenDropdown ? "up" : "down"
-                        } text-xs text-gray-400 transition-transform`}
+                        } text-xs text-gray-400 transition-transform duration-150`}
                       />
                     )}
                   </>
@@ -183,7 +178,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsColla
               </button>
 
               {hasSubmenu && isOpenDropdown && !isCollapsed && (
-                <div className="mt-1 ml-1 space-y-0.5 pl-8">
+                <div className="mt-0.5 ml-1 space-y-0.5 pl-9">
                   {link.submenu.map((sub) => {
                     const isSubActive = location.pathname === sub.path;
                     return (
@@ -191,14 +186,14 @@ export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsColla
                         key={sub.path}
                         to={sub.path}
                         onClick={() => window.innerWidth < 768 && toggleSidebar()}
-                        className={`flex items-center gap-2 px-2 py-1.5 text-xs rounded-md transition-all duration-200
+                        className={`flex items-center gap-2.5 px-3 py-2 text-sm rounded-md transition-all duration-150
                           ${
                             isSubActive
-                              ? "bg-blue-50 text-blue-700 font-medium"
+                              ? "bg-primary-50 text-primary-700 font-medium"
                               : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                           }`}
                       >
-                        <span className={`w-1.5 h-1.5 rounded-full ${isSubActive ? "bg-blue-500" : "bg-gray-400"}`}></span>
+                        <span className={`w-1 h-1 rounded-full ${isSubActive ? "bg-primary-500" : "bg-gray-300"}`}></span>
                         <span>{sub.name}</span>
                       </Link>
                     );
@@ -212,7 +207,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsColla
 
       {/* Footer */}
       {!isCollapsed && (
-        <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
+        <div className="px-6 py-4 border-t border-gray-200 bg-white">
           <p className="text-xs text-gray-500">
             © 2024 Idokon. All rights reserved.
           </p>

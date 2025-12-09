@@ -12,8 +12,6 @@ import MahsulotQabulQilish from "../sections/admin_panel/1-bolim/mahsulot-qabul-
 import BuyurtmalarSD from "../sections/admin_panel/1-bolim/buyurtmalar-sd";
 import Inventarizatsiya from "../sections/admin_panel/1-bolim/Inventarizatsiya";
 import Nomenklatura from "../sections/admin_panel/1-bolim/nomenklatura";
-import TaminotchigaQaytar_hisobdanChiqar from "../sections/admin_panel/1-bolim//taminotchiqaytar-hisobchiqar";
-import QaytaNarx_tarix from "../sections/admin_panel/1-bolim/qaytaNarx_tarix";
 import Guruhlash from "../sections/admin_panel/1-bolim/guruhlash-toplam-aksiya";
 import MahsulotKochir from "../sections/admin_panel/1-bolim//mahsulotKochir";
 import Tarozi from "../sections/admin_panel/1-bolim/tarozi";
@@ -50,12 +48,7 @@ const ROUTES = [
   { path: "/admin/mahsulot-qabul", component: MahsulotQabulQilish },
   { path: "/admin/buyurtmalar-sd", component: BuyurtmalarSD },
   { path: "/admin/inventarizatsiya", component: Inventarizatsiya },
-  { path: "/admin/nomenklatura", component: Nomenklatura },
-  {
-    path: "/admin/taminotchiga-qaytarish",
-    component: TaminotchigaQaytar_hisobdanChiqar,
-  },
-  { path: "/admin/qayta-narx-tarix", component: QaytaNarx_tarix },
+  { path: "/admin/nomenklatura-qayta-narx-tarix", component: Nomenklatura },
   { path: "/admin/guruhlash", component: Guruhlash },
   { path: "/admin/mahsulot-kochir", component: MahsulotKochir },
   { path: "/admin/tarozi", component: Tarozi },
@@ -97,8 +90,7 @@ const navLinks = [
       { name: "Adminga kirish", path: "/admin/adminga-kirish" },
       { name: "Mahsulot qabul qilish", path: "/admin/mahsulot-qabul" },
       { name: "Buyurtmalar SD", path: "/admin/buyurtmalar-sd" },
-      { name: "Nomenklatura", path: "/admin/nomenklatura" },
-      { name: "Qayta narx tarix", path: "/admin/qayta-narx-tarix" },
+      { name: "Nomenklatura, Qayta narxlash va Tarix", path: "/admin/nomenklatura-qayta-narx-tarix" },
       { name: "Taminotchiga qaytarish", path: "/admin/taminotchiga-qaytarish" },
       { name: "Inventarizatsiya", path: "/admin/inventarizatsiya" },
       { name: "Guruhlash", path: "/admin/guruhlash" },
@@ -139,8 +131,43 @@ const navLinks = [
 ];
 
 /* -------------------------------- BREADCRUMB KOMPONENTI -------------------------------- */
-function Breadcrumb() {
+function Breadcrumb({ isDarkMode }) {
   const location = useLocation();
+
+  // Icon mapping funksiyasi
+  const getIconForName = (name) => {
+    const iconMap = {
+      "IDOKON Docs": "fa-book",
+      "Kirish": "fa-user",
+      "Admin Panel": "fa-gear",
+      "Kassa Panel": "fa-credit-card",
+      "Qurilmalar": "fa-mobile-screen-button",
+      "Savollar": "fa-circle-question",
+      "Test ishlash": "fa-circle-check",
+      // Submenu items
+      "IDOKON haqida": "fa-info-circle",
+      "Idokondan foydalanish": "fa-play-circle",
+      "Kerakli yangiliklar": "fa-newspaper",
+      "Adminga kirish": "fa-sign-in-alt",
+      "Mahsulot qabul qilish": "fa-box",
+      "Buyurtmalar SD": "fa-shopping-cart",
+      "Nomenklatura, Qayta Narxlash va Tarix": "fa-list",
+      "Taminotchiga qaytarish": "fa-undo",
+      "Inventarizatsiya": "fa-clipboard-check",
+      "Guruhlash": "fa-layer-group",
+      "Mahsulot ko'chir": "fa-exchange-alt",
+      "Tarozi": "fa-balance-scale",
+      "Cheklar": "fa-receipt",
+      "Bildirishnomalar": "fa-bell",
+      "Kassani yuklash va o'rnatish": "fa-download",
+      "Kassada sotish": "fa-cash-register",
+      "Qaytarish": "fa-undo-alt",
+      "Sozlamalar": "fa-cog",
+      "Barcode printer": "fa-barcode",
+      "Check printer": "fa-print",
+    };
+    return iconMap[name] || null;
+  };
 
   // Breadcrumb items'ni topish
   const getBreadcrumbs = () => {
@@ -158,8 +185,16 @@ function Breadcrumb() {
       );
       
       if (submenuItem) {
-        breadcrumbs.push({ name: link.name, path: null, icon: "fa-user" });
-        breadcrumbs.push({ name: submenuItem.name, path: submenuItem.path, icon: null });
+        breadcrumbs.push({ 
+          name: link.name, 
+          path: null, 
+          icon: getIconForName(link.name) 
+        });
+        breadcrumbs.push({ 
+          name: submenuItem.name, 
+          path: submenuItem.path, 
+          icon: getIconForName(submenuItem.name) 
+        });
         break;
       }
     }
@@ -168,29 +203,30 @@ function Breadcrumb() {
   };
 
   const breadcrumbs = getBreadcrumbs();
+  const lastIndex = breadcrumbs.length - 1;
 
   return (
-    <nav className="mb-3 sm:mb-4 bg-white rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 border border-gray-200 shadow-sm overflow-x-auto" aria-label="Breadcrumb">
-      <ol className="flex items-center space-x-1 sm:space-x-1.5 text-xs sm:text-sm min-w-max">
+    <nav className={`mb-6 ${isDarkMode ? "bg-gray-800" : "bg-white"} rounded-lg px-4 py-2.5 border ${isDarkMode ? "border-gray-700" : "border-gray-200"} shadow-sm overflow-x-auto`} aria-label="Breadcrumb">
+      <ol className="flex items-center space-x-2 text-sm min-w-max">
         {breadcrumbs.map((crumb, index) => (
           <li key={index} className="flex items-center">
             {index > 0 && (
-              <i className="fa-solid fa-chevron-right text-gray-400 mx-1.5 text-xs"></i>
+              <i className={`fa-solid fa-chevron-right ${isDarkMode ? "text-gray-500" : "text-gray-400"} mx-2 text-xs`}></i>
             )}
             {crumb.path ? (
               <Link
                 to={crumb.path}
-                className="text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-1.5"
+                className={`${isDarkMode ? "text-gray-400 hover:text-gray-200" : "text-gray-600 hover:text-gray-900"} transition-colors flex items-center gap-1.5`}
               >
                 {crumb.icon && (
-                  <i className={`fa-solid ${crumb.icon} text-xs`}></i>
+                  <i className={`fa-solid ${crumb.icon} text-xs ${isDarkMode ? "text-gray-400" : "text-primary-600"}`}></i>
                 )}
                 {crumb.name}
               </Link>
             ) : (
-              <span className="text-gray-900 font-medium flex items-center gap-1.5">
+              <span className={`${index === lastIndex ? `${isDarkMode ? "bg-primary-900/30 text-primary-300" : "bg-primary-50 text-primary-700"} px-2.5 py-1 rounded-md font-medium` : `${isDarkMode ? "text-gray-300" : "text-gray-900"} font-medium`} flex items-center gap-1.5`}>
                 {crumb.icon && (
-                  <i className={`fa-solid ${crumb.icon} text-xs`}></i>
+                  <i className={`fa-solid ${crumb.icon} text-xs ${index === lastIndex ? (isDarkMode ? "text-primary-300" : "text-primary-700") : (isDarkMode ? "text-gray-400" : "text-gray-600")}`}></i>
                 )}
                 {crumb.name}
               </span>
@@ -203,7 +239,7 @@ function Breadcrumb() {
 }
 
 /* -------------------------------- ASOSIY KOMPONENT -------------------------------- */
-export default function AllInOne() {
+export default function AllInOne({ isDarkMode }) {
   const location = useLocation();
 
   // 🔍 path'ni `startsWith` orqali qidirish
@@ -215,16 +251,18 @@ export default function AllInOne() {
     : location.pathname === "/" || location.pathname === ""
     ? AboutIdokon
     : () => (
-        <div className="p-4 sm:p-6 md:p-8 text-center text-red-500 font-semibold">
+        <div className={`p-4 sm:p-6 md:p-8 text-center ${isDarkMode ? "text-red-400" : "text-red-500"} font-semibold`}>
           Sahifa topilmadi (404)
         </div>
       );
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-gray-50 overflow-x-hidden">
-      <div className="flex-1 px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8">
-        <Breadcrumb />
-        <PageComponent />
+    <div className={`flex flex-col min-h-screen w-full ${isDarkMode ? "bg-gray-900" : "bg-white"} overflow-x-hidden`}>
+      <div className="flex-1 px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 max-w-6xl mx-auto w-full">
+        <Breadcrumb isDarkMode={isDarkMode} />
+        <div className={isDarkMode ? "text-gray-100" : "text-gray-900"}>
+          <PageComponent />
+        </div>
       </div>
     </div>
   );

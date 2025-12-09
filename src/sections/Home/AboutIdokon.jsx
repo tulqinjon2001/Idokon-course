@@ -114,10 +114,10 @@ export default function AboutIdokon() {
   return (
     <div className="w-full max-w-6xl mx-auto space-y-4 sm:space-y-6 md:space-y-8 px-0">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-cyan-50 via-white to-indigo-50 rounded-lg sm:rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 md:p-8 lg:p-10 text-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-indigo-50 rounded-lg sm:rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 md:p-8 lg:p-10 text-center">
         <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-900 leading-tight mb-3 sm:mb-4">
           IDOKON Dasturini <strong className="text-red-600">BEPUL</strong> To'liq O'zlashtirish Orqali{" "}
-          <span className="text-cyan-700">Biznesingizni Optimallashtiring</span>
+          <span className="text-primary-700">Biznesingizni Optimallashtiring</span>
         </h1>
         <p className="max-w-3xl mx-auto text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed px-2">
           <strong>IDOKON dasturi</strong> — bu shunchaki vosita emas, balki
@@ -159,7 +159,7 @@ export default function AboutIdokon() {
               "Real vaqtda statistika va tahlillar"
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                <span className="flex-shrink-0 w-6 h-6 bg-primary-500 text-white rounded-full flex items-center justify-center text-xs font-semibold">
                   {index + 1}
                 </span>
                 <span className="text-gray-700 text-sm sm:text-base pt-0.5">{item}</span>
@@ -185,7 +185,7 @@ export default function AboutIdokon() {
       {/* 1. IDOKON nima? */}
       <section className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 md:p-8">
         <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-          <span className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">
+          <span className="w-7 h-7 sm:w-8 sm:h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">
             1
           </span>
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">
@@ -218,7 +218,7 @@ export default function AboutIdokon() {
       {/* 2. IDOKON dasturining asosiy imkoniyatlari */}
       <section className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 md:p-8">
         <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-          <span className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">
+          <span className="w-7 h-7 sm:w-8 sm:h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">
             2
           </span>
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">
@@ -231,7 +231,7 @@ export default function AboutIdokon() {
               key={i}
               className="p-5 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all"
             >
-              <div className="flex items-center gap-3 text-blue-600 mb-3">
+              <div className="flex items-center gap-3 text-primary-600 mb-3">
                 {f.icon}
               </div>
               <h3 className="font-semibold text-base sm:text-lg text-gray-900 mb-2">
@@ -248,7 +248,7 @@ export default function AboutIdokon() {
       {/* 3. Kimlar uchun IDOKON kerak? */}
       <section className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 md:p-8">
         <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-          <span className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">
+          <span className="w-7 h-7 sm:w-8 sm:h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">
             3
           </span>
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">
@@ -271,7 +271,7 @@ export default function AboutIdokon() {
       {/* 4. Nega aynan IDOKON? */}
       <section className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 md:p-8">
         <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-          <span className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">
+          <span className="w-7 h-7 sm:w-8 sm:h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">
             4
           </span>
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">
@@ -305,8 +305,8 @@ export default function AboutIdokon() {
           {categories.map((cat, i) => (
             <li key={i}>
               <div className="w-full rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 p-4 sm:p-5 flex flex-col items-center text-center">
-                <div className="mb-3 inline-flex items-center justify-center rounded-lg p-2 bg-blue-50">
-                  <cat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
+                <div className="mb-3 inline-flex items-center justify-center rounded-lg p-2 bg-primary-50">
+                  <cat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary-600" />
                 </div>
                 <span className="font-semibold text-gray-800 text-xs sm:text-sm">
                   {cat.name}

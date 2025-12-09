@@ -62,7 +62,7 @@ export default function MahsulotQabulQilish() {
         </div>
         <a
           href={DL_PDF}
-          className="flex-shrink-0 px-4 sm:px-5 py-2 sm:py-3 rounded-md bg-cyan-600 text-white font-medium hover:bg-cyan-700 transition text-center text-sm sm:text-base whitespace-nowrap"
+          className="flex-shrink-0 px-4 sm:px-5 py-2 sm:py-3 rounded-md bg-primary-600 text-white font-medium hover:bg-primary-700 transition text-center text-sm sm:text-base whitespace-nowrap"
           target="_blank"
           rel="noreferrer noopener"
           download
