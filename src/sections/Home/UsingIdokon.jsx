@@ -164,7 +164,7 @@ const steps = [
         </p>
         <div className="mt-4">
           <a
-            href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokon1.2.2.x64.Update.exe"
+            href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokonv1.2.3.x64.exe"
             download
             className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-600 text-white font-semibold rounded-lg shadow hover:bg-primary-700 transition text-sm sm:text-base"
           >
