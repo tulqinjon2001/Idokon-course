@@ -6,6 +6,7 @@ const KassagaKirish = () => {
   const YT_URL = `https://www.youtube.com/watch?v=${YT_VIDEO_ID}`;
   const YT_PLAYLIST_URL =
     "https://www.youtube.com/playlist?list=PLNt3xrjLbs_hfUO2_2sN3lsaMAvtMmADq";
+  const CassaVersionURL = "https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokonv1.2.3.x64.exe"
 
   const KASSA_URL = "https://example.com/downloads/IDOKON-Kassa-setup.exe";
   const MANUAL_URL = "https://example.com/docs/IDOKON-kassa-manual.pdf";
@@ -75,7 +76,7 @@ const KassagaKirish = () => {
       {/* Yuklab olish va qo'llanma tugmalari */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <a
-          href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokon1.2.2.x64.Update.exe"
+          href={CassaVersionURL}
           download
           className="px-4 sm:px-5 py-3 bg-emerald-600 text-white rounded-md text-sm sm:text-base hover:bg-emerald-700 transition text-center font-medium"
           aria-label="IDOKON Kassa dasturini yuklab olish"
