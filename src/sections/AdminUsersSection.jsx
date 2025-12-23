@@ -3,47 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const AdminUsersSection = ({ sectionId }) => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Backenddan bu bo'limga tegishli ma'lumotlarni olish
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `http://127.0.0.1:8000/api/sections/${sectionId}/`
-        );
-        // `admin_users_data` ma'lumotlarini to'g'ridan-to'g'ri olamiz
-        setData(response.data.admin_users_data);
-        setLoading(false);
-      } catch (err) {
-        setError(err);
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [sectionId]);
-
-  if (loading) {
-    return <div className="p-8 text-center">Ma'lumotlar yuklanmoqda...</div>;
-  }
-  if (error) {
-    return (
-      <div className="p-8 text-center text-red-500">
-        Xatolik yuz berdi: {error.message}
-      </div>
-    );
-  }
-  if (!data) {
-    return (
-      <div className="p-8 text-center text-gray-500">
-        Bu bo'lim uchun ma'lumot topilmadi.
-      </div>
-    );
-  }
-
+const AdminUsersSection = () => {
   return (
     <div className="p-8 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">

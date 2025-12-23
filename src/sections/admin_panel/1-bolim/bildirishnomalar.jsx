@@ -64,33 +64,49 @@ const Bildirishnomalar = () => {
           <img
             src="/assets/admin/1-bolim/bildirishnoma/smsbot.jpg"
             alt="Idokon SMS Bot"
-            className="mt-2 rounded-lg shadow-md"
+            className="mt-2 rounded-lg shadow-md max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg max-h-[500px] object-contain mx-auto block"
           />
         </li>
-        <li>
-          Botga <code>/start</code> yoki <b>Boshlash</b> tugmasini bosing.
-          <img
-            src="/assets/admin/1-bolim/bildirishnoma/smsbotstart.jpg"
-            alt="Botda Start tugmasi"
-            className="mt-2 rounded-lg shadow-md"
-          />
-        </li>
-        <li>
-          📲 “Raqamni ulashish” tugmasini bosing.
-          <img
-            src="/assets/admin/1-bolim/bildirishnoma/smsbotraqamniulashish.jpg"
-            alt="Raqamni ulashish"
-            className="mt-2 rounded-lg shadow-md"
-          />
-        </li>
-        <li>
-          ✅ Shundan so‘ng bot sizga mahsulotlar belgilangan miqdordan kam
-          qolganda avtomatik xabar yuboradi.
-          <img
-            src="/assets/admin/1-bolim/bildirishnoma/smsbotkelganxabar.jpg"
-            alt="Telegram botdan kelgan xabar"
-            className="mt-2 rounded-lg shadow-md"
-          />
+        <li className="mb-4">
+          <div className="flex flex-col sm:flex-row gap-4 items-stretch">
+            <div className="flex-1 flex flex-col">
+              <div className="flex items-center justify-center bg-gray-50 rounded-lg p-2 min-h-[450px] mb-2">
+                <img
+                  src="/assets/admin/1-bolim/bildirishnoma/smsbotstart.jpg"
+                  alt="Botda Start tugmasi"
+                  className="rounded-lg shadow-md max-h-[450px] max-w-full object-contain"
+                />
+              </div>
+              <p className="text-sm sm:text-base text-center">
+                Botga <code>/start</code> yoki <b>Boshlash</b> tugmasini bosing.
+              </p>
+            </div>
+            <div className="flex-1 flex flex-col">
+              <div className="flex items-center justify-center bg-gray-50 rounded-lg p-2 min-h-[450px] mb-2">
+                <img
+                  src="/assets/admin/1-bolim/bildirishnoma/smsbotraqamniulashish.jpg"
+                  alt="Raqamni ulashish"
+                  className="rounded-lg shadow-md max-h-[450px] max-w-full object-contain"
+                />
+              </div>
+              <p className="text-sm sm:text-base text-center">
+                📲 "Raqamni ulashish" tugmasini bosing.
+              </p>
+            </div>
+            <div className="flex-1 flex flex-col">
+              <div className="flex items-center justify-center bg-gray-50 rounded-lg p-2 min-h-[450px] mb-2">
+                <img
+                  src="/assets/admin/1-bolim/bildirishnoma/smsbotkelganxabar.jpg"
+                  alt="Telegram botdan kelgan xabar"
+                  className="rounded-lg shadow-md max-h-[450px] max-w-full object-contain"
+                />
+              </div>
+              <p className="text-sm sm:text-base text-center">
+                ✅ Shundan so'ng bot sizga mahsulotlar belgilangan miqdordan kam
+                qolganda avtomatik xabar yuboradi.
+              </p>
+            </div>
+          </div>
         </li>
       </ol>
     </div>
