@@ -74,13 +74,23 @@ function App() {
                 <span className={`text-xs truncate ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>Dastur Qo'llanmasi</span>
               </div>
             </div>
-            <button
-              onClick={toggleSidebar}
-              className={`p-2 ${isDarkMode ? "hover:bg-gray-800 active:bg-gray-700" : "hover:bg-gray-100 active:bg-gray-200"} rounded-lg transition-colors flex items-center justify-center flex-shrink-0`}
-              aria-label="Open menu"
-            >
-              <i className={`fa-solid fa-bars text-xl ${isDarkMode ? "text-gray-300" : "text-gray-700"}`} />
-            </button>
+            <div className="flex items-center gap-2">
+              {/* Theme Toggle - Mobile */}
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className={`p-2 ${isDarkMode ? "hover:bg-gray-800 active:bg-gray-700" : "hover:bg-gray-100 active:bg-gray-200"} rounded-lg transition-colors`}
+                aria-label="Toggle theme"
+              >
+                <i className={`fa-solid ${isDarkMode ? "fa-sun" : "fa-moon"} ${isDarkMode ? "text-yellow-400" : "text-gray-700"} text-lg`}></i>
+              </button>
+              <button
+                onClick={toggleSidebar}
+                className={`p-2 ${isDarkMode ? "hover:bg-gray-800 active:bg-gray-700" : "hover:bg-gray-100 active:bg-gray-200"} rounded-lg transition-colors flex items-center justify-center flex-shrink-0`}
+                aria-label="Open menu"
+              >
+                <i className={`fa-solid fa-bars text-xl ${isDarkMode ? "text-gray-300" : "text-gray-700"}`} />
+              </button>
+            </div>
           </div>
 
           <div className={`${isDarkMode ? "bg-gray-900" : "bg-white"}`}>
