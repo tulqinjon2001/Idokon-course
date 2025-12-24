@@ -407,7 +407,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
             <div className="flex items-center gap-2">
               <div className="h-2 w-40 rounded-full bg-gray-200">
                 <div
-                  className="h-full bg-indigo-600 transition-all"
+                  className="h-full bg-primary-600 transition-all"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -455,7 +455,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
             </div>
             <button
               type="submit"
-              className="rounded-lg bg-indigo-600 px-5 py-2.5 text-white hover:bg-indigo-700"
+              className="rounded-lg bg-primary-600 px-5 py-2.5 text-white hover:bg-primary-700"
             >
               {loading ? "Yuklanmoqda..." : "Testni boshlash"}
             </button>
@@ -487,7 +487,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
                 const stateClass = isCurrent
                   ? "bg-primary-400 text-white border-primary-400"
                   : isAnswered
-                  ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                  ? "bg-primary-100 text-primary-800 border-primary-200"
                   : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50";
 
                 return (
@@ -511,7 +511,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
           {/* question */}
           <div className="pt-2">
             <div className="mb-3 flex items-start gap-3">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white font-bold">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-white font-bold">
                 {current + 1}
               </span>
               <h2 className="text-lg font-semibold">{q.text}</h2>
@@ -526,14 +526,14 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
                     onClick={() => selectAnswer(q.id, key)}
                     className={`w-full flex items-center gap-4 rounded-lg border px-4 py-3 text-left transition ${
                       selected
-                        ? "border-indigo-500 bg-indigo-50"
+                        ? "border-primary-500 bg-primary-50"
                         : "border-gray-200 hover:bg-gray-50"
                     }`}
                   >
                     <div
                       className={`flex items-center justify-center h-9 w-9 rounded-md font-bold ${
                         selected
-                          ? "bg-indigo-600 text-white"
+                          ? "bg-primary-600 text-white"
                           : "bg-gray-100 text-gray-700"
                       }`}
                     >
@@ -563,7 +563,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
               </button>
               <button
                 onClick={submitAnswers}
-                className="ml-2 rounded-lg bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700"
+                className="ml-2 rounded-lg bg-primary-600 px-4 py-2 text-white hover:bg-primary-700"
               >
                 Yakunlash
               </button>
@@ -629,7 +629,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
                 href="https://admin.idokon.uz/#/register"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block mt-4 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
+                className="inline-block mt-4 rounded-lg bg-primary-600 px-4 py-2 text-white hover:bg-primary-700"
               >
                 Ro'yxatdan o'tish
               </a>
@@ -692,7 +692,7 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
             </p>
             <button
               onClick={resetAll}
-              className="mt-4 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
+              className="mt-4 rounded-lg bg-primary-600 px-4 py-2 text-white hover:bg-primary-700"
             >
               Qayta boshlash
             </button>

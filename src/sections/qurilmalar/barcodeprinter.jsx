@@ -104,7 +104,7 @@ export default function BarcodePrinter() {
             href="https://github.com/tulqinjon2001/Idokon-course/releases/download/Qollanmalar/Barcode.printerni.ulash.qo.llanmasi.docx.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+            className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
           >
             Qo'llanmani yuklab olish (PDF)
           </a>

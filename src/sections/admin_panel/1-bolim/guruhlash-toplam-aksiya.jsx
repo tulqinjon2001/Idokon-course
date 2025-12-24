@@ -67,7 +67,7 @@ const GuruhlashToplamAksiya = () => {
               href={YT_PLAYLIST_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-slate-200 text-slate-800 rounded-lg text-sm sm:text-base font-medium hover:bg-slate-300 hover:shadow-lg transform hover:scale-105 transition-all duration-300 active:scale-95"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary-100 text-primary-700 rounded-lg text-sm sm:text-base font-medium hover:bg-primary-200 hover:shadow-lg transform hover:scale-105 transition-all duration-300 active:scale-95"
               aria-label="Playlistni ko'rish"
             >
               <span>📋</span>
@@ -78,7 +78,7 @@ const GuruhlashToplamAksiya = () => {
               target="_blank"
               rel="noopener noreferrer"
               download
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-red-600 text-white rounded-lg text-sm sm:text-base font-medium hover:bg-red-700 hover:shadow-lg transform hover:scale-105 transition-all duration-300 active:scale-95"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary-600 text-white rounded-lg text-sm sm:text-base font-medium hover:bg-primary-700 hover:shadow-lg transform hover:scale-105 transition-all duration-300 active:scale-95"
               aria-label="PDF qo'llanmani yuklab olish"
             >
               <span>📄</span>

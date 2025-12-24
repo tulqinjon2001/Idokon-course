@@ -5,6 +5,7 @@ import { useLocation, Link } from "react-router-dom";
 import AboutIdokon from "../sections/Home/AboutIdokon";
 import UsingIdokon from "../sections/Home/UsingIdokon";
 import NewsSection from "../sections/Home/NewsSection";
+import Kirish from "../sections/Home/Kirish";
 
 /* 🧰 Admin Panel komponentlari */
 import AdmingaKirish from "../sections/admin_panel/adminga-kirish";
@@ -39,6 +40,7 @@ import QuizCom from "../sections/Quiz/QuizCom";
 /* -------------------------------- ROUTE XARITASI -------------------------------- */
 const ROUTES = [
   /* 🏠 Home */
+  { path: "/kirish", component: Kirish },
   { path: "/home/about", component: AboutIdokon },
   { path: "/home/using", component: UsingIdokon },
   { path: "/home/news", component: NewsSection },
@@ -78,11 +80,7 @@ const ROUTES = [
 const navLinks = [
   {
     name: "Kirish",
-    submenu: [
-      { name: "IDOKON haqida", path: "/home/about" },
-      { name: "Idokondan foydalanish", path: "/home/using" },
-      { name: "Kerakli yangiliklar", path: "/home/news" },
-    ],
+    path: "/kirish",
   },
   {
     name: "Admin Panel",
@@ -180,6 +178,17 @@ function Breadcrumb({ isDarkMode }) {
 
     // NavLinks'dan parent va child topish
     for (const link of navLinks) {
+      // Agar link path'ga ega bo'lsa va hozirgi path shu path'ga mos kelsa
+      if (link.path && (location.pathname === link.path || location.pathname.startsWith(link.path))) {
+        breadcrumbs.push({ 
+          name: link.name, 
+          path: link.path, 
+          icon: getIconForName(link.name) 
+        });
+        break;
+      }
+      
+      // Agar submenu bo'lsa
       const submenuItem = link.submenu?.find((sub) => 
         location.pathname === sub.path || location.pathname.startsWith(sub.path)
       );
@@ -249,7 +258,7 @@ export default function AllInOne({ isDarkMode }) {
   const PageComponent = current
     ? current.component
     : location.pathname === "/" || location.pathname === ""
-    ? AboutIdokon
+    ? Kirish
     : () => (
         <div className={`p-4 sm:p-6 md:p-8 text-center ${isDarkMode ? "text-red-400" : "text-red-500"} font-semibold`}>
           Sahifa topilmadi (404)

@@ -84,7 +84,7 @@ function KassaSozlamalari() {
             href={MANUAL_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-3 py-2 bg-indigo-600 text-white rounded-md text-sm"
+            className="inline-block px-3 py-2 bg-primary-600 text-white rounded-md text-sm hover:bg-primary-700"
             aria-label="Qo'llanmani PDF sifatida ochish"
           >
             Qo'llanmani ochish (PDF)
@@ -93,7 +93,7 @@ function KassaSozlamalari() {
           <a
             href={MANUAL_URL}
             download
-            className="inline-block px-3 py-2 bg-emerald-600 text-white rounded-md text-sm"
+            className="inline-block px-3 py-2 bg-primary-600 text-white rounded-md text-sm hover:bg-primary-700"
             aria-label="Qo'llanmani yuklab olish"
           >
             Qo'llanmani yuklab olish
@@ -116,14 +116,14 @@ function KassaSozlamalari() {
         <div className="mt-3 flex gap-3">
           <button
             onClick={copyConfig}
-            className="px-4 py-2 bg-slate-700 text-white rounded-md text-sm"
+            className="px-4 py-2 bg-primary-600 text-white rounded-md text-sm hover:bg-primary-700"
             aria-label="Misol konfiguratsiyani nusxalash"
           >
             Konfiguratsiyani nusxalash
           </button>
           <button
             onClick={downloadConfig}
-            className="px-4 py-2 bg-slate-200 text-slate-800 rounded-md text-sm"
+            className="px-4 py-2 bg-primary-100 text-primary-700 rounded-md text-sm hover:bg-primary-200"
             aria-label="Misol konfiguratsiyani yuklab olish"
           >
             Konfiguratsiyani yuklab olish (JSON)

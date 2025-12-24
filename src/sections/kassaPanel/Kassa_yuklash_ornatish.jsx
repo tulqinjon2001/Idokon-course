@@ -65,7 +65,7 @@ const KassagaKirish = () => {
             href={YT_PLAYLIST_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-slate-200 text-slate-800 rounded-md text-sm sm:text-base hover:bg-slate-300 transition text-center"
+            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-100 text-primary-700 rounded-md text-sm sm:text-base hover:bg-primary-200 transition text-center"
             aria-label="Playlistni ochish"
           >
             Playlistni ko'rish
@@ -78,7 +78,7 @@ const KassagaKirish = () => {
         <a
           href={CassaVersionURL}
           download
-          className="px-4 sm:px-5 py-3 bg-emerald-600 text-white rounded-md text-sm sm:text-base hover:bg-emerald-700 transition text-center font-medium"
+          className="px-4 sm:px-5 py-3 bg-primary-600 text-white rounded-md text-sm sm:text-base hover:bg-primary-700 transition text-center font-medium"
           aria-label="IDOKON Kassa dasturini yuklab olish"
         >
           Kassani yuklab olish
@@ -88,7 +88,7 @@ const KassagaKirish = () => {
           href="https://github.com/tulqinjon2001/Idokon-course/releases/download/Qollanmalar/Idokon.kassani.yuklab.olish.o.rnatish.va.kirish.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-4 sm:px-5 py-3 bg-indigo-600 text-white rounded-md text-sm sm:text-base hover:bg-indigo-700 transition text-center font-medium"
+          className="px-4 sm:px-5 py-3 bg-primary-600 text-white rounded-md text-sm sm:text-base hover:bg-primary-700 transition text-center font-medium"
           aria-label="IDOKON kassa qo'llanmasini PDF formatida ochish"
         >
           Qo'llanmani ochish (PDF)
