@@ -115,15 +115,41 @@ export default function Sidebar({
             : "border-gray-200 bg-gradient-to-r from-white to-gray-50"
         }`}
       >
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-3 min-w-0">
+        {isCollapsed ? (
+          <div className="flex flex-col items-center gap-3">
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition-opacity"></div>
               <div className="relative w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                 <BookOpen className="w-5 h-5 text-white" />
               </div>
             </div>
-            {!isCollapsed && (
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className={`p-2 ${
+                isDarkMode
+                  ? "hover:bg-gray-800 active:bg-gray-700"
+                  : "hover:bg-gray-100 active:bg-gray-200"
+              } rounded-lg transition-all duration-200 items-center justify-center flex-shrink-0 group`}
+              aria-label="Expand sidebar"
+            >
+              <ChevronRight
+                className={`w-4 h-4 ${
+                  isDarkMode
+                    ? "text-gray-400 group-hover:text-gray-200"
+                    : "text-gray-500 group-hover:text-gray-700"
+                } transition-colors`}
+              />
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                <div className="relative w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                  <BookOpen className="w-5 h-5 text-white" />
+                </div>
+              </div>
               <div className="flex flex-col min-w-0">
                 <span
                   className={`text-sm font-bold truncate ${
@@ -141,26 +167,16 @@ export default function Sidebar({
                   Mijozlar uchun
                 </span>
               </div>
-            )}
-          </div>
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className={`hidden md:flex p-2 ${
-              isDarkMode
-                ? "hover:bg-gray-800 active:bg-gray-700"
-                : "hover:bg-gray-100 active:bg-gray-200"
-            } rounded-lg transition-all duration-200 items-center justify-center flex-shrink-0 group`}
-            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {isCollapsed ? (
-              <ChevronRight
-                className={`w-4 h-4 ${
-                  isDarkMode
-                    ? "text-gray-400 group-hover:text-gray-200"
-                    : "text-gray-500 group-hover:text-gray-700"
-                } transition-colors`}
-              />
-            ) : (
+            </div>
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className={`hidden md:flex p-2 ${
+                isDarkMode
+                  ? "hover:bg-gray-800 active:bg-gray-700"
+                  : "hover:bg-gray-100 active:bg-gray-200"
+              } rounded-lg transition-all duration-200 items-center justify-center flex-shrink-0 group`}
+              aria-label="Collapse sidebar"
+            >
               <ChevronLeft
                 className={`w-4 h-4 ${
                   isDarkMode
@@ -168,9 +184,9 @@ export default function Sidebar({
                     : "text-gray-500 group-hover:text-gray-700"
                 } transition-colors`}
               />
-            )}
-          </button>
-        </div>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Navigation */}
