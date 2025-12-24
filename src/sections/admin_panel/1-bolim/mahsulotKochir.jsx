@@ -41,7 +41,7 @@ export default function MahsulotKochir() {
           download 
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+          className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
         >
           📥 Qo‘llanmani yuklab olish (PDF)
         </a>

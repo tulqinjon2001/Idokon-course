@@ -95,7 +95,7 @@ const WhyIdokon = () => {
           <div className="flex items-start mb-2">
             <FontAwesomeIcon
               icon={faShieldAlt}
-              className="text-blue-500 mr-3 mt-1"
+              className="text-primary-500 mr-3 mt-1"
             />
             <div>
               <h3 className="text-xl font-semibold">
@@ -140,7 +140,7 @@ const WhyIdokon = () => {
           <div className="flex items-start mb-2">
             <FontAwesomeIcon
               icon={faMobileAlt}
-              className="text-blue-400 mr-3 mt-1"
+              className="text-primary-400 mr-3 mt-1"
             />
             <div>
               <h3 className="text-xl font-semibold">
@@ -161,7 +161,7 @@ const WhyIdokon = () => {
           <div className="flex items-start mb-2">
             <FontAwesomeIcon
               icon={faPaperPlane}
-              className="text-cyan-500 mr-3 mt-1"
+              className="text-primary-500 mr-3 mt-1"
             />
             <div>
               <h3 className="text-xl font-semibold">

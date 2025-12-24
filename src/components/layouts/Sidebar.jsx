@@ -22,12 +22,7 @@ const navLinks = [
       { name: "Adminga kirish", path: "/admin/adminga-kirish" },
       { name: "Mahsulot qabul qilish", path: "/admin/mahsulot-qabul" },
       { name: "Buyurtmalar SD", path: "/admin/buyurtmalar-sd" },
-      { name: "Nomenklatura", path: "/admin/nomenklatura" },
-      { name: "Qayta narx tarix", path: "/admin/qayta-narx-tarix" },
-      {
-        name: "Taminotchiga qaytarish",
-        path: "/admin/taminotchiga-qaytarish",
-      },
+      { name: "Nomenklatura, Qayta narxlash va Tarix", path: "/admin/nomenklatura-qayta-narx-tarix" },
       { name: "Inventarizatsiya", path: "/admin/inventarizatsiya" },
       { name: "Guruhlash", path: "/admin/guruhlash" },
       { name: "Mahsulot ko'chir", path: "/admin/mahsulot-kochir" },
@@ -71,7 +66,7 @@ const navLinks = [
 ];
 
 /* -------------------------------- ICONLAR -------------------------------- */
-function renderIcon(type) {
+function renderIcon(type, isActive = false) {
   const icons = {
     user: "fa-user",
     cog: "fa-gear",
@@ -81,14 +76,14 @@ function renderIcon(type) {
     checkcircle: "fa-circle-check",
   };
   return (
-    <span className="flex items-center justify-center w-6 h-6">
-      <i className={`fa-solid ${icons[type]} fa-fw text-lg`} />
+    <span className={`flex items-center justify-center w-5 h-5 ${isActive ? "text-primary-500" : "text-gray-500"}`}>
+      <i className={`fa-solid ${icons[type]} fa-fw text-base`} />
     </span>
   );
 }
 
 /* -------------------------------- SIDEBAR -------------------------------- */
-export default function Sidebar({ isOpen, toggleSidebar }) {
+export default function Sidebar({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed, isDarkMode }) {
   const location = useLocation();
   const [openDropdown, setOpenDropdown] = useState(null);
 
@@ -112,23 +107,36 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
 
   return (
     <aside
-      className={`fixed top-0 left-0 h-full bg-[#eee] z-30 transition-all duration-300
+      className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 z-30 transition-all duration-300
         md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        w-64 shadow-lg`}
+        ${isCollapsed ? "w-20" : "w-72"} shadow-lg md:shadow-none overflow-hidden flex flex-col`}
     >
-      {/* Header - Updated height and logo size */}
-      <div className="h-15 px-3 flex items-center justify-between border-b border-gray-200">
-        <img
-          src={idokon_logo}
-          alt="IDOKON Logo"
-          className="object-contain" // Reduced from h-8 to h-6
-        />
+      {/* Header with border */}
+      <div className={`${isCollapsed ? "px-3" : "px-6"} py-4 border-b border-gray-200 bg-white`}>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
+              <i className="fa-solid fa-book text-white text-sm"></i>
+            </div>
+            {!isCollapsed && (
+              <div className="flex flex-col min-w-0">
+                <span className="text-sm font-bold text-gray-900 truncate">Dastur Qo'llanmasi</span>
+                <span className="text-xs text-gray-500 truncate">Mijozlar uchun</span>
+              </div>
+            )}
+          </div>
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="hidden md:flex p-2 hover:bg-gray-100 active:bg-gray-200 rounded-lg transition-all duration-200 items-center justify-center flex-shrink-0 group"
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            <i className={`fa-solid fa-chevron-${isCollapsed ? "right" : "left"} text-gray-500 group-hover:text-gray-700 text-sm transition-transform duration-200`}></i>
+          </button>
+        </div>
       </div>
 
-      {/* Navigation - Adjusted top spacing */}
-      <nav className="p-4 overflow-y-auto h-[calc(100vh-3rem)]">
-        {" "}
-        {/* Updated from 3.5rem to 3rem */}
+      {/* Navigation */}
+      <nav className={`flex-1 overflow-y-auto ${isCollapsed ? "px-2" : "px-4"} py-4 bg-white`}>
         {navLinks.map((link) => {
           const hasSubmenu = link.submenu?.length > 0;
           const isOpenDropdown = openDropdown === link.name;
@@ -137,50 +145,74 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
             link.submenu?.some((s) => location.pathname === s.path);
 
           return (
-            <div key={link.name} className="mb-2">
+            <div key={link.name} className="mb-0.5">
               <button
-                onClick={() =>
-                  hasSubmenu &&
-                  setOpenDropdown(isOpenDropdown ? null : link.name)
-                }
-                className={`w-full flex items-center p-2 rounded-lg
-                  ${isActive ? "bg-[#5d79b7] text-white" : "hover:bg-[#d9e2f3]"}
-                  transition-colors duration-200`}
+                onClick={() => {
+                  if (hasSubmenu && !isCollapsed) {
+                    setOpenDropdown(isOpenDropdown ? null : link.name);
+                  }
+                }}
+                className={`w-full flex items-center ${isCollapsed ? "justify-center" : ""} gap-3 ${isCollapsed ? "px-2" : "px-3"} py-2.5 rounded-md text-sm font-medium transition-all duration-150
+                  ${
+                    isActive
+                      ? "bg-primary-50 text-primary-700"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`}
+                title={isCollapsed ? link.name : ""}
               >
-                {renderIcon(link.icon)}
-                <span className="ml-3 flex-1 text-left">{link.name}</span>
-                {hasSubmenu && (
-                  <i
-                    className={`fa-solid fa-chevron-${
-                      isOpenDropdown ? "up" : "down"
-                    } text-xs`}
-                  />
+                <div className="flex-shrink-0">
+                  {renderIcon(link.icon, isActive)}
+                </div>
+                {!isCollapsed && (
+                  <>
+                    <span className="flex-1 text-left">{link.name}</span>
+                    {hasSubmenu && (
+                      <i
+                        className={`fa-solid fa-chevron-${
+                          isOpenDropdown ? "up" : "down"
+                        } text-xs text-gray-400 transition-transform duration-150`}
+                      />
+                    )}
+                  </>
                 )}
               </button>
 
-              {hasSubmenu && isOpenDropdown && (
-                <div className="ml-4 mt-1 border-l-2 border-[#5d79b7] pl-4 space-y-1">
-                  {link.submenu.map((sub) => (
-                    <Link
-                      key={sub.path}
-                      to={sub.path}
-                      onClick={() => window.innerWidth < 768 && toggleSidebar()}
-                      className={`block p-2 rounded-lg text-sm
-                        ${
-                          location.pathname === sub.path
-                            ? "bg-[#3b5998] text-white"
-                            : "hover:bg-[#8b9dc3]"
-                        }`}
-                    >
-                      {sub.name}
-                    </Link>
-                  ))}
+              {hasSubmenu && isOpenDropdown && !isCollapsed && (
+                <div className="mt-0.5 ml-1 space-y-0.5 pl-9">
+                  {link.submenu.map((sub) => {
+                    const isSubActive = location.pathname === sub.path;
+                    return (
+                      <Link
+                        key={sub.path}
+                        to={sub.path}
+                        onClick={() => window.innerWidth < 768 && toggleSidebar()}
+                        className={`flex items-center gap-2.5 px-3 py-2 text-sm rounded-md transition-all duration-150
+                          ${
+                            isSubActive
+                              ? "bg-primary-50 text-primary-700 font-medium"
+                              : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                          }`}
+                      >
+                        <span className={`w-1 h-1 rounded-full ${isSubActive ? "bg-primary-500" : "bg-gray-300"}`}></span>
+                        <span>{sub.name}</span>
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>
           );
         })}
       </nav>
+
+      {/* Footer */}
+      {!isCollapsed && (
+        <div className="px-6 py-4 border-t border-gray-200 bg-white">
+          <p className="text-xs text-gray-500">
+            © 2024 Idokon. All rights reserved.
+          </p>
+        </div>
+      )}
     </aside>
   );
 }

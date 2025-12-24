@@ -6,6 +6,7 @@ const KassagaKirish = () => {
   const YT_URL = `https://www.youtube.com/watch?v=${YT_VIDEO_ID}`;
   const YT_PLAYLIST_URL =
     "https://www.youtube.com/playlist?list=PLNt3xrjLbs_hfUO2_2sN3lsaMAvtMmADq";
+  const CassaVersionURL = "https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokonv1.2.3.x64.exe"
 
   const KASSA_URL = "https://example.com/downloads/IDOKON-Kassa-setup.exe";
   const MANUAL_URL = "https://example.com/docs/IDOKON-kassa-manual.pdf";
@@ -38,7 +39,7 @@ const KassagaKirish = () => {
 
       {/* YouTube video embed + fallback link */}
       <div className="bg-slate-100 rounded-lg p-3 sm:p-4 md:p-6">
-        <div className="w-full aspect-video overflow-hidden rounded-lg">
+        <div className="w-full max-w-2xl mx-auto aspect-video overflow-hidden rounded-lg">
           <iframe
             title="IDOKON kassa ko'rsatma video"
             src={`https://www.youtube.com/embed/${YT_VIDEO_ID}`}
@@ -55,7 +56,7 @@ const KassagaKirish = () => {
             href={YT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-cyan-600 text-white rounded-md text-sm sm:text-base hover:bg-cyan-700 transition text-center"
+            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-600 text-white rounded-md text-sm sm:text-base hover:bg-primary-700 transition text-center"
             aria-label="YouTube videoni yangi oynada ochish"
           >
             YouTube-da ochish
@@ -73,11 +74,11 @@ const KassagaKirish = () => {
       </div>
 
       {/* Yuklab olish va qo'llanma tugmalari */}
-      <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <a
-          href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokon1.2.2.Multikassa.update.exe"
+          href={CassaVersionURL}
           download
-          className="flex-1 sm:flex-none px-4 sm:px-5 py-2 sm:py-3 bg-emerald-600 text-white rounded-md text-sm sm:text-base hover:bg-emerald-700 transition text-center"
+          className="px-4 sm:px-5 py-3 bg-emerald-600 text-white rounded-md text-sm sm:text-base hover:bg-emerald-700 transition text-center font-medium"
           aria-label="IDOKON Kassa dasturini yuklab olish"
         >
           Kassani yuklab olish
@@ -87,7 +88,7 @@ const KassagaKirish = () => {
           href="https://github.com/tulqinjon2001/Idokon-course/releases/download/Qollanmalar/Idokon.kassani.yuklab.olish.o.rnatish.va.kirish.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 sm:flex-none px-4 sm:px-5 py-2 sm:py-3 bg-indigo-600 text-white rounded-md text-sm sm:text-base hover:bg-indigo-700 transition text-center"
+          className="px-4 sm:px-5 py-3 bg-indigo-600 text-white rounded-md text-sm sm:text-base hover:bg-indigo-700 transition text-center font-medium"
           aria-label="IDOKON kassa qo'llanmasini PDF formatida ochish"
         >
           Qo'llanmani ochish (PDF)

@@ -74,7 +74,7 @@ function KassaSozlamalari() {
             href={YT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-3 py-2 bg-cyan-600 text-white rounded-md text-sm"
+            className="inline-block px-3 py-2 bg-primary-600 text-white rounded-md text-sm"
             aria-label="YouTube videoni yangi oynada ochish"
           >
             YouTube-da ochish

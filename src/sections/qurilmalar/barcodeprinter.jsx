@@ -5,7 +5,7 @@ import React from "react";
  */
 export default function BarcodePrinter() {
   return (
-    <div className="container mx-auto p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-lg max-w-4xl">
+    <div className="container mx-auto p-6 bg-white dark:bg-white rounded-xl shadow-lg max-w-4xl">
       {/* Title */}
       <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-4">
         Barcode Printerga ulanish va sozlash
@@ -39,7 +39,7 @@ export default function BarcodePrinter() {
               href="https://www.youtube.com/watch?v=fxxjDpawRgw"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-cyan-600 text-white rounded-md text-sm sm:text-base hover:bg-cyan-700 transition text-center"
+              className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-600 text-white rounded-md text-sm sm:text-base hover:bg-primary-700 transition text-center"
               aria-label="YouTube videoni yangi oynada ochish"
             >
               YouTube-da ochish
@@ -72,7 +72,7 @@ export default function BarcodePrinter() {
               href="https://www.youtube.com/watch?v=hISTcdXwjU8"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-cyan-600 text-white rounded-md text-sm sm:text-base hover:bg-cyan-700 transition text-center"
+              className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-600 text-white rounded-md text-sm sm:text-base hover:bg-primary-700 transition text-center"
               aria-label="YouTube videoni yangi oynada ochish"
             >
               YouTube-da ochish
@@ -96,7 +96,7 @@ export default function BarcodePrinter() {
             href="https://github.com/tulqinjon2001/Idokon-course/releases/download/Barode_printer_driver/Xprinter_11.5.exe"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+            className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
           >
             Drayverni yuklab olish
           </a>

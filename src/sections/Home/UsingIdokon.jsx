@@ -10,7 +10,7 @@ const steps = [
             href="https://admin.idokon.uz/#/register"
             target="_blank"
             rel="noreferrer"
-            className="text-cyan-600 underline"
+            className="text-primary-600 underline"
           >
             admin.idokon.uz/#/register
           </a>{" "}
@@ -29,7 +29,7 @@ const steps = [
       </>
     ),
     video: (
-      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
+      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic max-w-sm mx-auto">
         <iframe
           className="w-full h-full rounded-lg"
           src="https://www.youtube.com/embed/F6U6gbD2W-0"
@@ -53,7 +53,7 @@ const steps = [
             href="https://my.idokon.uz"
             target="_blank"
             rel="noreferrer"
-            className="text-cyan-600 underline"
+            className="text-primary-600 underline"
           >
             my.idokon.uz
           </a>{" "}
@@ -69,9 +69,9 @@ const steps = [
       </>
     ),
     video: (
-      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
+      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic max-w-sm mx-auto">
         <iframe
-          className="w-full h-full"
+          className="w-full h-full rounded-lg"
           src="https://www.youtube.com/embed/waknksArg8E?rel=0&modestbranding=1"
           title="IDOKON — Admin panelga kirish"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -104,9 +104,9 @@ const steps = [
       </>
     ),
     video: (
-      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
+      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic max-w-sm mx-auto">
         <iframe
-          className="w-full h-full"
+          className="w-full h-full rounded-lg"
           src="https://www.youtube.com/embed/V1mcKNpba-A?rel=0&modestbranding=1"
           title="IDOKON — Admin panelga kirish"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -139,9 +139,9 @@ const steps = [
       </>
     ),
     video: (
-      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
+      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic max-w-sm mx-auto">
         <iframe
-          className="w-full h-full"
+          className="w-full h-full rounded-lg"
           src="https://www.youtube.com/embed/eM_xCZ-0ONk?rel=0&modestbranding=1"
           title="IDOKON — Kassir qo'shish"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -164,9 +164,9 @@ const steps = [
         </p>
         <div className="mt-4">
           <a
-            href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokon1.2.2.x64.exe"
+            href="https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokonv1.2.3.x64.exe"
             download
-            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow hover:bg-cyan-700 transition text-sm sm:text-base"
+            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-600 text-white font-semibold rounded-lg shadow hover:bg-primary-700 transition text-sm sm:text-base"
           >
             📥 Kassani yuklab olish
           </a>
@@ -174,9 +174,9 @@ const steps = [
       </>
     ),
     video: (
-      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic">
+      <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 italic max-w-sm mx-auto">
         <iframe
-          className="w-full h-full"
+          className="w-full h-full rounded-lg"
           src="https://www.youtube.com/embed/iLP0_W_1cxg?rel=0&modestbranding=1"
           title="IDOKON video"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
