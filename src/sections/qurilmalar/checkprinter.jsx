@@ -16,10 +16,10 @@ export default function CheckPrinter() {
         <h2 className="text-2xl font-semibold mb-4 border-b-2 pb-2">
           Ulanish bo'yicha video-qo'llanma
         </h2>
-          <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-3 sm:p-4">
-            <div className="w-full max-w-2xl mx-auto aspect-video rounded-lg overflow-hidden">
-              <iframe
-                className="w-full h-full"
+        <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-3 sm:p-4">
+          <div className="w-full max-w-2xl mx-auto aspect-video rounded-lg overflow-hidden">
+            <iframe
+              className="w-full h-full"
               src="https://www.youtube.com/embed/LSZg_qKglKo"
               title="Printerga ulanish videosi"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -60,74 +60,6 @@ export default function CheckPrinter() {
             </a>
           </div>
         </div>
-      </div>
-
-      {/* O'rnatish bosqichlari + rasmlar */}
-      <div className="p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold mb-4 border-b-2 pb-2">
-          O'rnatish bo'yicha bosqichlar
-        </h2>
-        <ol className="list-decimal list-inside space-y-6">
-          {[
-            {
-              text: `Drayver faylini ishga tushiring. Sichqonchaning o'ng tugmasini bosib, "Открыть" ni tanlang.`,
-              img: "10.jpg",
-            },
-            { text: `O'rnatish oynasida "Да" tugmasini bosing.`, img: "1.jpg" },
-            {
-              text: `Qaysi interfeysda davom etishni tanlang va OK tugmasini bosing.`,
-              img: "9.jpg",
-            },
-            {
-              text: `Litsenziya shartlarini qabul qiling va "Next" tugmasini bosing.`,
-              img: "8.jpg",
-            },
-            { text: `Next tugmasini bosing va davom eting.`, img: "7.jpg" },
-            {
-              text: `O'rnatishni davom ettirish uchun "Install" tugmasini bosing.`,
-              img: "6.jpg",
-            },
-            {
-              text: `O'rnatish yakunida "Finish" tugmasini bosing.`,
-              img: "5.jpg",
-            },
-            {
-              text: `Printer interfeysiga USB ni tanlang va modeliga XP-80C ni tanlang. Check USB Port tugmasini bosing.`,
-              img: "4.jpg",
-            },
-            {
-              text: `Bu joyda printeringiz qaysi portda ishlashini ko'rsatib bermoqda. Bu printer faqat shu portda ishlaydi`,
-              img: "3.jpg",
-            },
-            {
-              text: `Install Now tugmasini bosish orqali drayverni o'rnatishni yakunlaymiz.`,
-              img: "2.jpg",
-            },
-            {
-              text: `O'rnatish muvaffaqiyatli yakunlandi. "Да" tugmasini bosish orqali test qilishimiz mumkin. Agar test qo'g'ozni chiqarib bergan bo'lsa muommosiz ulandi.`,
-              img: "11.jpg",
-            },
-            {
-              text: `Endi printer tayyor! Chek chiqarish uchun IDOKON dasturining kassasidan sozlamalar bo'limiga kirib 3.2 Checkni chop etish uchun printerga XP-80C yoki XP-80C (Copy) lardan eng oxirgisini tanlaymiz va sotishni boshlashimiz mumkin.`,
-              img: "12.jpg",
-            },
-          ].map((step, i) => (
-            <li key={i}>
-              {step.text}
-              <div className="mt-3 flex justify-center">
-                <img
-                  src={`/assets/devices/checkprinter/${step.img}`}
-                  alt={`Step ${i + 1}`}
-                  className="rounded-lg shadow-lg max-w-sm md:max-w-md object-contain"
-                  onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/400x300?text=Rasm+topilmadi';
-                    e.target.alt = 'Rasm topilmadi';
-                  }}
-                />
-              </div>
-            </li>
-          ))}
-        </ol>
       </div>
     </div>
   );

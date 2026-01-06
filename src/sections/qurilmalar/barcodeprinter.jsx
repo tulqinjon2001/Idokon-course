@@ -109,32 +109,6 @@ export default function BarcodePrinter() {
             Qo'llanmani yuklab olish (PDF)
           </a>
         </div>
-        <p className="text-sm text-gray-500 mt-2">
-          ⚠️ Fayl katta bo'lgani uchun Google Drive virusni tekshira olmaydi.
-          Ochilgan oynada <strong>Download anyway</strong> tugmasini bosish
-          kerak bo'ladi.
-        </p>
-      </div>
-
-      {/* 4. O'rnatish bo'yicha bosqichlar */}
-      <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
-          4. O'rnatish bo'yicha bosqichlar
-        </h2>
-        <ol className="list-decimal list-inside text-gray-600 dark:text-gray-400 space-y-2">
-          <li>
-            Yuklab olingan <b>drayver faylini</b> oching va oʻrnatish jarayonini
-            boshlang.
-          </li>
-          <li>
-            Printerni <b>USB kabeli</b> orqali kompyuterga ulang.
-          </li>
-          <li>Oʻrnatish yakunlangandan soʻng, printerni yoqing.</li>
-          <li>
-            Sozlamalardan printerni tanlab, test shtrix-kodini chop etib
-            koʻring.
-          </li>
-        </ol>
       </div>
     </div>
   );
