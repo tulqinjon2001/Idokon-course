@@ -60,6 +60,7 @@ const navLinks = [
     submenu: [
       { name: "Barcode printer", path: "/qurilmalar/barcode" },
       { name: "Check printer", path: "/qurilmalar/check" },
+      { name: "Tarozi", path: "/qurilmalar/tarozi" },
     ],
   },
   {
@@ -103,13 +104,13 @@ export default function Sidebar({
           : "bg-gradient-to-b from-white to-gray-50 border-gray-200"
       } border-r z-30 transition-all duration-300
         md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        ${isCollapsed ? "w-20" : "w-72"} shadow-2xl md:shadow-xl overflow-hidden flex flex-col`}
+        ${
+          isCollapsed ? "w-20" : "w-72"
+        } shadow-2xl md:shadow-xl overflow-hidden flex flex-col`}
     >
       {/* Header */}
       <div
-        className={`${
-          isCollapsed ? "px-3" : "px-6"
-        } py-5 border-b ${
+        className={`${isCollapsed ? "px-3" : "px-6"} py-5 border-b ${
           isDarkMode
             ? "border-gray-700 bg-gradient-to-r from-gray-900 to-gray-800"
             : "border-gray-200 bg-gradient-to-r from-white to-gray-50"
@@ -221,8 +222,8 @@ export default function Sidebar({
                             ? "bg-gradient-to-r from-primary-900/40 to-primary-800/30 text-primary-300 shadow-lg shadow-primary-900/20"
                             : "bg-gradient-to-r from-primary-50 to-primary-100/50 text-primary-700 shadow-md shadow-primary-200/50"
                           : isDarkMode
-                            ? "text-gray-300 hover:bg-gray-800/50 hover:text-white"
-                            : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                          ? "text-gray-300 hover:bg-gray-800/50 hover:text-white"
+                          : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       }`}
                     title={isCollapsed ? link.name : ""}
                   >
@@ -234,8 +235,8 @@ export default function Sidebar({
                         isActive
                           ? "bg-gradient-to-br from-primary-500 to-primary-600 text-white shadow-md"
                           : isDarkMode
-                            ? "bg-gray-800 text-gray-400 group-hover:bg-gray-700 group-hover:text-gray-300"
-                            : "bg-gray-100 text-gray-600 group-hover:bg-primary-100 group-hover:text-primary-600"
+                          ? "bg-gray-800 text-gray-400 group-hover:bg-gray-700 group-hover:text-gray-300"
+                          : "bg-gray-100 text-gray-600 group-hover:bg-primary-100 group-hover:text-primary-600"
                       }`}
                     >
                       <IconComponent className="w-4 h-4" />
@@ -263,8 +264,8 @@ export default function Sidebar({
                               ? "bg-gradient-to-r from-primary-900/40 to-primary-800/30 text-primary-300 shadow-lg shadow-primary-900/20"
                               : "bg-gradient-to-r from-primary-50 to-primary-100/50 text-primary-700 shadow-md shadow-primary-200/50"
                             : isDarkMode
-                              ? "text-gray-300 hover:bg-gray-800/50 hover:text-white"
-                              : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            ? "text-gray-300 hover:bg-gray-800/50 hover:text-white"
+                            : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                         }`}
                       title={isCollapsed ? link.name : ""}
                     >
@@ -276,8 +277,8 @@ export default function Sidebar({
                           isActive
                             ? "bg-gradient-to-br from-primary-500 to-primary-600 text-white shadow-md"
                             : isDarkMode
-                              ? "bg-gray-800 text-gray-400 group-hover:bg-gray-700 group-hover:text-gray-300"
-                              : "bg-gray-100 text-gray-600 group-hover:bg-primary-100 group-hover:text-primary-600"
+                            ? "bg-gray-800 text-gray-400 group-hover:bg-gray-700 group-hover:text-gray-300"
+                            : "bg-gray-100 text-gray-600 group-hover:bg-primary-100 group-hover:text-primary-600"
                         }`}
                       >
                         <IconComponent className="w-4 h-4" />
@@ -320,8 +321,8 @@ export default function Sidebar({
                                       ? "bg-primary-900/30 text-primary-300 font-semibold shadow-md"
                                       : "bg-primary-50 text-primary-700 font-semibold shadow-sm"
                                     : isDarkMode
-                                      ? "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
-                                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                                    ? "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
+                                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                                 }`}
                             >
                               <div
@@ -329,8 +330,8 @@ export default function Sidebar({
                                   isSubActive
                                     ? "bg-primary-500 shadow-sm shadow-primary-500/50"
                                     : isDarkMode
-                                      ? "bg-gray-600 group-hover:bg-gray-500"
-                                      : "bg-gray-300 group-hover:bg-primary-400"
+                                    ? "bg-gray-600 group-hover:bg-gray-500"
+                                    : "bg-gray-300 group-hover:bg-primary-400"
                                 }`}
                               ></div>
                               <span className="flex-1">{sub.name}</span>
@@ -391,7 +392,7 @@ style.innerHTML = `
   animation: slideDown 0.3s ease-out;
 }
 `;
-if (!document.querySelector('style[data-sidebar-animations]')) {
-  style.setAttribute('data-sidebar-animations', 'true');
+if (!document.querySelector("style[data-sidebar-animations]")) {
+  style.setAttribute("data-sidebar-animations", "true");
   document.head.appendChild(style);
 }

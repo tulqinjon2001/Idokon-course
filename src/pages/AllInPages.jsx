@@ -28,6 +28,7 @@ import kassaSozlamalari from "../sections/kassaPanel/kassaSozlamalari";
 /* 🖨️ Qurilmalar komponentlari */
 import barcodeprinter from "../sections/qurilmalar/barcodeprinter";
 import checkprinter from "../sections/qurilmalar/checkprinter";
+import tarozi from "../sections/qurilmalar/tarozi";
 
 /* ❓ Savollar komponentlari */
 import inventarizatsiya from "../sections/savollar/inventarizatsiya";
@@ -66,6 +67,7 @@ const ROUTES = [
   /* 🖨️ Qurilmalar */
   { path: "/qurilmalar/barcode", component: barcodeprinter },
   { path: "/qurilmalar/check", component: checkprinter },
+  { path: "/qurilmalar/tarozi", component: tarozi },
 
   /* ❓ Savollar */
   { path: "/savollar/inventarizatsiya", component: inventarizatsiya },
@@ -112,6 +114,7 @@ const navLinks = [
     submenu: [
       { name: "Barcode printer", path: "/qurilmalar/barcode" },
       { name: "Check printer", path: "/qurilmalar/check" },
+      { name: "Tarozi", path: "/qurilmalar/tarozi" },
     ],
   },
   {
@@ -163,6 +166,7 @@ function Breadcrumb({ isDarkMode }) {
       "Sozlamalar": "fa-cog",
       "Barcode printer": "fa-barcode",
       "Check printer": "fa-print",
+      "Tarozi": "fa-balance-scale",
     };
     return iconMap[name] || null;
   };
