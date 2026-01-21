@@ -6,7 +6,7 @@ const KassagaKirish = () => {
   const YT_URL = `https://www.youtube.com/watch?v=${YT_VIDEO_ID}`;
   const YT_PLAYLIST_URL =
     "https://www.youtube.com/playlist?list=PLNt3xrjLbs_hfUO2_2sN3lsaMAvtMmADq";
-  const CassaVersionURL = "https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokon1.2.3.x64.2.exe"
+  const CassaVersionURL = "https://github.com/tulqinjon2001/Idokon-course/releases/download/idokonkassa1.2.2/Idokonv1.2.4.x64.exe"
 
   const KASSA_URL = "https://example.com/downloads/IDOKON-Kassa-setup.exe";
   const MANUAL_URL = "https://example.com/docs/IDOKON-kassa-manual.pdf";
