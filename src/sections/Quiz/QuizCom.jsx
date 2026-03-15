@@ -1,12 +1,22 @@
-// src/components/QuizCom.jsx
-import React, { useEffect, useMemo, useState, useRef } from "react";
+/**
+ * QuizCom — IDOKON bilim testi
+ *
+ * Yaxshilanishlar:
+ * ✅ isDarkMode prop qabul qilinadi va barcha UI ga tatbiq etildi
+ * ✅ resetAll da phone ni PREFIX bilan to'g'ri reset qilindi
+ * ✅ notifyStatus UI qaytarildi (comment olib tashlandi)
+ * ✅ Vizual dizayn yaxshilandi (dark/light)
+ */
+
+import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import questionsData from "../../data/quiz-questions.json";
 
 const DEFAULT_QUESTION_COUNT = 20;
 const LS_KEY = "quiz_state_v1";
 const PASS_RATE = 0.8;
+const PREFIX = "+998 ";
 
-// shuffle helper
+/* ── Shuffle ── */
 function shuffle(arr) {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {
@@ -16,16 +26,13 @@ function shuffle(arr) {
   return a;
 }
 
+/* ── Hydrate questions (shuffle choices, remap correct key) ── */
 function hydrateQuestions(raw) {
   const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   return raw.map((q) => {
-    // Build choices with original references so we can remap correct answer after shuffling
     let choicesRaw = [];
     if (Array.isArray(q.options)) {
-      choicesRaw = q.options.map((label, i) => ({
-        label,
-        originalIndex: i,
-      }));
+      choicesRaw = q.options.map((label, i) => ({ label, originalIndex: i }));
     } else if (q.options && typeof q.options === "object") {
       choicesRaw = Object.entries(q.options).map(([key, label], i) => ({
         label,
@@ -33,75 +40,56 @@ function hydrateQuestions(raw) {
         originalIndex: i,
       }));
     }
-
-    // Shuffle positions so the correct answer won't always be at the same letter
     choicesRaw = shuffle(choicesRaw);
-
-    // Assign display keys A, B, C... in the shuffled order
     const choices = choicesRaw.map((c, i) => ({
       key: LETTERS[i] || String(i),
       label: c.label,
-      // keep originals for mapping correct answer
       __origKey: c.originalKey,
       __origIndex: c.originalIndex,
     }));
 
-    // Determine correct key in the new shuffled+rekeyed choices
-    let correctKey =
-      q.correct ?? q.correct_option ?? q.correctOption ?? q.correct_answer;
-
+    let correctKey = q.correct ?? q.correct_option ?? q.correctOption ?? q.correct_answer;
     if (typeof correctKey === "number") {
-      // original was an index -> find the choice that had that originalIndex
       const found = choices.find((c) => c.__origIndex === correctKey);
       correctKey = found ? found.key : undefined;
     } else if (typeof correctKey === "string") {
-      // 1) If original options were an object with keys (e.g. "A","B"), map by originalKey
       const byOrigKey = choices.find((c) => c.__origKey === correctKey);
       if (byOrigKey) {
         correctKey = byOrigKey.key;
       } else {
-        // 2) If correct was a letter corresponding to original sequential index (e.g. "A" -> 0)
         const idx = LETTERS.indexOf(correctKey.toUpperCase());
         if (idx >= 0) {
           const byIndex = choices.find((c) => c.__origIndex === idx);
           if (byIndex) correctKey = byIndex.key;
         }
-        // otherwise leave as-is (fallback)
       }
     }
-
-    // Return sanitized choices (drop internal mapping fields)
-    const outChoices = choices.map(({ key, label }) => ({ key, label }));
 
     return {
       id: String(q.id ?? Math.random().toString(36).slice(2, 9)),
       text: q.text || q.question,
-      choices: outChoices,
+      choices: choices.map(({ key, label }) => ({ key, label })),
       correct: correctKey,
     };
   });
 }
 
-// storage
+/* ── LocalStorage helpers ── */
 function saveState(state) {
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify(state));
-  } catch {}
+  try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch { /**/ }
 }
 function loadState() {
   try {
     const s = localStorage.getItem(LS_KEY);
     return s ? JSON.parse(s) : null;
-  } catch {}
+  } catch { /**/ }
   return null;
 }
 function clearState() {
-  try {
-    localStorage.removeItem(LS_KEY);
-  } catch {}
+  try { localStorage.removeItem(LS_KEY); } catch { /**/ }
 }
 
-// fallback
+/* ── Fallback questions ── */
 const SAMPLE_QUESTIONS = [
   {
     id: "s1",
@@ -109,18 +97,30 @@ const SAMPLE_QUESTIONS = [
     options: { A: "Samarqand", B: "Toshkent", C: "Buxoro", D: "Namangan" },
     correct: "B",
   },
-  {
-    id: "s2",
-    text: "2 + 2 = ?",
-    options: ["3", "4", "5", "22"],
-    correct: 1,
-  },
+  { id: "s2", text: "2 + 2 = ?", options: ["3", "4", "5", "22"], correct: 1 },
 ];
 
-export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
+/* ── Phone formatter ── */
+function formatPhoneDigits(digits) {
+  const a = digits.slice(0, 2);
+  const b = digits.slice(2, 5);
+  const c = digits.slice(5, 7);
+  const d = digits.slice(7, 9);
+  const parts = [];
+  if (a) parts.push(`(${a})`);
+  if (b) parts.push(b);
+  if (c) parts.push(c);
+  if (d) parts.push(d);
+  return parts.join(" - ");
+}
+
+/* ════════════════════════════════════════════════════════════ */
+export default function QuizCom({
+  questionCount = DEFAULT_QUESTION_COUNT,
+  isDarkMode = false,
+}) {
   const [step, setStep] = useState("intro");
   const [name, setName] = useState("");
-  const PREFIX = "+998 ";
   const [phone, setPhone] = useState(PREFIX);
   const phoneRef = useRef(null);
   const [questions, setQuestions] = useState([]);
@@ -129,18 +129,19 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
   const [score, setScore] = useState(null);
+  const [notifyStatus, setNotifyStatus] = useState("idle"); // idle | sending | ok | err
 
   const [congratsVisible, setCongratsVisible] = useState(false);
   const [confetti, setConfetti] = useState([]);
   const [failVisible, setFailVisible] = useState(false);
 
-  // NEW: backendga yuborish holati
-  const [notifyStatus, setNotifyStatus] = useState("idle"); // idle | sending | ok | err
-
   const total = questions.length || questionCount;
   const answeredCount = useMemo(() => Object.keys(answers).length, [answers]);
   const progress = Math.round((answeredCount / Math.max(total, 1)) * 100);
+  const percentScore = score != null && total > 0 ? Math.round((score / total) * 100) : 0;
+  const passPercent = Math.round(PASS_RATE * 100);
 
+  /* ── Load state on mount ── */
   useEffect(() => {
     const s = loadState();
     if (!s) return;
@@ -153,195 +154,12 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
     setScore(s.score ?? null);
   }, []);
 
+  /* ── Persist state ── */
   useEffect(() => {
     saveState({ step, name, phone, questions, answers, current, score });
   }, [step, name, phone, questions, answers, current, score]);
 
-  // helper: format digits into "(AA) - BBB - CC - DD"
-  function formatPhoneDigits(digits) {
-    const a = digits.slice(0, 2);
-    const b = digits.slice(2, 5);
-    const c = digits.slice(5, 7);
-    const d = digits.slice(7, 9);
-    const parts = [];
-    if (a) parts.push(`(${a})`);
-    if (b) parts.push(b);
-    if (c) parts.push(c);
-    if (d) parts.push(d);
-    return parts.join(" - ");
-  }
-
-  function handlePhoneChange(e) {
-    let v = e.target.value || "";
-    // remove prefix if user pasted full number or typed differently
-    v = v.replace(/^\+?998\s*/, "");
-    // keep only digits, max 9
-    const digits = v.replace(/\D/g, "").slice(0, 9);
-    const formatted = formatPhoneDigits(digits);
-    setPhone(PREFIX + formatted);
-  }
-
-  function handlePhoneFocus() {
-    // move caret to end so prefix can't be accidentally edited
-    setTimeout(() => {
-      const el = phoneRef.current;
-      if (el && typeof el.setSelectionRange === "function") {
-        const len = el.value.length;
-        el.setSelectionRange(len, len);
-      }
-    }, 0);
-  }
-
-  async function startTest(e) {
-    e?.preventDefault();
-    setErr("");
-    if (!name.trim() || !phone.trim()) {
-      setErr("Ism va telefon raqamni kiriting.");
-      return;
-    }
-    // validate phone: must contain 9 digits after +998
-    const digitsOnly = (phone || "").replace(/\D/g, "");
-    // digitsOnly includes country code 998 if user left prefix; remove leading 998 if present
-    const afterPrefix = digitsOnly.replace(/^998/, "");
-    if (afterPrefix.length !== 9) {
-      setErr(
-        "Telefon raqamni to'g'ri kiriting (masalan: +998 (90) - 123 - 45 - 67)."
-      );
-      return;
-    }
-    setLoading(true);
-    const pool =
-      Array.isArray(questionsData) && questionsData.length > 0
-        ? questionsData
-        : SAMPLE_QUESTIONS;
-    const selectedRaw = shuffle(pool).slice(
-      0,
-      Math.min(questionCount, pool.length)
-    );
-    const hydrated = hydrateQuestions(selectedRaw);
-    setQuestions(hydrated);
-    setAnswers({});
-    setCurrent(0);
-    setStep("quiz");
-    setLoading(false);
-  }
-
-  function selectAnswer(qid, optKey) {
-    setAnswers((prev) => ({ ...prev, [qid]: optKey }));
-  }
-
-  // NEW: backendga xabar yuborish helper
-  // FRONTENDDAN BACKENDGA XABAR YUBORISH (env orqali)
-  async function notifyTelegram({ name, phone, score, total, passed }) {
-    try {
-      setNotifyStatus("sending");
-
-      const percent = Math.round((score / total) * 100);
-
-      // Prefer VITE_API_BASE_URL; if not present (e.g. built without env) use deployed backend
-      const rawBase =
-        typeof import.meta !== "undefined" &&
-        import.meta.env &&
-        import.meta.env.VITE_API_BASE_URL
-          ? import.meta.env.VITE_API_BASE_URL
-          : "https://idokon-course-backend.onrender.com";
-      const API_BASE = String(rawBase).replace(/\/+$/, ""); // remove trailing slash
-      const url = `${API_BASE}/api/telegram-notify`;
-
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, score, total, percent, passed }),
-      });
-
-      if (!res.ok) {
-        const txt = await res.text().catch(() => "");
-        throw new Error(txt || `HTTP ${res.status}`);
-      }
-      setNotifyStatus("ok");
-    } catch (e) {
-      console.error("Telegramga yuborishda xatolik:", e);
-      setNotifyStatus("err");
-    }
-  }
-
-  async function submitAnswers() {
-    let sc = 0;
-    Object.entries(answers).forEach(([qid, userKey]) => {
-      const q = questions.find((q) => q.id === qid);
-      if (q && userKey === q.correct) sc++;
-    });
-    const passed = total > 0 && sc / total >= PASS_RATE;
-
-    // 1) UI natijani chiqarish
-    setScore(sc);
-    setStep("result");
-    clearState();
-
-    // 2) BACKENDGA YUBORISH (frontend qismi)
-    //    Keyingi bosqichda /api/telegram-notify ni server tomonda qo'shamiz.
-    notifyTelegram({ name, phone, score: sc, total, passed });
-  }
-
-  function resetAll() {
-    setStep("intro");
-    setName("");
-    setPhone("");
-    setQuestions([]);
-    setAnswers({});
-    setCurrent(0);
-    setScore(null);
-    setNotifyStatus("idle");
-    clearState();
-  }
-
-  const q = questions[current];
-  const pillsRef = useRef(null);
-
-  // show score percent and pass threshold in UI
-  const percentScore =
-    score != null && total > 0 ? Math.round((score / total) * 100) : 0;
-  const passPercent = Math.round(PASS_RATE * 100);
-
-  function handlePillsWheel(e) {
-    const el = pillsRef.current;
-    if (!el) return;
-    const delta = e.deltaY * 1.5;
-    if (Math.abs(delta) > 0 && el.scrollWidth > el.clientWidth) {
-      el.scrollLeft += delta;
-      e.preventDefault();
-    }
-  }
-
-  function handlePillsKeyDown(e) {
-    if (e.key === "ArrowLeft") {
-      setCurrent((c) => Math.max(c - 1, 0));
-      e.preventDefault();
-    } else if (e.key === "ArrowRight") {
-      setCurrent((c) => Math.min(c + 1, total - 1));
-      e.preventDefault();
-    } else if (e.key === "Home") {
-      setCurrent(0);
-      e.preventDefault();
-    } else if (e.key === "End") {
-      setCurrent(total - 1);
-      e.preventDefault();
-    }
-  }
-
-  useEffect(() => {
-    const el = pillsRef.current;
-    if (!el) return;
-    const btn = el.children[current];
-    if (btn && typeof btn.scrollIntoView === "function") {
-      btn.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest",
-      });
-    }
-  }, [current]);
-
+  /* ── Confetti on result ── */
   useEffect(() => {
     let t, g, f;
     if (step === "result" && score != null && total > 0) {
@@ -350,27 +168,20 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
         setFailVisible(false);
         t = setTimeout(() => setCongratsVisible(true), 200);
         g = setTimeout(() => {
-          const colors = [
-            "#EF4444",
-            "#F97316",
-            "#F59E0B",
-            "#10B981",
-            "#06B6D4",
-            "#6366F1",
-            "#EC4899",
-          ];
-          const pieces = Array.from({ length: 28 }).map((_, i) => ({
-            id: `c${Date.now()}_${i}`,
-            left: Math.round(Math.random() * 100),
-            delay: Number((Math.random() * 0.5).toFixed(2)),
-            duration: Number((1.8 + Math.random() * 1.6).toFixed(2)),
-            color: colors[Math.floor(Math.random() * colors.length)],
-            rotate: Math.round(Math.random() * 360),
-            w: 6 + Math.round(Math.random() * 8),
-            h: 10 + Math.round(Math.random() * 10),
-          }));
-          setConfetti(pieces);
-          setTimeout(() => setConfetti([]), 3800);
+          const colors = ["#EF4444","#F97316","#F59E0B","#10B981","#06B6D4","#6366F1","#EC4899"];
+          setConfetti(
+            Array.from({ length: 30 }).map((_, i) => ({
+              id: `c${Date.now()}_${i}`,
+              left: Math.round(Math.random() * 100),
+              delay: Number((Math.random() * 0.6).toFixed(2)),
+              duration: Number((1.8 + Math.random() * 1.6).toFixed(2)),
+              color: colors[Math.floor(Math.random() * colors.length)],
+              rotate: Math.round(Math.random() * 360),
+              w: 6 + Math.round(Math.random() * 8),
+              h: 10 + Math.round(Math.random() * 10),
+            }))
+          );
+          setTimeout(() => setConfetti([]), 4000);
         }, 350);
       } else {
         setCongratsVisible(false);
@@ -380,38 +191,166 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
       setCongratsVisible(false);
       setFailVisible(false);
     }
-    return () => {
-      clearTimeout(t);
-      clearTimeout(g);
-      clearTimeout(f);
-      setConfetti([]);
-    };
+    return () => { clearTimeout(t); clearTimeout(g); clearTimeout(f); setConfetti([]); };
   }, [step, score, total]);
 
+  /* ── Phone handlers ── */
+  const handlePhoneChange = useCallback((e) => {
+    let v = (e.target.value || "").replace(/^\+?998\s*/, "");
+    const digits = v.replace(/\D/g, "").slice(0, 9);
+    setPhone(PREFIX + formatPhoneDigits(digits));
+  }, []);
+
+  const handlePhoneFocus = useCallback(() => {
+    setTimeout(() => {
+      const el = phoneRef.current;
+      if (el?.setSelectionRange) {
+        const len = el.value.length;
+        el.setSelectionRange(len, len);
+      }
+    }, 0);
+  }, []);
+
+  /* ── Start test ── */
+  async function startTest(e) {
+    e?.preventDefault();
+    setErr("");
+    if (!name.trim()) { setErr("Ismingizni kiriting."); return; }
+    const digitsOnly = (phone || "").replace(/\D/g, "").replace(/^998/, "");
+    if (digitsOnly.length !== 9) {
+      setErr("Telefon raqamni to'g'ri kiriting (masalan: +998 (90) - 123 - 45 - 67).");
+      return;
+    }
+    setLoading(true);
+    const pool = Array.isArray(questionsData) && questionsData.length > 0
+      ? questionsData : SAMPLE_QUESTIONS;
+    const hydrated = hydrateQuestions(shuffle(pool).slice(0, Math.min(questionCount, pool.length)));
+    setQuestions(hydrated);
+    setAnswers({});
+    setCurrent(0);
+    setStep("quiz");
+    setLoading(false);
+  }
+
+  /* ── Select answer ── */
+  const selectAnswer = useCallback((qid, optKey) => {
+    setAnswers((prev) => ({ ...prev, [qid]: optKey }));
+  }, []);
+
+  /* ── Telegram notify ── */
+  async function notifyTelegram({ name, phone, score, total, passed }) {
+    try {
+      setNotifyStatus("sending");
+      const percent = Math.round((score / total) * 100);
+      const rawBase =
+        typeof import.meta !== "undefined" &&
+        import.meta.env?.VITE_API_BASE_URL
+          ? import.meta.env.VITE_API_BASE_URL
+          : "https://idokon-course-backend.onrender.com";
+      const url = `${String(rawBase).replace(/\/+$/, "")}/api/telegram-notify`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, score, total, percent, passed }),
+      });
+      if (!res.ok) throw new Error(await res.text().catch(() => `HTTP ${res.status}`));
+      setNotifyStatus("ok");
+    } catch (e) {
+      console.error("Telegramga yuborishda xatolik:", e);
+      setNotifyStatus("err");
+    }
+  }
+
+  /* ── Submit ── */
+  async function submitAnswers() {
+    let sc = 0;
+    Object.entries(answers).forEach(([qid, userKey]) => {
+      const q = questions.find((q) => q.id === qid);
+      if (q && userKey === q.correct) sc++;
+    });
+    const passed = total > 0 && sc / total >= PASS_RATE;
+    setScore(sc);
+    setStep("result");
+    clearState();
+    notifyTelegram({ name, phone, score: sc, total, passed });
+  }
+
+  /* ── Reset ── */
+  function resetAll() {
+    setStep("intro");
+    setName("");
+    setPhone(PREFIX); // ✅ Prefix bilan reset
+    setQuestions([]);
+    setAnswers({});
+    setCurrent(0);
+    setScore(null);
+    setNotifyStatus("idle");
+    clearState();
+  }
+
+  /* ── Pills scroll ── */
+  const pillsRef = useRef(null);
+  useEffect(() => {
+    const btn = pillsRef.current?.children[current];
+    btn?.scrollIntoView?.({ behavior: "smooth", inline: "center", block: "nearest" });
+  }, [current]);
+
+  function handlePillsWheel(e) {
+    const el = pillsRef.current;
+    if (!el) return;
+    if (Math.abs(e.deltaY) > 0 && el.scrollWidth > el.clientWidth) {
+      el.scrollLeft += e.deltaY * 1.5;
+      e.preventDefault();
+    }
+  }
+
+  function handlePillsKeyDown(e) {
+    const map = {
+      ArrowLeft: () => setCurrent((c) => Math.max(c - 1, 0)),
+      ArrowRight: () => setCurrent((c) => Math.min(c + 1, total - 1)),
+      Home: () => setCurrent(0),
+      End: () => setCurrent(total - 1),
+    };
+    if (map[e.key]) { map[e.key](); e.preventDefault(); }
+  }
+
+  const q = questions[current];
+
+  /* ── Theme helpers ── */
+  const card = isDarkMode
+    ? "bg-gray-800 border-gray-700 text-gray-100"
+    : "bg-white border-gray-200 text-gray-900";
+  const inputCls = isDarkMode
+    ? "bg-gray-700 border-gray-600 text-gray-100 placeholder-gray-500 focus:border-primary-500 focus:ring-primary-500/30"
+    : "bg-white border-gray-300 text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-primary-200";
+  const labelCls = isDarkMode ? "text-gray-300" : "text-gray-700";
+
   return (
-    <div className="mx-auto max-w-6xl p-4 md:p-6 pb-20">
-      <div className="mb-4 flex items-center justify-between gap-3">
+    <div className="mx-auto max-w-4xl p-4 md:p-6 pb-20">
+      {/* ── Page title ── */}
+      <div className="mb-6 flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
-            Idokon bo'yicha bilim darajangizni tekshiring
+          <h1 className={`text-xl sm:text-2xl font-bold ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}>
+            Bilim darajangizni tekshiring
           </h1>
-          <p className="text-gray-500">
-            Hurmatli mijoz sizga {questionCount} ta test beriladi.
+          <p className={`text-sm mt-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+            Hurmatli mijoz, sizga {questionCount} ta test beriladi.
           </p>
         </div>
+
         {step === "quiz" && (
-          <div className="hidden sm:flex items-center gap-3">
-            <span className="text-sm text-gray-600">
+          <div className="flex items-center gap-3">
+            <span className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
               {answeredCount}/{total}
             </span>
             <div className="flex items-center gap-2">
-              <div className="h-2 w-40 rounded-full bg-gray-200">
+              <div className={`h-2 w-32 sm:w-40 rounded-full ${isDarkMode ? "bg-gray-700" : "bg-gray-200"}`}>
                 <div
-                  className="h-full bg-primary-600 transition-all"
+                  className="h-full bg-primary-500 rounded-full transition-all duration-300"
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <span className="text-sm font-semibold text-gray-700">
+              <span className={`text-sm font-semibold ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                 {progress}%
               </span>
             </div>
@@ -419,179 +358,222 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
         )}
       </div>
 
+      {/* ── Error ── */}
       {err && (
-        <div className="mb-4 rounded-md border bg-red-50 px-4 py-3 text-red-700">
+        <div className="mb-4 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
+          <i className="fa-solid fa-triangle-exclamation" />
           {err}
         </div>
       )}
 
+      {/* ══════════════ INTRO ══════════════ */}
       {step === "intro" && (
-        <form
-          onSubmit={startTest}
-          className="rounded-xl border bg-white p-6 shadow-sm max-w-xl"
-        >
-          <div className="space-y-4">
-            <div>
-              <label className="mb-1 block text-sm font-medium">Ism</label>
-              <input
-                className="w-full rounded-lg border px-3 py-2"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+        <div className={`rounded-2xl border p-6 sm:p-8 shadow-sm ${card}`}>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-md">
+              <i className="fa-solid fa-circle-question text-white" />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium">
-                Telefon raqam
+              <h2 className={`font-bold text-lg ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}>
+                Test boshlanishidan oldin
+              </h2>
+              <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+                Ma'lumotlaringizni kiriting
+              </p>
+            </div>
+          </div>
+
+          <form onSubmit={startTest} className="space-y-4 max-w-md">
+            <div>
+              <label className={`block mb-1.5 text-sm font-medium ${labelCls}`}>
+                Ismingiz <span className="text-red-500">*</span>
+              </label>
+              <input
+                className={`w-full rounded-xl border px-4 py-2.5 text-sm transition-all focus:outline-none focus:ring-2 ${inputCls}`}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Ism Familiya"
+                autoComplete="name"
+              />
+            </div>
+
+            <div>
+              <label className={`block mb-1.5 text-sm font-medium ${labelCls}`}>
+                Telefon raqam <span className="text-red-500">*</span>
               </label>
               <input
                 ref={phoneRef}
-                className="w-full rounded-lg border px-3 py-2"
+                className={`w-full rounded-xl border px-4 py-2.5 text-sm transition-all focus:outline-none focus:ring-2 ${inputCls}`}
                 value={phone}
                 onChange={handlePhoneChange}
                 onFocus={handlePhoneFocus}
-                placeholder="+998 (XX) - XXX - XX - XX"
+                placeholder="+998 (90) - 123 - 45 - 67"
                 inputMode="numeric"
+                autoComplete="tel"
               />
             </div>
+
             <button
               type="submit"
-              className="rounded-lg bg-primary-600 px-5 py-2.5 text-white hover:bg-primary-700"
+              disabled={loading}
+              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-white font-semibold text-sm hover:bg-primary-700 active:scale-95 transition-all shadow-md disabled:opacity-60"
             >
-              {loading ? "Yuklanmoqda..." : "Testni boshlash"}
+              {loading ? (
+                <><i className="fa-solid fa-spinner fa-spin" /> Yuklanmoqda…</>
+              ) : (
+                <><i className="fa-solid fa-play" /> Testni boshlash</>
+              )}
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
       )}
 
+      {/* ══════════════ QUIZ ══════════════ */}
       {step === "quiz" && q && (
-        <div className="bg-white rounded-xl border p-5 shadow-sm space-y-4 ">
-          {/* top nav: numbered pills */}
-          <div className="flex items-center justify-between gap-4">
-            <div
-              className="flex gap-2 overflow-x-auto pb-1"
-              ref={pillsRef}
-              onWheel={handlePillsWheel}
-              tabIndex={0}
-              onKeyDown={handlePillsKeyDown}
-              style={{
-                WebkitOverflowScrolling: "touch",
-                touchAction: "pan-y",
-              }}
-            >
-              {questions.map((_, idx) => {
-                const q = questions[idx];
-                const isCurrent = idx === current;
-                const isAnswered = q && answers && !!answers[q.id];
-                const base =
-                  "px-3 py-1 rounded-md border text-sm font-semibold whitespace-nowrap";
-                const stateClass = isCurrent
-                  ? "bg-primary-400 text-white border-primary-400"
-                  : isAnswered
-                  ? "bg-primary-100 text-primary-800 border-primary-200"
-                  : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50";
-
-                return (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrent(idx)}
-                    className={`${base} ${stateClass}`}
-                    title={
-                      isAnswered
-                        ? "Bu savol javoblangan"
-                        : "Bu savol javoblanmagan"
-                    }
-                  >
-                    {idx + 1}
-                  </button>
-                );
-              })}
-            </div>
+        <div className={`rounded-2xl border shadow-sm space-y-5 ${card}`}>
+          {/* Pills nav */}
+          <div
+            className={`px-5 pt-5 pb-0 flex gap-1.5 overflow-x-auto`}
+            ref={pillsRef}
+            onWheel={handlePillsWheel}
+            tabIndex={0}
+            onKeyDown={handlePillsKeyDown}
+            role="tablist"
+            aria-label="Savollar navigatsiyasi"
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
+            {questions.map((qItem, idx) => {
+              const isCurrent = idx === current;
+              const isAnswered = !!answers[qItem.id];
+              return (
+                <button
+                  key={idx}
+                  role="tab"
+                  aria-selected={isCurrent}
+                  onClick={() => setCurrent(idx)}
+                  title={isAnswered ? "Javoblangan" : "Javoblanmagan"}
+                  className={[
+                    "flex-shrink-0 px-3 py-1 rounded-lg border text-xs font-bold transition-all",
+                    isCurrent
+                      ? "bg-primary-500 border-primary-500 text-white shadow-md"
+                      : isAnswered
+                      ? isDarkMode
+                        ? "bg-primary-900/40 border-primary-700 text-primary-300"
+                        : "bg-primary-100 border-primary-200 text-primary-700"
+                      : isDarkMode
+                      ? "bg-gray-700 border-gray-600 text-gray-400 hover:bg-gray-600"
+                      : "bg-white border-gray-200 text-gray-500 hover:bg-gray-50",
+                  ].join(" ")}
+                >
+                  {idx + 1}
+                </button>
+              );
+            })}
           </div>
 
-          {/* question */}
-          <div className="pt-2">
-            <div className="mb-3 flex items-start gap-3">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-white font-bold">
+          {/* Question */}
+          <div className="px-5">
+            <div className="flex items-start gap-3 mb-4">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-white font-bold text-sm flex-shrink-0 shadow-sm">
                 {current + 1}
               </span>
-              <h2 className="text-lg font-semibold">{q.text}</h2>
+              <h2 className={`text-base sm:text-lg font-semibold leading-snug ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}>
+                {q.text}
+              </h2>
             </div>
 
-            <div className="space-y-3">
+            {/* Choices */}
+            <div className="space-y-2.5">
               {q.choices.map(({ key, label }) => {
                 const selected = answers[q.id] === key;
                 return (
                   <button
                     key={key}
                     onClick={() => selectAnswer(q.id, key)}
-                    className={`w-full flex items-center gap-4 rounded-lg border px-4 py-3 text-left transition ${
+                    className={[
+                      "w-full flex items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition-all duration-150 hover:shadow-sm active:scale-[0.99]",
                       selected
-                        ? "border-primary-500 bg-primary-50"
-                        : "border-gray-200 hover:bg-gray-50"
-                    }`}
+                        ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20 shadow-md"
+                        : isDarkMode
+                        ? "border-gray-700 hover:bg-gray-700/50 hover:border-gray-600"
+                        : "border-gray-200 hover:bg-gray-50 hover:border-gray-300",
+                    ].join(" ")}
                   >
-                    <div
-                      className={`flex items-center justify-center h-9 w-9 rounded-md font-bold ${
+                    <span
+                      className={[
+                        "flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-lg font-bold text-sm transition-all",
                         selected
-                          ? "bg-primary-600 text-white"
-                          : "bg-gray-100 text-gray-700"
-                      }`}
+                          ? "bg-primary-600 text-white shadow-sm"
+                          : isDarkMode
+                          ? "bg-gray-700 text-gray-300"
+                          : "bg-gray-100 text-gray-700",
+                      ].join(" ")}
                     >
                       {key}
-                    </div>
-                    <div className="text-sm">{label}</div>
+                    </span>
+                    <span className={`flex-1 leading-snug ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>
+                      {label}
+                    </span>
+                    {selected && (
+                      <i className="fa-solid fa-circle-check text-primary-500 flex-shrink-0" />
+                    )}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* footer */}
-          <div className="flex items-center justify-between pt-4">
+          {/* Footer */}
+          <div className={`flex items-center justify-between px-5 pb-5 pt-2 border-t ${isDarkMode ? "border-gray-700" : "border-gray-100"}`}>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setCurrent((c) => Math.max(c - 1, 0))}
-                className="rounded-lg border px-4 py-2 hover:bg-gray-50"
+                disabled={current === 0}
+                className={`px-4 py-2 rounded-xl border text-sm font-medium transition-all disabled:opacity-40 ${
+                  isDarkMode
+                    ? "border-gray-600 text-gray-300 hover:bg-gray-700"
+                    : "border-gray-200 text-gray-700 hover:bg-gray-50"
+                }`}
               >
                 ← Oldingi
               </button>
               <button
                 onClick={() => setCurrent((c) => Math.min(c + 1, total - 1))}
-                className="rounded-lg border px-4 py-2 hover:bg-gray-50"
+                disabled={current === total - 1}
+                className={`px-4 py-2 rounded-xl border text-sm font-medium transition-all disabled:opacity-40 ${
+                  isDarkMode
+                    ? "border-gray-600 text-gray-300 hover:bg-gray-700"
+                    : "border-gray-200 text-gray-700 hover:bg-gray-50"
+                }`}
               >
                 Keyingi →
               </button>
               <button
                 onClick={submitAnswers}
-                className="ml-2 rounded-lg bg-primary-600 px-4 py-2 text-white hover:bg-primary-700"
+                className="ml-1 px-4 py-2 rounded-xl bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 active:scale-95 transition-all shadow-md"
               >
-                Yakunlash
+                Yakunlash ✓
               </button>
             </div>
-
-            <div className="text-sm text-gray-600">
-              {current + 1}/{total}
-            </div>
+            <span className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+              {current + 1} / {total}
+            </span>
           </div>
         </div>
       )}
 
-      {/* RESULT */}
+      {/* ══════════════ RESULT ══════════════ */}
       {step === "result" && (
-        <div className="mx-auto max-w-xl">
-          {/* pass card */}
-          {score != null && total > 0 && score / total >= PASS_RATE && (
+        <div className="max-w-xl mx-auto space-y-4">
+          {/* Pass card */}
+          {score != null && score / total >= PASS_RATE && (
             <div
-              className={`mb-4 rounded-xl border bg-white p-6 text-center shadow-sm transform transition-all duration-700 ease-out relative overflow-visible ${
-                congratsVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-              }`}
+              className={`relative overflow-hidden rounded-2xl border p-6 text-center shadow-sm transition-all duration-700 ${
+                congratsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              } ${isDarkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}
             >
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 overflow-visible"
-              >
+              {/* Confetti */}
+              <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                 {confetti.map((p) => (
                   <span
                     key={p.id}
@@ -604,96 +586,104 @@ export default function QuizCom({ questionCount = DEFAULT_QUESTION_COUNT }) {
                       background: p.color,
                       transform: `rotate(${p.rotate}deg)`,
                       borderRadius: "2px",
-                      display: "block",
                       animation: `confetti-fall ${p.duration}s ${p.delay}s cubic-bezier(.2,.8,.2,1) forwards`,
-                      willChange: "transform, opacity",
                     }}
                   />
                 ))}
               </div>
 
-              <div className="text-green-700 text-2xl md:text-3xl font-extrabold mb-2">
-                🎉 Tabriklaymiz{name ? `, ${name}` : ""}!
+              <div className="text-4xl mb-3">🎉</div>
+              <div className={`text-2xl font-extrabold mb-2 ${isDarkMode ? "text-green-400" : "text-green-700"}`}>
+                Tabriklaymiz{name ? `, ${name}` : ""}!
               </div>
-              <div className="text-gray-700 mb-4">
-                Siz testdan {percentScore}% natija bilan o'tdingiz.
+              <div className={`mb-3 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+                Siz testdan <strong>{percentScore}%</strong> natija bilan o'tdingiz.
               </div>
-              <div className="text-gray-600">
-                O'tish uchun kerak bo'lgan foiz:{" "}
-                <span className="font-semibold">{passPercent}%</span>
-              </div>
-              <div className="text-gray-600">
-                Siz Idokondan foydalanish uchun ro'yxatdan o'tishingiz mumkin.
+              <div className={`text-sm mb-4 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+                O'tish uchun kerak: <strong>{passPercent}%</strong>
               </div>
               <a
                 href="https://admin.idokon.uz/#/register"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block mt-4 rounded-lg bg-primary-600 px-4 py-2 text-white hover:bg-primary-700"
+                className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-5 py-2.5 text-white font-semibold text-sm hover:bg-primary-700 active:scale-95 transition-all shadow-md"
               >
+                <i className="fa-solid fa-user-plus" />
                 Ro'yxatdan o'tish
               </a>
 
-              <style>{`
-                @keyframes confetti-fall {
-                  0% { transform: translateY( -10% ) rotate(0deg); opacity: 1; }
-                  60% { opacity: 1; }
-                  100% { transform: translateY(120%) rotate(180deg); opacity: 0; }
-                }
-              `}</style>
+              <style>{`@keyframes confetti-fall{0%{transform:translateY(-10%) rotate(0deg);opacity:1}60%{opacity:1}100%{transform:translateY(120%) rotate(180deg);opacity:0}}`}</style>
             </div>
           )}
 
-          {/* fail card */}
-          {score != null && total > 0 && score / total < PASS_RATE && (
+          {/* Fail card */}
+          {score != null && score / total < PASS_RATE && (
             <div
-              className={`mb-4 rounded-xl border bg-red-50 p-6 text-center shadow-sm transform transition-all duration-500 ease-out ${
-                failVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-              }`}
+              className={`rounded-2xl border p-6 text-center shadow-sm transition-all duration-500 ${
+                failVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              } ${isDarkMode ? "bg-red-900/20 border-red-800/50" : "bg-red-50 border-red-200"}`}
             >
-              <div className="text-red-700 text-xl font-bold mb-2">
-                Afsuski, bu safar testdan o‘ta olmadingiz.
+              <div className="text-4xl mb-3">😔</div>
+              <div className={`text-xl font-bold mb-2 ${isDarkMode ? "text-red-400" : "text-red-700"}`}>
+                Bu safar testdan o'ta olmadingiz.
               </div>
-              <div className="text-gray-700 mb-2">
-                Siz {percentScore}% to'pladingiz. O'tish uchun kerak:{" "}
-                {passPercent}%.
+              <div className={`text-sm mb-1 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
+                Siz <strong>{percentScore}%</strong> to'pladingiz. O'tish uchun kerak: <strong>{passPercent}%</strong>.
               </div>
-              <div className="text-gray-700 mb-3">
-                Lekin tashvishlanmang — biroz ko‘proq tayyorgarlik ko‘rib, qayta
-                urinib ko‘ring! 💪
+              <div className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+                Biroz ko'proq tayyorgarlik ko'rib, qayta urinib ko'ring! 💪
               </div>
             </div>
           )}
 
-          {/* backendga yuborish statusi */}
-          {/* {notifyStatus !== "idle" && (
-            <div className="mb-3 text-center text-sm">
-              {notifyStatus === "sending" && <span className="text-gray-500">Telegramga yuborilmoqda…</span>}
-              {notifyStatus === "ok" && <span className="text-emerald-600">✅ Xabar yuborildi.</span>}
-              {notifyStatus === "err" && <span className="text-red-600">⚠️ Xabar yuborilmadi (server tekshiring).</span>}
+          {/* Telegram notify status */}
+          {notifyStatus !== "idle" && (
+            <div className={`rounded-xl px-4 py-3 text-sm text-center border ${
+              notifyStatus === "sending"
+                ? isDarkMode ? "bg-gray-800 border-gray-700 text-gray-400" : "bg-gray-50 border-gray-200 text-gray-500"
+                : notifyStatus === "ok"
+                ? isDarkMode ? "bg-green-900/20 border-green-800/40 text-green-400" : "bg-green-50 border-green-200 text-green-700"
+                : isDarkMode ? "bg-red-900/20 border-red-800/40 text-red-400" : "bg-red-50 border-red-200 text-red-700"
+            }`}>
+              {notifyStatus === "sending" && <><i className="fa-solid fa-spinner fa-spin mr-2" />Telegramga yuborilmoqda…</>}
+              {notifyStatus === "ok" && <><i className="fa-solid fa-circle-check mr-2" />Natijangiz yuborildi.</>}
+              {notifyStatus === "err" && <><i className="fa-solid fa-triangle-exclamation mr-2" />Xabar yuborilmadi (tarmoq xatosi).</>}
             </div>
-            
-          )} */}
+          )}
 
-          {/* original result card */}
-          <div className="rounded-xl border bg-white p-6 text-center shadow-sm">
-            <h2 className="mb-1 text-xl font-semibold">Natija</h2>
-            <p className="mb-2 text-gray-600">
-              To‘plagan ballingiz:{" "}
-              <span className="font-bold">
-                {score}/{total}
-              </span>
-            </p>
-            <p className="mb-2 text-gray-600">
-              Foiz: <span className="font-bold">{percentScore}%</span> — O'tish
-              uchun: <span className="font-bold">{passPercent}%</span>
-            </p>
+          {/* Score summary */}
+          <div className={`rounded-2xl border p-6 text-center shadow-sm ${
+            isDarkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
+          }`}>
+            <h2 className={`text-xl font-bold mb-3 ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}>
+              Natija
+            </h2>
+            <div className="mb-4">
+              <div className={`text-5xl font-extrabold ${
+                percentScore >= passPercent
+                  ? isDarkMode ? "text-green-400" : "text-green-600"
+                  : isDarkMode ? "text-red-400" : "text-red-600"
+              }`}>
+                {percentScore}%
+              </div>
+              <div className={`text-sm mt-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+                {score}/{total} to'g'ri javob
+              </div>
+            </div>
+            {/* Progress bar */}
+            <div className={`h-3 w-full rounded-full mb-4 ${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
+              <div
+                className={`h-full rounded-full transition-all duration-700 ${
+                  percentScore >= passPercent ? "bg-green-500" : "bg-red-500"
+                }`}
+                style={{ width: `${percentScore}%` }}
+              />
+            </div>
             <button
               onClick={resetAll}
-              className="mt-4 rounded-lg bg-primary-600 px-4 py-2 text-white hover:bg-primary-700"
+              className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-2.5 text-white font-semibold text-sm hover:bg-primary-700 active:scale-95 transition-all shadow-md"
             >
+              <i className="fa-solid fa-rotate-right" />
               Qayta boshlash
             </button>
           </div>

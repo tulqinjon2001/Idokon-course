@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
 /* ============================================
-   RANG MARKAZLASHTIRISH - #00AEEF
-   Barcha ranglar shu yerdan boshqariladi
+   RANG TIZIMI — IDOKON Brand #00AEEF
    ============================================ */
 @theme {
-  --color-primary-50: #E6F7FD;
+  --color-primary-50:  #E6F7FD;
   --color-primary-100: #B3E6F9;
   --color-primary-200: #80D5F5;
   --color-primary-300: #4DC4F1;
@@ -17,137 +16,179 @@
   --color-primary-900: #002233;
 }
 
-html,
-body,
-#root {
+/* ============================================
+   BASE STYLES
+   ============================================ */
+html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* Mobile-first responsive utilities */
-@media (max-width: 640px) {
-  body {
-    font-size: 14px;
-  }
-}
-
-/* Ensure proper overflow handling on mobile */
-html,
-body {
-  overflow-x: hidden;
-}
-
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Fix for sidebar transitions on mobile */
-@media (max-width: 1024px) {
-  .lg\:hidden {
-    display: block !important;
-  }
-
-  .lg\:block {
-    display: none !important;
-  }
-
-  .lg\:ml-64 {
-    margin-left: 0 !important;
-  }
+html, body {
+  overflow-x: hidden;
 }
 
-/* Responsive image handling */
+@media (max-width: 640px) {
+  body { font-size: 14px; }
+}
+
+/* Touch-friendly button min size */
+@media (max-width: 640px) {
+  button { min-height: 44px; }
+}
+
+/* Responsive image */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* Responsive table handling */
-table {
-  width: 100%;
-  overflow-x: auto;
-  display: block;
+/* Responsive table */
+table { width: 100%; }
+@media (max-width: 767px) {
+  table { overflow-x: auto; display: block; }
 }
 
-@media (min-width: 768px) {
-  table {
-    display: table;
-  }
+/* ============================================
+   THEME TIZIMI — CSS Custom Properties
+   data-theme="dark" atributi orqali boshqariladi
+   Barcha komponentlar avtomatik tarzda
+   to'g'ri ranglarni oladi.
+   ============================================ */
+
+/* Light (default) */
+:root {
+  --bg-page:        #ffffff;
+  --bg-card:        #ffffff;
+  --bg-card-hover:  #f9fafb;
+  --bg-subtle:      #f3f4f6;
+  --bg-input:       #ffffff;
+
+  --text-primary:   #111827;
+  --text-secondary: #374151;
+  --text-muted:     #6b7280;
+  --text-faint:     #9ca3af;
+
+  --border-color:   #e5e7eb;
+  --border-subtle:  #f3f4f6;
+
+  --shadow-card:    0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+  --shadow-lg:      0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
 }
 
-/* Touch-friendly buttons on mobile */
-@media (max-width: 640px) {
-  button {
-    min-height: 44px;
-    min-width: 44px;
-  }
+/* Dark */
+[data-theme="dark"] {
+  --bg-page:        #111827;
+  --bg-card:        #1f2937;
+  --bg-card-hover:  #27303f;
+  --bg-subtle:      #374151;
+  --bg-input:       #1f2937;
+
+  --text-primary:   #f9fafb;
+  --text-secondary: #e5e7eb;
+  --text-muted:     #9ca3af;
+  --text-faint:     #6b7280;
+
+  --border-color:   #374151;
+  --border-subtle:  #2d3748;
+
+  --shadow-card:    0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.2);
+  --shadow-lg:      0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.2);
 }
 
-/* Responsive iframe container */
+/* ──────────────────────────────────────
+   Eski komponentlar uchun global overrides
+   (dark:bg-white, dark:text-white etc.
+    kabi hardcode classlarni to'g'rilaydi)
+   ────────────────────────────────────── */
+[data-theme="dark"] .bg-white   { background-color: var(--bg-card) !important; }
+[data-theme="dark"] .bg-gray-50 { background-color: var(--bg-card-hover) !important; }
+[data-theme="dark"] .bg-gray-100 { background-color: var(--bg-subtle) !important; }
+[data-theme="dark"] .bg-slate-100 { background-color: var(--bg-subtle) !important; }
+
+[data-theme="dark"] .text-gray-800,
+[data-theme="dark"] .text-gray-900 { color: var(--text-primary) !important; }
+
+[data-theme="dark"] .text-gray-600,
+[data-theme="dark"] .text-gray-700 { color: var(--text-secondary) !important; }
+
+[data-theme="dark"] .text-gray-500 { color: var(--text-muted) !important; }
+[data-theme="dark"] .text-gray-400 { color: var(--text-faint) !important; }
+
+[data-theme="dark"] .border-gray-200 { border-color: var(--border-color) !important; }
+[data-theme="dark"] .border-gray-300 { border-color: var(--border-color) !important; }
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* ============================================
+   ANIMATSIYALAR
+   ============================================ */
+
+/* Sidebar submenu ochilishi */
+@keyframes sidebarSlideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-sidebar-slide-down {
+  animation: sidebarSlideDown 0.25s ease-out;
+}
+
+/* Umumiy fade in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+
+/* Yuqoridan tushish */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slideDown { animation: slideDown 0.5s ease-out; }
+
+/* Pastdan chiqish */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slideUp { animation: slideUp 0.5s ease-out 0.15s both; }
+
+/* VideoPlayer skeleton loading bar */
+@keyframes loading {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ============================================
+   VIDEO ASPEKT NISBATI (iFrame uchun)
+   ============================================ */
 .aspect-video {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%;
+  padding-bottom: 56.25%; /* 16:9 */
 }
-
-.aspect-video > * {
+.aspect-\[9\/16\] {
+  position: relative;
+  width: 100%;
+  padding-bottom: 177.78%; /* 9:16 shorts */
+}
+.aspect-video > *,
+.aspect-\[9\/16\] > * {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-}
-
-/* Ensure modals are responsive */
-@media (max-width: 640px) {
-  .fixed {
-    position: fixed;
-    z-index: 999;
-  }
-}
-
-/* Animatsiyalar */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease-out;
-}
-
-.animate-slideDown {
-  animation: slideDown 0.6s ease-out;
-}
-
-.animate-slideUp {
-  animation: slideUp 0.6s ease-out 0.2s both;
 }
