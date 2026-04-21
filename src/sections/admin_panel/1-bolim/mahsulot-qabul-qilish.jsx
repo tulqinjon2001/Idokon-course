@@ -19,7 +19,8 @@ export default function MahsulotQabulQilish() {
               Mahsulotlar qabul qilish
             </h2>
             <p className="text-gray-600 text-sm sm:text-base">
-              Omborga kelgan tovarlarni yuk xati (nakladnoy) orqali tizimga kiritish bo'limi
+              Omborga kelgan tovarlarni yuk xati (nakladnoy) orqali tizimga
+              kiritish bo'limi
             </p>
           </div>
         </div>

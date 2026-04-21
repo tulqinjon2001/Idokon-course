@@ -1,16 +1,58 @@
 import React from "react";
-import { Package, Play, Download, FileText, ArrowRight, CheckCircle, ExternalLink, Plus, Search } from "lucide-react";
+import {
+  Package,
+  Play,
+  Download,
+  FileText,
+  ArrowRight,
+  CheckCircle,
+  ExternalLink,
+  Plus,
+  Search,
+} from "lucide-react";
 
 export default function MahsulotKochir() {
   const steps = [
-    { icon: Package, color: "from-blue-500 to-blue-600", text: "Ombor bo'limiga o'ting va \"Mahsulot ko'chirish\" menyusini tanlang." },
-    { icon: Plus, color: "from-green-500 to-green-600", text: "\"Qo'shish\" tugmasini bosing va yangi hujjat yarating." },
-    { icon: ArrowRight, color: "from-purple-500 to-purple-600", text: "Ko'chiriladigan filialni (jo'natuvchi va qabul qiluvchi) tanlang." },
-    { icon: Search, color: "from-orange-500 to-orange-600", text: "Mahsulotlarni qidiruvdan nomini yozish yoki shtrix-kodini scanner qilish orqali tanlang." },
-    { icon: Package, color: "from-red-500 to-red-600", text: "Ko'chirilmoqchi bo'lgan har bir mahsulot miqdorini yozing." },
-    { icon: CheckCircle, color: "from-emerald-500 to-emerald-600", text: "\"Tugatish\" tugmasini bosing. Shundan so'ng mahsulot ko'chirish hujjati yaratiladi." },
-    { icon: ArrowRight, color: "from-indigo-500 to-indigo-600", text: "Qabul qiluvchi do'kondan Mas'ul shaxs bu hujjatdagi ko'zchaga bosib kiradi va mahsulotlar sonini tasdiqlaydi. Shundan so'ng \"Qabul qilish\" tugmasini bosadi." },
-    { icon: CheckCircle, color: "from-teal-500 to-teal-600", text: "Natijada mahsulot qoldig'i jo'natuvchi filialda kamayadi va qabul qiluvchi filialda ortadi." }
+    {
+      icon: Package,
+      color: "from-blue-500 to-blue-600",
+      text: "Ombor bo'limiga o'ting va \"Mahsulot ko'chirish\" menyusini tanlang.",
+    },
+    {
+      icon: Plus,
+      color: "from-green-500 to-green-600",
+      text: '"Qo\'shish" tugmasini bosing va yangi hujjat yarating.',
+    },
+    {
+      icon: ArrowRight,
+      color: "from-purple-500 to-purple-600",
+      text: "Ko'chiriladigan filialni (jo'natuvchi va qabul qiluvchi) tanlang.",
+    },
+    {
+      icon: Search,
+      color: "from-orange-500 to-orange-600",
+      text: "Mahsulotlarni qidiruvdan nomini yozish yoki shtrix-kodini scanner qilish orqali tanlang.",
+    },
+    {
+      icon: Package,
+      color: "from-red-500 to-red-600",
+      text: "Ko'chirilmoqchi bo'lgan har bir mahsulot miqdorini yozing.",
+    },
+    {
+      icon: CheckCircle,
+      color: "from-emerald-500 to-emerald-600",
+      text: "\"Tugatish\" tugmasini bosing. Shundan so'ng mahsulot ko'chirish hujjati yaratiladi.",
+    },
+    {
+      icon: ArrowRight,
+      color: "from-indigo-500 to-indigo-600",
+      text: "Qabul qiluvchi do'kondan Mas'ul shaxs bu hujjatdagi ko'zchaga bosib kiradi va mahsulotlar sonini tasdiqlaydi. Shundan so'ng \"Qabul qilish\" tugmasini bosadi.",
+    },
+    {
+      icon: CheckCircle,
+      color: "from-teal-500 to-teal-600",
+      text: "Natijada mahsulot qoldig'i jo'natuvchi filialda kamayadi va qabul qiluvchi filialda ortadi.",
+    },
   ];
 
   return (
@@ -26,7 +68,8 @@ export default function MahsulotKochir() {
             Mahsulotlarni Ko'chirish
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-            Bu bo'lim orqali mahsulotlarni bir filial yoki do'kondan boshqasiga ko'chirish va qabul qilish jarayonlarini amalga oshirasiz.
+            Bu bo'lim orqali mahsulotlarni bir filial yoki do'kondan boshqasiga
+            ko'chirish va qabul qilish jarayonlarini amalga oshirasiz.
           </p>
         </div>
       </section>
@@ -110,12 +153,18 @@ export default function MahsulotKochir() {
             const IconComponent = step.icon;
             return (
               <li key={index} className="group/item">
-                <div className={`flex items-start gap-4 p-4 bg-gradient-to-r from-primary-50 to-primary-100/50 rounded-xl border-l-4 border-primary-500 hover:shadow-lg hover:scale-[1.02] transition-all duration-300`}>
-                  <div className={`flex-shrink-0 w-10 h-10 bg-gradient-to-br ${step.color} text-white rounded-xl flex items-center justify-center text-sm font-bold shadow-md group-hover/item:scale-110 transition-transform`}>
+                <div
+                  className={`flex items-start gap-4 p-4 bg-gradient-to-r from-primary-50 to-primary-100/50 rounded-xl border-l-4 border-primary-500 hover:shadow-lg hover:scale-[1.02] transition-all duration-300`}
+                >
+                  <div
+                    className={`flex-shrink-0 w-10 h-10 bg-gradient-to-br ${step.color} text-white rounded-xl flex items-center justify-center text-sm font-bold shadow-md group-hover/item:scale-110 transition-transform`}
+                  >
                     {index + 1}
                   </div>
                   <div className="flex items-start gap-3 flex-1 pt-1">
-                    <div className={`w-8 h-8 bg-gradient-to-br ${step.color} rounded-lg flex items-center justify-center shadow-md group-hover/item:scale-110 transition-transform`}>
+                    <div
+                      className={`w-8 h-8 bg-gradient-to-br ${step.color} rounded-lg flex items-center justify-center shadow-md group-hover/item:scale-110 transition-transform`}
+                    >
                       <IconComponent className="w-4 h-4 text-white" />
                     </div>
                     <span className="text-gray-800 text-sm sm:text-base leading-relaxed font-medium flex-1">

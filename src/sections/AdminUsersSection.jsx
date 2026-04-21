@@ -1,7 +1,6 @@
 // idokon_kursi/frontend/src/sections/AdminUsersSection.jsx
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 
 const AdminUsersSection = () => {
   return (

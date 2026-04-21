@@ -36,9 +36,11 @@ export const ROUTE_PATHS = {
   adminBildirishnomalar: "/admin/bildirishnomalar",
 
   kassaYuklash: "/kassa/yuklash-ornatish",
+  kassaVersiyalar: "/kassa/versiyalar",
   kassaSotish: "/kassa/sotish",
   kassaQaytarish: "/kassa/qaytarish",
   kassaSozlamalar: "/kassa/sozlamalar",
+  kassaSinxronizationError: "/kassa/sixronizatsiya-xatolari",
 
   qurilmalarBarcode: "/qurilmalar/barcode",
   qurilmalarCheck: "/qurilmalar/check",
@@ -87,9 +89,14 @@ export const NAV_LINKS = [
         name: "Kassani yuklash va o'rnatish",
         path: ROUTE_PATHS.kassaYuklash,
       },
+      { name: "Kassa versiyalari", path: ROUTE_PATHS.kassaVersiyalar },
       { name: "Kassada sotish", path: ROUTE_PATHS.kassaSotish },
       { name: "Qaytarish", path: ROUTE_PATHS.kassaQaytarish },
       { name: "Sozlamalar", path: ROUTE_PATHS.kassaSozlamalar },
+      {
+        name: "Sinxronizatsiya xatolari",
+        path: ROUTE_PATHS.kassaSinxronizationError,
+      },
     ],
   },
   {
@@ -145,6 +152,7 @@ export const BREADCRUMB_ICONS = {
   Cheklar: "fa-receipt",
   Bildirishnomalar: "fa-bell",
   "Kassani yuklash va o'rnatish": "fa-download",
+  "Kassa versiyalari": "fa-code-branch",
   "Kassada sotish": "fa-cash-register",
   Qaytarish: "fa-undo-alt",
   Sozlamalar: "fa-cog",

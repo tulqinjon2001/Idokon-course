@@ -1,13 +1,3 @@
-/**
- * VideoPlayer — YouTube embed komponenti
- *
- * • Har qanday YouTube URL (watch, youtu.be, shorts) ni qabul qiladi
- * • Keng ekranda 16:9, shorts uchun 9:16 aspekt nisbati
- * • Fullscreen + YouTube-da ochish tugmalari
- * • Dark mode qo'llab-quvvatlash
- * • Loading placeholder (skeleton)
- */
-
 import React, { useState } from "react";
 import { ExternalLink, Play, Maximize2 } from "lucide-react";
 
@@ -15,8 +5,10 @@ import { ExternalLink, Play, Maximize2 } from "lucide-react";
 function extractVideoId(url = "") {
   try {
     const u = new URL(url);
-    if (u.hostname.includes("youtu.be")) return u.pathname.slice(1).split("?")[0];
-    if (u.pathname.includes("/shorts/")) return u.pathname.split("/shorts/")[1].split("?")[0];
+    if (u.hostname.includes("youtu.be"))
+      return u.pathname.slice(1).split("?")[0];
+    if (u.pathname.includes("/shorts/"))
+      return u.pathname.split("/shorts/")[1].split("?")[0];
     const v = u.searchParams.get("v");
     if (v) return v;
   } catch {
@@ -33,7 +25,7 @@ function isVerticalUrl(url = "") {
 export default function VideoPlayer({
   videoUrl,
   title = "Video",
-  vertical = null,       // null = auto-detect; true/false = override
+  vertical = null, // null = auto-detect; true/false = override
   playlistUrl,
   isDarkMode = false,
   accentColor = "from-primary-500 to-primary-600",
@@ -56,7 +48,9 @@ export default function VideoPlayer({
         {/* Container */}
         <div
           className={`relative overflow-hidden rounded-2xl shadow-2xl border-2 ${
-            isDarkMode ? "border-gray-700 bg-gray-800" : "border-white bg-gray-100"
+            isDarkMode
+              ? "border-gray-700 bg-gray-800"
+              : "border-white bg-gray-100"
           } ${isVertical ? "mx-auto max-w-xs sm:max-w-sm" : "w-full"}`}
         >
           {/* Aspect box */}
@@ -117,7 +111,9 @@ export default function VideoPlayer({
         >
           <span
             className={`flex items-center justify-center w-9 h-9 rounded-xl backdrop-blur-sm shadow-lg ${
-              isDarkMode ? "bg-black/60 text-white" : "bg-white/80 text-gray-800"
+              isDarkMode
+                ? "bg-black/60 text-white"
+                : "bg-white/80 text-gray-800"
             } hover:scale-110 transition-transform`}
           >
             <Maximize2 className="w-4 h-4" />

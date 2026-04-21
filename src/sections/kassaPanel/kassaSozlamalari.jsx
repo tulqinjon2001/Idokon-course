@@ -1,9 +1,9 @@
 import React from "react";
+import VideoSection from "../../components/VideoSection";
 
 function KassaSozlamalari() {
   // YouTube video (berilgan ID)
   const YT_VIDEO_ID = "r17SKvRUUpE";
-  const YT_URL = `https://www.youtube.com/watch?v=${YT_VIDEO_ID}`;
   // Qo'llanma PDF va misol konfiguratsiya URL'lari — o'zingizga moslang
   const MANUAL_URL = "https://example.com/docs/IDOKON-kassa-manual.pdf"; // <-- replace with real PDF URL
 
@@ -57,29 +57,14 @@ function KassaSozlamalari() {
       <h2 className="text-2xl font-bold text-slate-800">Kassa sozlamalari</h2>
 
       {/* YouTube */}
-      <div className="bg-slate-100 rounded-lg p-3">
-        <div className="w-full">
-          <iframe
-            title="IDOKON kassa sozlamalari video"
-            src={`https://www.youtube.com/embed/${YT_VIDEO_ID}`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{ width: "100%", height: "480px", borderRadius: 8, border: 0 }}
-            aria-label="IDOKON kassaga sozlamalar video"
-          />
-        </div>
+      <div className="bg-slate-100 rounded-lg p-3 sm:p-4 md:p-6">
+        <VideoSection
+          videoUrl={`https://www.youtube.com/watch?v=${YT_VIDEO_ID}`}
+          title="IDOKON kassa sozlamalari video"
+          containerClassName="p-0 bg-transparent"
+        />
 
         <div className="mt-3 flex flex-wrap gap-2">
-          <a
-            href={YT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-3 py-2 bg-primary-600 text-white rounded-md text-sm"
-            aria-label="YouTube videoni yangi oynada ochish"
-          >
-            YouTube-da ochish
-          </a>
-
           <a
             href={MANUAL_URL}
             target="_blank"

@@ -1,15 +1,3 @@
-/**
- * Sidebar — asosiy navigatsiya paneli
- *
- * Yaxshilanishlar:
- * ✅ navLinks → markazlashtirilgan routes.js dan import
- * ✅ document.createElement("style") o'chirildi (index.css ga ko'chirildi)
- * ✅ useCallback bilan optimize qilingan
- * ✅ Dark mode to'liq qo'llab-quvvatlash
- * ✅ Responsive: mobile overlay, collapse rejimi
- * ✅ 2026 yil
- */
-
 import React, { useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -39,13 +27,13 @@ export default function Sidebar({
   /* Submenu toggle */
   const toggleDropdown = useCallback(
     (name) => setOpenDropdown((prev) => (prev === name ? null : name)),
-    []
+    [],
   );
 
   /* Collapse toggle */
   const toggleCollapse = useCallback(
     () => setIsCollapsed((c) => !c),
-    [setIsCollapsed]
+    [setIsCollapsed],
   );
 
   return (
@@ -150,7 +138,8 @@ export default function Sidebar({
       >
         <div className="space-y-0.5">
           {NAV_LINKS.map((link) => {
-            const hasSubmenu = Array.isArray(link.submenu) && link.submenu.length > 0;
+            const hasSubmenu =
+              Array.isArray(link.submenu) && link.submenu.length > 0;
             const isDropdownOpen = openDropdown === link.name;
             const IconComponent = link.icon;
 
@@ -161,7 +150,7 @@ export default function Sidebar({
                 link.submenu.some(
                   (s) =>
                     location.pathname === s.path ||
-                    location.pathname.startsWith(s.path + "/")
+                    location.pathname.startsWith(s.path + "/"),
                 ));
 
             const itemBase = [
@@ -172,8 +161,8 @@ export default function Sidebar({
                   ? "bg-gradient-to-r from-primary-900/50 to-primary-800/30 text-primary-300 shadow-lg"
                   : "bg-gradient-to-r from-primary-50 to-primary-100/60 text-primary-700 shadow-md"
                 : isDarkMode
-                ? "text-gray-300 hover:bg-gray-800/60 hover:text-white"
-                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900",
+                  ? "text-gray-300 hover:bg-gray-800/60 hover:text-white"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900",
             ].join(" ");
 
             const iconBox = [
@@ -181,8 +170,8 @@ export default function Sidebar({
               isActive
                 ? "bg-gradient-to-br from-primary-500 to-primary-600 text-white shadow-md"
                 : isDarkMode
-                ? "bg-gray-800 text-gray-400 group-hover:bg-gray-700 group-hover:text-gray-200"
-                : "bg-gray-100 text-gray-500 group-hover:bg-primary-100 group-hover:text-primary-600",
+                  ? "bg-gray-800 text-gray-400 group-hover:bg-gray-700 group-hover:text-gray-200"
+                  : "bg-gray-100 text-gray-500 group-hover:bg-primary-100 group-hover:text-primary-600",
             ].join(" ");
 
             const ActiveIndicator = () =>
@@ -268,8 +257,8 @@ export default function Sidebar({
                                     ? "bg-primary-900/30 text-primary-300 font-semibold"
                                     : "bg-primary-50 text-primary-700 font-semibold"
                                   : isDarkMode
-                                  ? "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
-                                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50",
+                                    ? "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
+                                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-50",
                               ].join(" ")}
                             >
                               <span
@@ -277,8 +266,8 @@ export default function Sidebar({
                                   isSubActive
                                     ? "bg-primary-500 shadow-sm shadow-primary-500/50"
                                     : isDarkMode
-                                    ? "bg-gray-600 group-hover:bg-gray-500"
-                                    : "bg-gray-300 group-hover:bg-primary-400"
+                                      ? "bg-gray-600 group-hover:bg-gray-500"
+                                      : "bg-gray-300 group-hover:bg-primary-400"
                                 }`}
                               />
                               <span className="flex-1 leading-tight">
@@ -301,7 +290,9 @@ export default function Sidebar({
       {!isCollapsed && (
         <div
           className={`flex-shrink-0 px-5 py-4 border-t ${
-            isDarkMode ? "border-gray-700 bg-gray-900" : "border-gray-200 bg-white"
+            isDarkMode
+              ? "border-gray-700 bg-gray-900"
+              : "border-gray-200 bg-white"
           }`}
         >
           <div className="flex items-center gap-2">

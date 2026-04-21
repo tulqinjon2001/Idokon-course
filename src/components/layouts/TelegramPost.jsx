@@ -1,12 +1,5 @@
 import React, { useEffect, useRef } from "react";
 
-/**
- * Telegram public post embed (video post bo'lsa player ham chiqadi).
- * channel:  t.me/<channel>/<postId> dagi <channel>
- * postId:   xabarning raqami (string yoki number)
- * width:    '100%' tavsiya etiladi (piksel ham berish mumkin, masalan '600')
- * dark:     true bo'lsa, qorong'u tema
- */
 export default function TelegramPost({ channel, postId, width = "100%", dark = false }) {
   const containerRef = useRef(null);
 

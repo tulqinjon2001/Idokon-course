@@ -1,17 +1,6 @@
-/**
- * AllInPages — markazlashtirilgan route render va breadcrumb
- *
- * Yaxshilanishlar:
- * ✅ navLinks → routes.js dan import (takrorlanish yo'q)
- * ✅ Komponent nomlari PascalCase ga o'zgartirildi
- * ✅ "Taminotchiga qaytarish" sahifasi uchun stub qo'shildi
- * ✅ "Test ishlash" submenu o'rniga to'g'ridan-to'g'ri path
- * ✅ Props sifatida isDarkMode qabul qilinadi
- */
-
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
-import { NAV_LINKS, BREADCRUMB_ICONS } from "../lib/routes";
+import { NAV_LINKS, BREADCRUMB_ICONS, ROUTE_PATHS } from "../lib/routes";
 
 /* 🏠 Home */
 import AboutIdokon from "../sections/Home/AboutIdokon";
@@ -33,9 +22,11 @@ import Bildirishnomalar from "../sections/admin_panel/1-bolim/bildirishnomalar";
 
 /* 💰 Kassa Panel */
 import KassagaKirish from "../sections/kassaPanel/Kassa_yuklash_ornatish";
+import KassaVersions from "../sections/kassaPanel/cassaversions";
 import KassadaSotish from "../sections/kassaPanel/kassadaSotish";
 import KassadaQaytarish from "../sections/kassaPanel/kassadaQaytarish";
 import KassaSozlamalari from "../sections/kassaPanel/kassaSozlamalari";
+import SixronizationError from "../sections/kassaPanel/sixronizationError";
 
 /* 🖨️ Qurilmalar */
 import BarcodePrinter from "../sections/qurilmalar/barcodeprinter";
@@ -72,9 +63,11 @@ const ROUTES = [
 
   /* Kassa */
   { path: "/kassa/yuklash-ornatish", Component: KassagaKirish },
+  { path: "/kassa/versiyalar", Component: KassaVersions },
   { path: "/kassa/sotish", Component: KassadaSotish },
   { path: "/kassa/qaytarish", Component: KassadaQaytarish },
   { path: "/kassa/sozlamalar", Component: KassaSozlamalari },
+  { path: ROUTE_PATHS.kassaSinxronizationError, Component: SixronizationError },
 
   /* Qurilmalar */
   { path: "/qurilmalar/barcode", Component: BarcodePrinter },
@@ -120,7 +113,7 @@ function Breadcrumb({ isDarkMode }) {
         const sub = link.submenu.find(
           (s) =>
             location.pathname === s.path ||
-            location.pathname.startsWith(s.path + "/")
+            location.pathname.startsWith(s.path + "/"),
         );
         if (sub) {
           crumbs.push({
@@ -173,8 +166,8 @@ function Breadcrumb({ isDarkMode }) {
                       ? "text-primary-300 font-semibold"
                       : "text-primary-700 font-semibold"
                     : isDarkMode
-                    ? "text-gray-400 hover:text-gray-200"
-                    : "text-gray-500 hover:text-gray-800"
+                      ? "text-gray-400 hover:text-gray-200"
+                      : "text-gray-500 hover:text-gray-800"
                 }`}
               >
                 {crumb.icon && (
@@ -185,8 +178,8 @@ function Breadcrumb({ isDarkMode }) {
                           ? "text-primary-400"
                           : "text-primary-600"
                         : isDarkMode
-                        ? "text-gray-500"
-                        : "text-gray-400"
+                          ? "text-gray-500"
+                          : "text-gray-400"
                     }`}
                   />
                 )}
@@ -194,9 +187,7 @@ function Breadcrumb({ isDarkMode }) {
                   className={
                     idx === lastIdx
                       ? `px-2 py-0.5 rounded-md ${
-                          isDarkMode
-                            ? "bg-primary-900/30"
-                            : "bg-primary-50"
+                          isDarkMode ? "bg-primary-900/30" : "bg-primary-50"
                         }`
                       : ""
                   }
@@ -234,30 +225,30 @@ export default function AllInOne({ isDarkMode }) {
   const match = ROUTES.find(
     (r) =>
       location.pathname === r.path ||
-      location.pathname.startsWith(r.path + "/")
+      location.pathname.startsWith(r.path + "/"),
   );
 
   const PageComponent = match
     ? match.Component
     : location.pathname === "/" || location.pathname === ""
-    ? Kirish
-    : () => (
-        <div
-          className={`p-8 text-center ${
-            isDarkMode ? "text-red-400" : "text-red-500"
-          } font-semibold text-lg`}
-        >
-          <p className="text-5xl mb-4">🔍</p>
-          <p>Sahifa topilmadi (404)</p>
-          <p
-            className={`text-sm mt-2 ${
-              isDarkMode ? "text-gray-400" : "text-gray-500"
-            }`}
+      ? Kirish
+      : () => (
+          <div
+            className={`p-8 text-center ${
+              isDarkMode ? "text-red-400" : "text-red-500"
+            } font-semibold text-lg`}
           >
-            Chap menyudan to'g'ri bo'limni tanlang.
-          </p>
-        </div>
-      );
+            <p className="text-5xl mb-4">🔍</p>
+            <p>Sahifa topilmadi (404)</p>
+            <p
+              className={`text-sm mt-2 ${
+                isDarkMode ? "text-gray-400" : "text-gray-500"
+              }`}
+            >
+              Chap menyudan to'g'ri bo'limni tanlang.
+            </p>
+          </div>
+        );
 
   return (
     <div

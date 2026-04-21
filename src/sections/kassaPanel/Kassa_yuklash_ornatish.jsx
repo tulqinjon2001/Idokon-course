@@ -1,12 +1,13 @@
 import React from "react";
 import TelegramPost from "../../components/layouts/TelegramPost";
+import VideoSection from "../../components/VideoSection";
 
 const KassagaKirish = () => {
   const YT_VIDEO_ID = "3M2FNgUvKq0";
-  const YT_URL = `https://www.youtube.com/watch?v=${YT_VIDEO_ID}`;
   const YT_PLAYLIST_URL =
     "https://www.youtube.com/playlist?list=PLNt3xrjLbs_hfUO2_2sN3lsaMAvtMmADq";
-  const CassaVersionURL = "https://github.com/tulqinjon2001/Idokon-course/releases/download/Kassa/Idokon1.2.5.x64.exe"
+  const CassaVersionURL =
+    "https://github.com/tulqinjon2001/Idokon-course/releases/download/Kassa/Idokon1.3.4.x64.exe";
 
   const KASSA_URL = "https://example.com/downloads/IDOKON-Kassa-setup.exe";
   const MANUAL_URL = "https://example.com/docs/IDOKON-kassa-manual.pdf";
@@ -38,40 +39,11 @@ const KassagaKirish = () => {
       </h2>
 
       {/* YouTube video embed + fallback link */}
-      <div className="bg-slate-100 rounded-lg p-3 sm:p-4 md:p-6">
-        <div className="w-full max-w-2xl mx-auto aspect-video overflow-hidden rounded-lg">
-          <iframe
-            title="IDOKON kassa ko'rsatma video"
-            src={`https://www.youtube.com/embed/${YT_VIDEO_ID}`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full"
-            aria-label="IDOKON kassaga kirish video"
-          />
-        </div>
-
-        {/* Qo'shimcha havolalar */}
-        <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
-          <a
-            href={YT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-600 text-white rounded-md text-sm sm:text-base hover:bg-primary-700 transition text-center"
-            aria-label="YouTube videoni yangi oynada ochish"
-          >
-            YouTube-da ochish
-          </a>
-          <a
-            href={YT_PLAYLIST_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-100 text-primary-700 rounded-md text-sm sm:text-base hover:bg-primary-200 transition text-center"
-            aria-label="Playlistni ochish"
-          >
-            Playlistni ko'rish
-          </a>
-        </div>
-      </div>
+      <VideoSection
+        videoUrl={`https://www.youtube.com/watch?v=${YT_VIDEO_ID}`}
+        playlistUrl={YT_PLAYLIST_URL}
+        title="IDOKON kassa ko'rsatma video"
+      />
 
       {/* Yuklab olish va qo'llanma tugmalari */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

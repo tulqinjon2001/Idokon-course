@@ -33,41 +33,41 @@ export default function VideoSection({
   videoUrl,
   playlistUrl,
   title = "Video qo'llanma",
-  aspectRatio = "aspect-video",
   isShort = false,
+  heightClass = "h-[420px]",
+  containerClassName = "bg-slate-100 rounded-lg p-3 sm:p-4 md:p-6",
 }) {
   const videoId = extractVideoId(videoUrl);
   const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+  const youtubeWatchUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
   return (
-    <div className="bg-slate-100 rounded-lg p-3 sm:p-4 md:p-6">
+    <div className={containerClassName}>
       <div
         className={`w-full overflow-hidden rounded-lg ${
           isShort ? "mx-auto max-w-xs sm:max-w-sm" : ""
         }`}
       >
-        <div className={`${aspectRatio} w-full`}>
-          <iframe
-            title={title}
-            src={embedUrl}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            className="w-full h-full"
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
-            aria-label={title}
-          />
-        </div>
+        <iframe
+          title={title}
+          src={embedUrl}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          className={`w-full rounded-lg ${isShort ? "h-[560px]" : heightClass}`}
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+          aria-label={title}
+        />
       </div>
 
       {/* Action buttons */}
-      <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
+      <div className="mt-3 sm:mt-4 flex flex-wrap gap-3">
         {videoUrl && (
           <a
-            href={videoUrl}
+            href={youtubeWatchUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-primary-600 text-white rounded-md text-sm sm:text-base hover:bg-primary-700 transition text-center"
+            className="px-5 py-3 bg-[#0EA5E9] text-white rounded-lg hover:bg-[#0284C7] transition"
             aria-label="YouTube videoni yangi oynada ochish"
           >
             YouTube-da ochish
@@ -78,7 +78,7 @@ export default function VideoSection({
             href={playlistUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-4 sm:px-5 py-2 sm:py-3 bg-slate-200 text-slate-800 rounded-md text-sm sm:text-base hover:bg-slate-300 transition text-center"
+            className="px-5 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
             aria-label="Playlistni ko'rish"
           >
             Playlistni ko'rish

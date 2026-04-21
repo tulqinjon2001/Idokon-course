@@ -4,8 +4,10 @@ import React from "react";
 function toEmbed(url) {
   try {
     const u = new URL(url);
-    if (u.hostname.includes("youtu.be")) return `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
-    if (u.pathname.includes("/shorts/")) return `https://www.youtube.com/embed/${u.pathname.split("/shorts/")[1]}`;
+    if (u.hostname.includes("youtu.be"))
+      return `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
+    if (u.pathname.includes("/shorts/"))
+      return `https://www.youtube.com/embed/${u.pathname.split("/shorts/")[1]}`;
     const v = u.searchParams.get("v");
     if (v) return `https://www.youtube.com/embed/${v}`;
   } catch {}
@@ -22,19 +24,49 @@ const NomenklaturaQaytaNarxlashTarix = () => {
   const embedRepriceHistory = `${toEmbed(urlRepriceHistory)}?rel=0&modestbranding=1`;
 
   const stepsNomenklatura = [
-    { icon: "📦", text: "Chap menyudan «Nomenklatura» bo‘limiga o‘ting — barcha mahsulotlar ro‘yxati ochiladi." },
-    { icon: "🔎", text: "Qidiruv/filtrdan foydalanib mahsulotni toping (nomi, shtrix-kodi, kategoriya bo‘yicha)." },
-    { icon: "✏️", text: "Mahsulot kartasida nomi, o‘lchov birligi, kategoriya va boshqa xususiyatlarni tahrirlash mumkin." },
-    { icon: "🧾", text: "Shtrix-kod yo‘q bo‘lsa, avtomatik generator orqali kod berishingiz mumkin." },
-    { icon: "💾", text: "O‘zgarishlardan so‘ng «Saqlash» tugmasini bosishni unutmang." },
+    {
+      icon: "📦",
+      text: "Chap menyudan «Nomenklatura» bo‘limiga o‘ting — barcha mahsulotlar ro‘yxati ochiladi.",
+    },
+    {
+      icon: "🔎",
+      text: "Qidiruv/filtrdan foydalanib mahsulotni toping (nomi, shtrix-kodi, kategoriya bo‘yicha).",
+    },
+    {
+      icon: "✏️",
+      text: "Mahsulot kartasida nomi, o‘lchov birligi, kategoriya va boshqa xususiyatlarni tahrirlash mumkin.",
+    },
+    {
+      icon: "🧾",
+      text: "Shtrix-kod yo‘q bo‘lsa, avtomatik generator orqali kod berishingiz mumkin.",
+    },
+    {
+      icon: "💾",
+      text: "O‘zgarishlardan so‘ng «Saqlash» tugmasini bosishni unutmang.",
+    },
   ];
 
   const stepsRepriceHistory = [
-    { icon: "💲", text: "«Qayta narxlash» funksiyasini oching — yangi narx/ustama foizlarini kiriting." },
-    { icon: "📊", text: "«Tarix» bo‘limida har bir mahsulot bo‘yicha narx o‘zgarishlari, vaqt va foydalanuvchi ko‘rsatiladi." },
-    { icon: "⚖️", text: "Narxlarni ommaviy yangilashda filtrlardan foydalaning (kategoriya, brend va h.k.)." },
-    { icon: "✅", text: "Yangi narxlarni tekshirib chiqing va tasdiqlang — savdoda yangi narxlar qo‘llanadi." },
-    { icon: "🗂️", text: "Kerak bo‘lsa tarixdan orqaga qarab tekshiruv va solishtirishlar qiling." },
+    {
+      icon: "💲",
+      text: "«Qayta narxlash» funksiyasini oching — yangi narx/ustama foizlarini kiriting.",
+    },
+    {
+      icon: "📊",
+      text: "«Tarix» bo‘limida har bir mahsulot bo‘yicha narx o‘zgarishlari, vaqt va foydalanuvchi ko‘rsatiladi.",
+    },
+    {
+      icon: "⚖️",
+      text: "Narxlarni ommaviy yangilashda filtrlardan foydalaning (kategoriya, brend va h.k.).",
+    },
+    {
+      icon: "✅",
+      text: "Yangi narxlarni tekshirib chiqing va tasdiqlang — savdoda yangi narxlar qo‘llanadi.",
+    },
+    {
+      icon: "🗂️",
+      text: "Kerak bo‘lsa tarixdan orqaga qarab tekshiruv va solishtirishlar qiling.",
+    },
   ];
 
   return (
@@ -45,7 +77,9 @@ const NomenklaturaQaytaNarxlashTarix = () => {
 
       {/* 1) Nomenklatura */}
       <section className="space-y-4">
-        <h3 className="text-xl font-semibold text-slate-800">📦 Nomenklatura</h3>
+        <h3 className="text-xl font-semibold text-slate-800">
+          📦 Nomenklatura
+        </h3>
 
         {/* Video tepada */}
         <div className="bg-slate-100 rounded-lg overflow-hidden aspect-video">
@@ -62,7 +96,9 @@ const NomenklaturaQaytaNarxlashTarix = () => {
 
         {/* Qadam-baqadam */}
         <div className="space-y-3">
-          <h4 className="text-lg font-semibold text-slate-800">📋 Qadam-baqadam</h4>
+          <h4 className="text-lg font-semibold text-slate-800">
+            📋 Qadam-baqadam
+          </h4>
           <ol className="list-decimal list-inside space-y-2 text-slate-700">
             {stepsNomenklatura.map((s, i) => (
               <li key={i}>
@@ -75,7 +111,10 @@ const NomenklaturaQaytaNarxlashTarix = () => {
           <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg">
             <div className="font-medium text-slate-800 mb-1">💡 Eslatma</div>
             <ul className="list-disc list-inside text-slate-600 space-y-1">
-              <li>Mahsulot xususiyatlari o‘zgarsa, u barcha savdo nuqtalarida ko‘rinadi.</li>
+              <li>
+                Mahsulot xususiyatlari o‘zgarsa, u barcha savdo nuqtalarida
+                ko‘rinadi.
+              </li>
               <li>Shtrix-kodni albatta saqlang — kassa tezda topadi.</li>
             </ul>
           </div>
@@ -84,7 +123,9 @@ const NomenklaturaQaytaNarxlashTarix = () => {
 
       {/* 2) Qayta narxlash & Tarix */}
       <section className="space-y-4">
-        <h3 className="text-xl font-semibold text-slate-800">💲 Qayta narxlash & 🕘 Tarix</h3>
+        <h3 className="text-xl font-semibold text-slate-800">
+          💲 Qayta narxlash & 🕘 Tarix
+        </h3>
 
         {/* Video tepada */}
         <div className="bg-slate-100 rounded-lg overflow-hidden aspect-video">
@@ -101,7 +142,9 @@ const NomenklaturaQaytaNarxlashTarix = () => {
 
         {/* Qadam-baqadam */}
         <div className="space-y-3">
-          <h4 className="text-lg font-semibold text-slate-800">📋 Qadam-baqadam</h4>
+          <h4 className="text-lg font-semibold text-slate-800">
+            📋 Qadam-baqadam
+          </h4>
           <ol className="list-decimal list-inside space-y-2 text-slate-700">
             {stepsRepriceHistory.map((s, i) => (
               <li key={i}>
@@ -114,7 +157,10 @@ const NomenklaturaQaytaNarxlashTarix = () => {
           <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg">
             <div className="font-medium text-slate-800 mb-1">💡 Eslatma</div>
             <ul className="list-disc list-inside text-slate-600 space-y-1">
-              <li>Narx o‘zgarishlari «Tarix»da avtomatik qayd etiladi (sana, eski→yangi narx, foydalanuvchi).</li>
+              <li>
+                Narx o‘zgarishlari «Tarix»da avtomatik qayd etiladi (sana,
+                eski→yangi narx, foydalanuvchi).
+              </li>
               <li>Ommaviy narxlashdan oldin kichik toifada sinab ko‘ring.</li>
             </ul>
           </div>

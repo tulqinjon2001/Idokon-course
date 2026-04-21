@@ -10,7 +10,8 @@ const Inventarizatsiya = () => {
 
   const YT_VIDEO_ID = "4vBQCT6g528";
   const YT_URL = `https://www.youtube.com/watch?v=${YT_VIDEO_ID}`;
-  const YT_PLAYLIST_URL = "https://www.youtube.com/playlist?list=PLNt3xrjLbs_jFOZW4S8WFBXG-i-DHhqWe";
+  const YT_PLAYLIST_URL =
+    "https://www.youtube.com/playlist?list=PLNt3xrjLbs_jFOZW4S8WFBXG-i-DHhqWe";
 
   useEffect(() => {
     setIsVisible(true);
@@ -83,9 +84,10 @@ const Inventarizatsiya = () => {
           </h2>
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-5 mb-6 border-l-4 border-primary-600 shadow-sm">
             <p className="text-slate-700 leading-relaxed mb-3">
-              <strong className="text-slate-900">Inventarizatsiya</strong> — bu ombordagi mavjud mahsulotlarning
-              haqiqiy holatini tekshirish, aniqlashtirish va kerak bo'lganda
-              mahsulot qoldiqlarini to'g'rilash uchun mo'ljallangan kuchli vosita.
+              <strong className="text-slate-900">Inventarizatsiya</strong> — bu
+              ombordagi mavjud mahsulotlarning haqiqiy holatini tekshirish,
+              aniqlashtirish va kerak bo'lganda mahsulot qoldiqlarini
+              to'g'rilash uchun mo'ljallangan kuchli vosita.
             </p>
             <p className="text-slate-700 leading-relaxed">
               Ushbu bo'lim ombor hisoboti bilan amaldagi mahsulot zaxiralari
@@ -116,28 +118,39 @@ const Inventarizatsiya = () => {
           </button>
           <div
             className={`overflow-hidden transition-all duration-500 ease-in-out ${
-              expandedSections.howItWorks ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+              expandedSections.howItWorks
+                ? "max-h-[1000px] opacity-100"
+                : "max-h-0 opacity-0"
             }`}
           >
             <div className="px-5 py-4 bg-white">
               <p className="text-slate-700 mb-4 leading-relaxed">
-                Masalan, sizda qolgan <strong>"astatka"</strong> (noto'g'ri kirim qilingan yoki mavjud
-                bo'lmagan) mahsulotlar bo'lsa, ularni 0 qilib chiqarish yoki nomini
-                yangilash uchun quyidagi amallarni bajarasiz:
+                Masalan, sizda qolgan <strong>"astatka"</strong> (noto'g'ri
+                kirim qilingan yoki mavjud bo'lmagan) mahsulotlar bo'lsa, ularni
+                0 qilib chiqarish yoki nomini yangilash uchun quyidagi amallarni
+                bajarasiz:
               </p>
               <ol className="list-decimal list-inside space-y-3 text-slate-700">
                 <li className="bg-slate-50 p-3 rounded-lg border-l-4 border-primary-500">
-                  <strong className="text-slate-900">Qo'shish tugmasini bosish</strong> — "Inventarizatsiya" bo'limiga
-                  o'ting va yangi inventarizatsiya oynasini oching.
+                  <strong className="text-slate-900">
+                    Qo'shish tugmasini bosish
+                  </strong>{" "}
+                  — "Inventarizatsiya" bo'limiga o'ting va yangi
+                  inventarizatsiya oynasini oching.
                 </li>
                 <li className="bg-slate-50 p-3 rounded-lg border-l-4 border-primary-500">
-                  <strong className="text-slate-900">Mahsulotni tanlash</strong> — ro'yxatdan kerakli mahsulotni toping va tanlang.
+                  <strong className="text-slate-900">Mahsulotni tanlash</strong>{" "}
+                  — ro'yxatdan kerakli mahsulotni toping va tanlang.
                 </li>
                 <li className="bg-slate-50 p-3 rounded-lg border-l-4 border-primary-500">
-                  <strong className="text-slate-900">Haqiqiy miqdorni kiritish</strong> — omborda mavjud bo'lgan haqiqiy miqdorni kiriting.
+                  <strong className="text-slate-900">
+                    Haqiqiy miqdorni kiritish
+                  </strong>{" "}
+                  — omborda mavjud bo'lgan haqiqiy miqdorni kiriting.
                 </li>
                 <li className="bg-slate-50 p-3 rounded-lg border-l-4 border-primary-500">
-                  <strong className="text-slate-900">Saqlash</strong> — ma'lumotlarni saqlang va inventarizatsiyani yakunlang.
+                  <strong className="text-slate-900">Saqlash</strong> —
+                  ma'lumotlarni saqlang va inventarizatsiyani yakunlang.
                 </li>
               </ol>
             </div>
@@ -164,24 +177,40 @@ const Inventarizatsiya = () => {
           </button>
           <div
             className={`overflow-hidden transition-all duration-500 ease-in-out ${
-              expandedSections.uninventoried ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+              expandedSections.uninventoried
+                ? "max-h-[1000px] opacity-100"
+                : "max-h-0 opacity-0"
             }`}
           >
             <div className="px-5 py-4 bg-white">
               <p className="text-slate-700 mb-4 leading-relaxed">
-                <strong className="text-slate-900">"Inventarizatsiyalanmaganlar"</strong> tugmasi yordamida hali qayta
-                hisobdan o'tkazilmagan mahsulotlar ro'yxatini ko'rish mumkin. Bu sizga
-                qaysi mahsulotlar hali tekshirilmaganini tezda aniqlash imkonini beradi.
+                <strong className="text-slate-900">
+                  "Inventarizatsiyalanmaganlar"
+                </strong>{" "}
+                tugmasi yordamida hali qayta hisobdan o'tkazilmagan mahsulotlar
+                ro'yxatini ko'rish mumkin. Bu sizga qaysi mahsulotlar hali
+                tekshirilmaganini tezda aniqlash imkonini beradi.
               </p>
               <ul className="list-disc list-inside space-y-2 text-slate-700">
                 <li className="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500 hover:bg-blue-100 transition-colors duration-200">
-                  <strong className="text-slate-900">Hali tekshirilmagan mahsulotlarni aniqlash</strong> — ro'yxatdan qaysi mahsulotlar hali inventarizatsiyadan o'tkazilmaganini ko'ring.
+                  <strong className="text-slate-900">
+                    Hali tekshirilmagan mahsulotlarni aniqlash
+                  </strong>{" "}
+                  — ro'yxatdan qaysi mahsulotlar hali inventarizatsiyadan
+                  o'tkazilmaganini ko'ring.
                 </li>
                 <li className="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500 hover:bg-blue-100 transition-colors duration-200">
-                  <strong className="text-slate-900">Mahsulotni ro'yxatga qo'shib yangi miqdor kiritish</strong> — tekshirilmagan mahsulotni tanlab, haqiqiy miqdorni kiriting.
+                  <strong className="text-slate-900">
+                    Mahsulotni ro'yxatga qo'shib yangi miqdor kiritish
+                  </strong>{" "}
+                  — tekshirilmagan mahsulotni tanlab, haqiqiy miqdorni kiriting.
                 </li>
                 <li className="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500 hover:bg-blue-100 transition-colors duration-200">
-                  <strong className="text-slate-900">E'tibordan chetda qolgan mahsulotlarni chiqarib tashlash</strong> — mavjud bo'lmagan yoki noto'g'ri kiritilgan mahsulotlarni tizimdan olib tashlang.
+                  <strong className="text-slate-900">
+                    E'tibordan chetda qolgan mahsulotlarni chiqarib tashlash
+                  </strong>{" "}
+                  — mavjud bo'lmagan yoki noto'g'ri kiritilgan mahsulotlarni
+                  tizimdan olib tashlang.
                 </li>
               </ul>
             </div>
@@ -208,7 +237,9 @@ const Inventarizatsiya = () => {
           </button>
           <div
             className={`overflow-hidden transition-all duration-500 ease-in-out ${
-              expandedSections.benefits ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+              expandedSections.benefits
+                ? "max-h-[1000px] opacity-100"
+                : "max-h-0 opacity-0"
             }`}
           >
             <div className="px-5 py-4 bg-white">
@@ -219,7 +250,8 @@ const Inventarizatsiya = () => {
                     Aniqlik
                   </h4>
                   <p className="text-slate-700 text-sm">
-                    Ombordagi mahsulotlarning haqiqiy holatini aniq bilish va nazorat qilish.
+                    Ombordagi mahsulotlarning haqiqiy holatini aniq bilish va
+                    nazorat qilish.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg border-l-4 border-purple-500 hover:shadow-md transition-shadow duration-200">
@@ -228,7 +260,8 @@ const Inventarizatsiya = () => {
                     Tezlik
                   </h4>
                   <p className="text-slate-700 text-sm">
-                    Inventarizatsiyalanmagan mahsulotlarni tezda topish va ular bilan ishlash.
+                    Inventarizatsiyalanmagan mahsulotlarni tezda topish va ular
+                    bilan ishlash.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-4 rounded-lg border-l-4 border-orange-500 hover:shadow-md transition-shadow duration-200">
@@ -237,7 +270,8 @@ const Inventarizatsiya = () => {
                     To'g'rilash
                   </h4>
                   <p className="text-slate-700 text-sm">
-                    Noto'g'ri kiritilgan yoki mavjud bo'lmagan mahsulotlarni tizimdan olib tashlash.
+                    Noto'g'ri kiritilgan yoki mavjud bo'lmagan mahsulotlarni
+                    tizimdan olib tashlash.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 rounded-lg border-l-4 border-cyan-500 hover:shadow-md transition-shadow duration-200">
@@ -246,7 +280,8 @@ const Inventarizatsiya = () => {
                     Hisobot
                   </h4>
                   <p className="text-slate-700 text-sm">
-                    Ombordagi mahsulotlar holati haqida to'liq va aniq hisobot olish.
+                    Ombordagi mahsulotlar holati haqida to'liq va aniq hisobot
+                    olish.
                   </p>
                 </div>
               </div>

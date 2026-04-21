@@ -1,9 +1,23 @@
 import React from "react";
-import { ClipboardList, Eye, Search, Edit, CheckCircle, Save, Play, ExternalLink, Lightbulb } from "lucide-react";
+import {
+  ClipboardList,
+  Eye,
+  Search,
+  Edit,
+  CheckCircle,
+  Save,
+  Play,
+  ExternalLink,
+  Lightbulb,
+} from "lucide-react";
 
 const BuyurtmalarSD = () => {
   const steps = [
-    { icon: ClipboardList, color: "from-blue-500 to-blue-600", text: "Chap menyudan «Buyurtmalar SD» bo'limiga o'ting." },
+    {
+      icon: ClipboardList,
+      color: "from-blue-500 to-blue-600",
+      text: "Chap menyudan «Buyurtmalar SD» bo'limiga o'ting.",
+    },
     {
       icon: Eye,
       color: "from-purple-500 to-purple-600",
@@ -24,7 +38,11 @@ const BuyurtmalarSD = () => {
       color: "from-emerald-500 to-emerald-600",
       text: "Holatini belgilang: «Bajarildi», «Kutilmoqda» yoki «Bekor qilingan».",
     },
-    { icon: Save, color: "from-indigo-500 to-indigo-600", text: "O'zgarishlardan so'ng «Saqlash» tugmasini bosing." },
+    {
+      icon: Save,
+      color: "from-indigo-500 to-indigo-600",
+      text: "O'zgarishlardan so'ng «Saqlash» tugmasini bosing.",
+    },
   ];
 
   return (
@@ -91,12 +109,18 @@ const BuyurtmalarSD = () => {
             const IconComponent = step.icon;
             return (
               <li key={index} className="group/item">
-                <div className={`flex items-start gap-4 p-4 bg-gradient-to-r from-primary-50 to-primary-100/50 rounded-xl border-l-4 border-primary-500 hover:shadow-lg hover:scale-[1.02] transition-all duration-300`}>
-                  <div className={`flex-shrink-0 w-10 h-10 bg-gradient-to-br ${step.color} text-white rounded-xl flex items-center justify-center text-sm font-bold shadow-md group-hover/item:scale-110 transition-transform`}>
+                <div
+                  className={`flex items-start gap-4 p-4 bg-gradient-to-r from-primary-50 to-primary-100/50 rounded-xl border-l-4 border-primary-500 hover:shadow-lg hover:scale-[1.02] transition-all duration-300`}
+                >
+                  <div
+                    className={`flex-shrink-0 w-10 h-10 bg-gradient-to-br ${step.color} text-white rounded-xl flex items-center justify-center text-sm font-bold shadow-md group-hover/item:scale-110 transition-transform`}
+                  >
                     {index + 1}
                   </div>
                   <div className="flex items-start gap-3 flex-1 pt-1">
-                    <div className={`w-8 h-8 bg-gradient-to-br ${step.color} rounded-lg flex items-center justify-center shadow-md group-hover/item:scale-110 transition-transform`}>
+                    <div
+                      className={`w-8 h-8 bg-gradient-to-br ${step.color} rounded-lg flex items-center justify-center shadow-md group-hover/item:scale-110 transition-transform`}
+                    >
                       <IconComponent className="w-4 h-4 text-white" />
                     </div>
                     <span className="text-gray-800 text-sm sm:text-base leading-relaxed font-medium flex-1">
@@ -123,12 +147,16 @@ const BuyurtmalarSD = () => {
             </div>
             <ul className="list-disc list-inside text-yellow-900 space-y-2 text-sm sm:text-base">
               <li>
-                Holatlarni to'g'ri belgilash — hisobotlarda muhim ahamiyatga ega.
+                Holatlarni to'g'ri belgilash — hisobotlarda muhim ahamiyatga
+                ega.
               </li>
               <li>
-                Filtrlardan foydalanish kerakli buyurtmani tez topishga yordam beradi.
+                Filtrlardan foydalanish kerakli buyurtmani tez topishga yordam
+                beradi.
               </li>
-              <li>Har bir tahrirdan so'ng albatta «Saqlash» tugmasini bosing.</li>
+              <li>
+                Har bir tahrirdan so'ng albatta «Saqlash» tugmasini bosing.
+              </li>
             </ul>
           </div>
         </div>
