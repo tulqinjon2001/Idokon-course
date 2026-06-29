@@ -7,7 +7,7 @@ export default function KassaYuklashOrnatishPage() {
   const YT_PLAYLIST_URL =
     "https://www.youtube.com/playlist?list=PLNt3xrjLbs_hfUO2_2sN3lsaMAvtMmADq";
   const CassaVersionURL =
-    "https://github.com/tulqinjon2001/Idokon-course/releases/download/Kassa/Idokon1.3.7.x64.exe";
+    "https://github.com/tulqinjon2001/Idokon-course/releases/download/Kassa/Idokon1.3.8.x64.exe";
 
   const KASSA_URL = "https://example.com/downloads/IDOKON-Kassa-setup.exe";
   const MANUAL_URL = "https://example.com/docs/IDOKON-kassa-manual.pdf";
