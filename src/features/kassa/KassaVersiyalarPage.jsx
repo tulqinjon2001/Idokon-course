@@ -28,6 +28,11 @@ export default function KassaVersiyalarPage() {
       version: "1.3.5",
       url: "https://github.com/tulqinjon2001/Idokon-course/releases/download/Kassa/Idokon1.3.5.x64.exe",
     },
+    {
+      id: 4,
+      version: "1.3.7",
+      url: "https://github.com/tulqinjon2001/Idokon-course/releases/download/Kassa/Idokon1.3.7.x64.exe",
+    },
   ];
 
   return (
