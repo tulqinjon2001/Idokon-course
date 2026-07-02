@@ -34,9 +34,14 @@ export default function KassaVersiyalarPage() {
       url: "https://github.com/tulqinjon2001/Idokon-course/releases/download/Kassa/Idokon1.3.7.x64.exe",
     },
     {
-      id: 4,
+      id: 5,
       version: "1.3.8",
       url: "https://github.com/tulqinjon2001/Idokon-course/releases/download/Kassa/Idokon1.3.8.x64.exe",
+    },
+    {
+      id: 6,
+      version: "1.3.9",
+      url: "https://github.com/tulqinjon2001/Idokon-course/releases/download/Kassa/Idokon1.3.9.x64.exe",
     },
   ];
 
