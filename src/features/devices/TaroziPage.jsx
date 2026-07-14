@@ -360,6 +360,25 @@ export default function TaroziQurilma({ isDarkMode = false }) {
         }}
       />
 
+      {/* ── 2. Kuanyi ── */}
+      <ScaleCard
+        number="2"
+        title="Rongta Tarozi"
+        subtitle="To'g'ri ishlashi uchun driver o'rnatish shart"
+        color="from-primary-600 to-primary-700"
+        isDarkMode={isDarkMode}
+        images={[
+          {
+            src: "https://microless.com/cdn/products/862beb5ad38ec61590b92a2088de634d-hi.jpg",
+            alt: "Rongta tarozi — old ko'rinish",
+          },
+        ]}
+        driver={{
+          href: "https://github.com/tulqinjon2001/Idokon-course/releases/download/Tarozi/RLS1000_Uploader_Setup.exe",
+          label: "Rongta Driver yuklab olish",
+        }}
+      />
+
       {/* ── Eslatma ── */}
       <div
         className="rounded-2xl border-2 p-5 sm:p-6 flex items-start gap-4"
