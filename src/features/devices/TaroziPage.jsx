@@ -4,6 +4,7 @@
  * ✅ Chiroyli card dizayn — rasm, tugmalar, qadamlar
  * ✅ Shtrix M: 1 rasm + driver + PDF
  * ✅ Kuanyi: 2 rasm gallery + driver + PDF
+ * ✅ Rongta: 1 rasm + driver + PDF (Xatolari tuzatildi)
  * ✅ isDarkMode prop va CSS custom properties orqali theme
  * ✅ Responsive: desktop, tablet, mobil
  */
@@ -38,9 +39,11 @@ function Lightbox({ src, alt, onClose }) {
 }
 
 /* ── Rasm galereyasi ── */
-function ImageGallery({ images, isDarkMode }) {
+function ImageGallery({ images = [], isDarkMode }) {
   const [current, setCurrent] = useState(0);
   const [lightbox, setLightbox] = useState(null);
+
+  if (!images || images.length === 0) return null;
 
   const prev = () => setCurrent((c) => Math.max(c - 1, 0));
   const next = () => setCurrent((c) => Math.min(c + 1, images.length - 1));
@@ -165,7 +168,7 @@ function DownloadBtn({ href, icon: Icon, label, variant = "primary" }) {
 }
 
 /* ── ScaleCard — Har bir tarozi uchun karta ── */
-function ScaleCard({ number, title, subtitle, color, images, steps, driver, pdf, isDarkMode }) {
+function ScaleCard({ number, title, subtitle, color, images, steps = [], driver, pdf, isDarkMode }) {
   return (
     <div
       className="rounded-2xl border-2 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl"
@@ -212,34 +215,36 @@ function ScaleCard({ number, title, subtitle, color, images, steps, driver, pdf,
           {/* Ma'lumot va yuklab olish */}
           <div className="space-y-5">
             {/* Qadamlar */}
-            <div>
-              <h3
-                className="text-sm font-semibold uppercase tracking-wider mb-3"
-                style={{ color: isDarkMode ? "var(--text-muted)" : "#6b7280" }}
-              >
-                Ulash bo'yicha yo'riqnoma
-              </h3>
-              <div className="space-y-2.5">
-                {steps.map((step, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-3 p-3 sm:p-4 rounded-xl border-l-4 border-primary-500"
-                    style={{
-                      background: isDarkMode ? "rgba(0,174,239,0.08)" : "#f0faff",
-                    }}
-                  >
-                    <span className="flex-shrink-0 w-7 h-7 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-lg flex items-center justify-center text-xs font-bold shadow-sm mt-0.5">
-                      {i + 1}
-                    </span>
-                    <span
-                      className="text-sm leading-relaxed pt-0.5"
-                      style={{ color: isDarkMode ? "var(--text-secondary)" : "#374151" }}
-                      dangerouslySetInnerHTML={{ __html: step }}
-                    />
-                  </div>
-                ))}
+            {steps && steps.length > 0 && (
+              <div>
+                <h3
+                  className="text-sm font-semibold uppercase tracking-wider mb-3"
+                  style={{ color: isDarkMode ? "var(--text-muted)" : "#6b7280" }}
+                >
+                  Ulash bo'yicha yo'riqnoma
+                </h3>
+                <div className="space-y-2.5">
+                  {steps.map((step, i) => (
+                    <div
+                      key={i}
+                      className="flex items-start gap-3 p-3 sm:p-4 rounded-xl border-l-4 border-primary-500"
+                      style={{
+                        background: isDarkMode ? "rgba(0,174,239,0.08)" : "#f0faff",
+                      }}
+                    >
+                      <span className="flex-shrink-0 w-7 h-7 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-lg flex items-center justify-center text-xs font-bold shadow-sm mt-0.5">
+                        {i + 1}
+                      </span>
+                      <span
+                        className="text-sm leading-relaxed pt-0.5"
+                        style={{ color: isDarkMode ? "var(--text-secondary)" : "#374151" }}
+                        dangerouslySetInnerHTML={{ __html: step }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Yuklab olish tugmalari */}
             <div>
@@ -250,18 +255,22 @@ function ScaleCard({ number, title, subtitle, color, images, steps, driver, pdf,
                 Yuklab olish
               </h3>
               <div className="flex flex-wrap gap-3">
-                <DownloadBtn
-                  href={driver.href}
-                  icon={Download}
-                  label={driver.label}
-                  variant="primary"
-                />
-                <DownloadBtn
-                  href={pdf.href}
-                  icon={FileText}
-                  label="PDF Qo'llanma"
-                  variant="secondary"
-                />
+                {driver && (
+                  <DownloadBtn
+                    href={driver.href}
+                    icon={Download}
+                    label={driver.label}
+                    variant="primary"
+                  />
+                )}
+                {pdf && pdf.href && (
+                  <DownloadBtn
+                    href={pdf.href}
+                    icon={FileText}
+                    label="PDF Qo'llanma"
+                    variant="secondary"
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -293,7 +302,7 @@ export default function TaroziQurilma({ isDarkMode = false }) {
           className="text-base sm:text-lg max-w-2xl mx-auto"
           style={{ color: isDarkMode ? "var(--text-muted)" : "#6b7280" }}
         >
-          Quyida 2 xil tarozi modeli uchun driver, PDF qo'llanma va ulash bo'yicha
+          Quyida 3 xil tarozi modeli uchun driver, PDF qo'llanma va ulash bo'yicha
           yo'riqnoma mavjud.
         </p>
       </div>
@@ -360,12 +369,12 @@ export default function TaroziQurilma({ isDarkMode = false }) {
         }}
       />
 
-      {/* ── 2. Kuanyi ── */}
+      {/* ── 3. Rongta (Xatolar tuzatildi va steps qo'shildi) ── */}
       <ScaleCard
-        number="2"
+        number="3"
         title="Rongta Tarozi"
         subtitle="To'g'ri ishlashi uchun driver o'rnatish shart"
-        color="from-primary-600 to-primary-700"
+        color="from-emerald-600 to-emerald-700"
         isDarkMode={isDarkMode}
         images={[
           {
@@ -373,9 +382,19 @@ export default function TaroziQurilma({ isDarkMode = false }) {
             alt: "Rongta tarozi — old ko'rinish",
           },
         ]}
+        steps={[
+          "Quyidagi tugmani bosib <b>Rongta (RLS1000) drayverini</b> yuklab oling.",
+          "Yuklab olingan <b>RLS1000_Uploader_Setup.exe</b> faylini ishga tushirib o'rnating.",
+          "O\u2019rnatish tugagach kompyuterni <b>qayta yoqing</b>.",
+          "Rongta uploader dasturini ochib tarozi <b>IP manzili</b> yoki <b>Portini</b> kiriting.",
+          "Sinxronizatsiya tugagach, IDOKON dasturiga ulab ishlating."
+        ]}
         driver={{
           href: "https://github.com/tulqinjon2001/Idokon-course/releases/download/Tarozi/RLS1000_Uploader_Setup.exe",
           label: "Rongta Driver yuklab olish",
+        }}
+        pdf={{
+          href: "", // Rongta uchun pdf mavjud bo'lmasa bo'sh qoldiriladi, komponent crash bo'lmaydi
         }}
       />
 
@@ -388,7 +407,7 @@ export default function TaroziQurilma({ isDarkMode = false }) {
         }}
       >
         <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-          <i className="fa-solid fa-triangle-exclamation text-white text-sm" />
+          <span className="text-white font-bold text-lg">!</span>
         </div>
         <div>
           <p
