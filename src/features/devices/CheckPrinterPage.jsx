@@ -29,7 +29,16 @@ export default function CheckPrinterPage() {
             rel="noopener noreferrer"
             className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 text-center"
           >
-            Drayverni yuklab olish
+            Xprinter Drayverini yuklab olish
+          </a>
+
+          <a
+            href="https://github.com/tulqinjon2001/Idokon-course/releases/download/Barode_printer_driver/Gainscha.80mm.Thermal.Printer.Driver.exe"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 text-center"
+          >
+            Gainscha Drayverini yuklab olish
           </a>
 
           <a
